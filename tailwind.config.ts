@@ -34,7 +34,7 @@ const config: Config = {
       },
       colors:{
         primary:'#FFFFFF',
-        secondary:'#DC0F63'
+        secondary:'#FD375C'
       }
     },
   },
