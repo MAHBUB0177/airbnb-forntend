@@ -5,6 +5,7 @@ import axios from 'axios'
 
 const Apicall = () => {
   const[data,setData]=useState()
+  const[ok,setok]=useState(false)
   console.log(data,'data++++++++++++++++')
   // useEffect(() => {
   //   axios.get(`${baseurl}/api/products/`).then((res) =>
@@ -15,7 +16,7 @@ const Apicall = () => {
   return (
     <>
   <div className="bg-slate-200 shadow-md rounded-md h-[200px] w-[300px] flex justify-center items-center">
-    <p className="text-2xl text-red-200">hello jerry</p>
+    <p className="text-2xl text-red-200">hello jerry {ok}</p>
   </div>
 
   <div className="bg-white shadow-md rounded-md h-[200px] w-[300px] flex justify-center items-center">
