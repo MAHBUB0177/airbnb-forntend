@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { FiMinusCircle } from "react-icons/fi";
@@ -14,9 +14,27 @@ const SearchCard = () => {
     infants: 0,
     pets: 0,
   });
+
+  const divRef = useRef();
+
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        setToggle(false);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
+
   return (
     <div>
       <div
+     
         className="bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3 py-2 cursor-pointer divide-x divide-slate-300 w-auto hover:shadow-lg "
         onClick={() => setlarge((prevlarge) => !prevlarge)}
       >
@@ -30,6 +48,7 @@ const SearchCard = () => {
         </div>
         <div
           className="flex justify-between gap-2 px-2 "
+          ref={divRef}
           onClick={() => setToggle((prevtoggle) => !prevtoggle)}
         >
           <p className={`text-textprimary  ${large ? "pt-2" : "pt-1"}`}>
@@ -48,11 +67,11 @@ const SearchCard = () => {
 
       {toggle && (
         <div
-          className="bg-primary border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[40%] md:w-[25%] lg:w-[25%] fixed right-50 top-20 px-4 py-5 gap-3"
+          className="bg-primary border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
           style={{ zIndex: 1000 }}
         >
           {/* //adults */}
-          <div className="flex justify-between py-2">
+          <div className="flex justify-between py-2 ">
             <div>
               <p className="leading-normal font-medium">Adults</p>
               <p className="leading-normal font-normal text-textprimary">
@@ -86,7 +105,7 @@ const SearchCard = () => {
             </div>
           </div>
           {/* //child */}
-          <div className="flex justify-between py-2">
+          <div className="flex justify-between py-2 ">
             <div>
               <p className=" font-medium">Children</p>
               <p className=" font-normal text-textprimary">Ages 2–12</p>

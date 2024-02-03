@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import airbnb_logo from "../../assets/images/logo/airbnb-logo.png";
 import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
@@ -16,6 +16,20 @@ const MenuList = [
 
 const Header = () => {
   const [isShow, setIsshow] = useState(false);
+  const divRef = useRef();
+
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        setIsshow(false);
+      }
+    };
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
 
 
   return (
@@ -33,8 +47,9 @@ const Header = () => {
         </div>
 
         <div className="flex flex-row gap-2">
-          <p className="hidden md:block pt-3 font-medium ">Airbnb your home </p>
+          <p className="hidden lg:block pt-3 font-medium ">Airbnb your home </p>
           <div
+            ref={divRef}
             className="flex gap-2 border-[1px] border-slate-200  rounded-full p-2 cursor-pointer hover:shadow-lg"
             onClick={() => setIsshow((prevshow) => !prevshow)}
           >
@@ -51,6 +66,7 @@ const Header = () => {
 
       {isShow && (
         <div
+      
           className="bg-primary shadow-md rounded-md h-auto w-[40%] md:w-[25%] lg:w-[15%] fixed right-20 top-20 px-4 "
           style={{ zIndex: 1000 }}
         >
