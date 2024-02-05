@@ -5,8 +5,14 @@ import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { FiMinusCircle } from "react-icons/fi";
 import { IoSearchOutline } from "react-icons/io5";
 
-const SearchCard = () => {
-  const [large, setlarge] = useState(false);
+
+
+interface SearchCardProps {
+  change: boolean;
+  setChange: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const SearchCard = ({ change, setChange }:SearchCardProps) => {
+  const divRef = useRef<HTMLDivElement | null>(null);
   const [toggle, setToggle] = useState(false);
   const [guestList, setguestList] = useState({
     adult: 1,
@@ -15,12 +21,10 @@ const SearchCard = () => {
     pets: 0,
   });
 
-  const divRef = useRef();
-
 
   useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (divRef.current && !divRef.current.contains(event.target)) {
+    const handleOutsideClick = (event:MouseEvent) => {
+      if (divRef.current && !(divRef.current as any).current.contains(event.target )) {
         setToggle(false);
       }
     };
@@ -34,31 +38,31 @@ const SearchCard = () => {
   return (
     <div>
       <div
-     
-        className="bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3 py-2 cursor-pointer divide-x divide-slate-300 w-auto hover:shadow-lg "
-        onClick={() => setlarge((prevlarge) => !prevlarge)}
+        className={`bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3 py-2 cursor-pointer divide-x divide-slate-300 w-auto hover:shadow-lg  ${change ? 'w-[600px]' : ''}`}
+        onClick={() => setChange(true)}
       >
-        <div className=" font-medium px-2 ">AnyWhere </div>
+        <div className=" font-medium px-2 ">{change ? 'Where' :'Anywhere'} </div>
         <div className="font-medium px-2 ">
           {" "}
-          {large ? "check in" : "Any Week"}
+          {change ? "check in" : "Any Week"}
         </div>
-        <div className={`font-medium px-2 ${large ? "block" : "hidden"}`}>
+        <div className={`font-medium px-2 ${change ? "block" : "hidden"}`}>
           check out
         </div>
+        <p>{change}</p>
         <div
           className="flex justify-between gap-2 px-2 "
           ref={divRef}
           onClick={() => setToggle((prevtoggle) => !prevtoggle)}
         >
-          <p className={`text-textprimary  ${large ? "pt-2" : "pt-1"}`}>
+          <p className={`text-textprimary  ${change ? "pt-2" : "pt-1"}`}>
             add guests
           </p>
           <div className="flex justify-between gap-1 bg-secondary rounded-full py-2 px-2  text-primary">
             <IoSearchOutline
               style={{ fontWeight: "bold", height: "20px", width: "20px" }}
             />
-            <p className={`font-medium  ${large ? "block" : "hidden"}`}>
+            <p className={`font-medium  ${change ? "block" : "hidden"}`}>
               Search
             </p>
           </div>
@@ -67,7 +71,7 @@ const SearchCard = () => {
 
       {toggle && (
         <div
-          className="bg-primary border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
+          className="bg-primary border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[35%] xl:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
           style={{ zIndex: 1000 }}
         >
           {/* //adults */}
