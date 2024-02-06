@@ -25,8 +25,8 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
-        !(divRef.current as any).contains(event.target ) &&
-        !(countRef.current as any).contains(event.target )
+        !(divRef.current as any)?.contains(event.target ) &&
+        !(countRef.current as any)?.contains(event.target )
       ) {
         setToggle(false);
       }
