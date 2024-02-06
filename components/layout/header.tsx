@@ -35,7 +35,7 @@ const Header = () => {
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [setChange, setIsshow, divRef, cardRef]);
+  }, [setChange, setIsshow, divRef,cardRef]);
   
 
   return (
@@ -60,7 +60,7 @@ const Header = () => {
             <div
               ref={divRef}
               className="flex gap-2 border-[1px] border-slate-200  rounded-full p-2 cursor-pointer hover:shadow-lg"
-              onClick={() => setIsshow((prevshow) => !prevshow)}
+              onClick={() => setIsshow(true)}
             >
               <IoMenuSharp
                 style={{ height: "25px", width: "25px", paddingTop: "5px" }}

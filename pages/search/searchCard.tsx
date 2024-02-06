@@ -24,7 +24,7 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
 
   useEffect(() => {
     const handleOutsideClick = (event:MouseEvent) => {
-      if (divRef.current && !(divRef.current as any).current.contains(event.target )) {
+      if (divRef.current && !(divRef.current as any).contains(event.target )) {
         setToggle(false);
       }
     };
@@ -53,7 +53,7 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
         <div
           className="flex justify-between gap-2 px-2 "
           ref={divRef}
-          onClick={() => setToggle((prevtoggle) => !prevtoggle)}
+          onClick={() => setToggle(true)}
         >
           <p className={`text-textprimary  ${change ? "pt-2" : "pt-1"}`}>
             add guests
