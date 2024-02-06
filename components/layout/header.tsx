@@ -71,19 +71,12 @@ const Header = () => {
             </div>
           </div>
         </div>
-
-        <div
-          className={` flex flex-row justify-between items-center md:px-10 lg:px-20 md:py-5  `}
-        >
-          <p>welcome</p>
-          <p>welcome</p>
-          <p>welcome</p>
-        </div>
+        
       </div>
 
       {isShow && (
         <div
-          className="bg-primary shadow-md rounded-md h-auto w-[40%] md:w-[25%] lg:w-[15%] fixed right-20 top-20 px-4 "
+          className="bg-primary shadow-md rounded-md h-auto w-[40%] md:w-[25%] lg:w-[15%] fixed right-20 top-20 px-4 border-[1px] border-slate-200"
           style={{ zIndex: 1000 }}
         >
           {MenuList.map((item, i) => (

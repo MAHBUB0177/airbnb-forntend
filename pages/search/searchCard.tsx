@@ -13,7 +13,9 @@ interface SearchCardProps {
 }
 const SearchCard = ({ change, setChange }:SearchCardProps) => {
   const divRef = useRef<HTMLDivElement | null>(null);
+  const countRef = useRef<HTMLDivElement | null>(null);
   const [toggle, setToggle] = useState(false);
+  console.log(toggle,'toggle+++++++')
   const [guestList, setguestList] = useState({
     adult: 1,
     child: 0,
@@ -22,9 +24,14 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
   });
 
 
+ 
+
   useEffect(() => {
-    const handleOutsideClick = (event:MouseEvent) => {
-      if (divRef.current && !(divRef.current as any).contains(event.target )) {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        !(divRef.current as any).contains(event.target ) &&
+        !(countRef.current as any).contains(event.target )
+      ) {
         setToggle(false);
       }
     };
@@ -33,29 +40,34 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, []);
+  
 
 
   return (
     <div>
       <div
-        className={`bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3 py-2 cursor-pointer divide-x divide-slate-300 w-auto hover:shadow-lg  ${change ? 'w-[600px]' : ''}`}
+        className={`bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3  cursor-pointer divide-x divide-slate-300 w-full hover:shadow-lg ${change ? 'w-[600px] xl:w-[620px] py-1' : 'py-2'}`}
         onClick={() => setChange(true)}
       >
-        <div className=" font-medium px-2 ">{change ? 'Where' :'Anywhere'} </div>
-        <div className="font-medium px-2 ">
+        <div className={` font-medium px-2 ${change && 'w-[200px]'}`}>{change ? 'Where' :'Anywhere'} 
+        {change && <input placeholder="dates " />}</div>
+        
+        <div className={`font-medium px-2 ${change && 'w-[100px]'}`}>
           {" "}
-          {change ? "check in" : "Any Week"}
+         <p>{change ? "check in" : "Any Week"} </p>
+         {change && <input placeholder="dates " />}
         </div>
-        <div className={`font-medium px-2 ${change ? "block" : "hidden"}`}>
+        <div className={`font-medium px-2 ${change ? " block w-[100px]" : "hidden"}`}>
           check out
+          {change && <input placeholder="dates " />} 
         </div>
-        <p>{change}</p>
+
         <div
-          className="flex justify-between gap-2 px-2 "
+          className={`flex justify-between items-center gap-2 px-2 ${change && 'w-[200px]'} `}
           ref={divRef}
           onClick={() => setToggle(true)}
         >
-          <p className={`text-textprimary  ${change ? "pt-2" : "pt-1"}`}>
+          <p className={`text-textprimary  ${change ? "pt-2 " : "pt-1"}`}>
             add guests
           </p>
           <div className="flex justify-between gap-1 bg-secondary rounded-full py-2 px-2  text-primary">
@@ -71,6 +83,7 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
 
       {toggle && (
         <div
+          ref={countRef}
           className="bg-primary border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[35%] xl:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
           style={{ zIndex: 1000 }}
         >
@@ -98,7 +111,7 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
               />
               <p>{guestList.adult}</p>
               <CiCirclePlus
-                className="text-textprimary h-[30px] w-[30px]"
+                className="text-textprimary h-[30px] w-[30px] cursor-pointer"
                 onClick={() =>
                   setguestList({
                     ...guestList,
@@ -130,7 +143,7 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
               />
               <p>{guestList.child}</p>
               <CiCirclePlus
-                className="text-textprimary h-[30px] w-[30px]"
+                className="text-textprimary h-[30px] w-[30px] cursor-pointer"
                 onClick={() =>
                   setguestList({
                     ...guestList,
@@ -162,7 +175,7 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
               />
               <p>{guestList.infants}</p>
               <CiCirclePlus
-                className="text-textprimary h-[30px] w-[30px]"
+                className="text-textprimary h-[30px] w-[30px] cursor-pointer"
                 onClick={() =>
                   setguestList({
                     ...guestList,
@@ -196,7 +209,7 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
               />
               <p>{guestList.pets}</p>
               <CiCirclePlus
-                className="text-textprimary h-[30px] w-[30px]"
+                className="text-textprimary h-[30px] w-[30px] cursor-pointer"
                 onClick={() =>
                   setguestList({
                     ...guestList,
