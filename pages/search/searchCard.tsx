@@ -22,10 +22,6 @@ const SearchCard = ({ change, setChange }:SearchCardProps) => {
     infants: 0,
     pets: 0,
   });
-
-
- 
-
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
