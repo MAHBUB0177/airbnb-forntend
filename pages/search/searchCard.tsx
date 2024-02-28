@@ -1,76 +1,99 @@
-"use client";
+// "use client";
+import { DatePicker, Form, Space } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { FiMinusCircle } from "react-icons/fi";
 import { IoSearchOutline } from "react-icons/io5";
-
-
+import dayjs from "dayjs";
+import AutoComplete from "@/components/common/AutoComplete";
+const { RangePicker } = DatePicker;
 
 interface SearchCardProps {
   change: boolean;
   setChange: React.Dispatch<React.SetStateAction<boolean>>;
+  selectRef: React.MutableRefObject<HTMLDivElement | null>;
 }
-const SearchCard = ({ change, setChange }:SearchCardProps) => {
+const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
   const divRef = useRef<HTMLDivElement | null>(null);
   const countRef = useRef<HTMLDivElement | null>(null);
-  const [toggle, setToggle] = useState(false);
-  console.log(toggle,'toggle+++++++')
+
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [isTrue, setisTrue] = useState<boolean>(false);
+  const [destination, setDestination] = useState<string>("");
   const [guestList, setguestList] = useState({
     adult: 1,
     child: 0,
     infants: 0,
     pets: 0,
   });
+
+  const selectChange = (value: string) => {
+    setDestination(value);
+  };
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
-        !(divRef.current as any)?.contains(event.target ) &&
-        !(countRef.current as any)?.contains(event.target )
+        !(divRef.current as any)?.contains(event.target) &&
+        !(countRef.current as any)?.contains(event.target)
       ) {
         setToggle(false);
       }
     };
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener("click", handleOutsideClick);
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
-  
-
 
   return (
     <div>
       <div
-        className={`bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3  cursor-pointer divide-x divide-slate-300 w-full hover:shadow-lg ${change ? 'w-[600px] xl:w-[620px] py-1' : 'py-2'}`}
+        className={`bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3  cursor-pointer divide-x divide-slate-300 w-full hover:shadow-lg ${
+          change ? "w-[600px] xl:w-[620px] py-1" : "py-2"
+        }`}
         onClick={() => setChange(true)}
       >
-        <div className={` font-medium px-2 ${change && 'w-[200px]'}`}>{change ? 'Where' :'Anywhere'} 
-        {change && <input placeholder="dates " />}</div>
-        
-        <div className={`font-medium px-2 ${change && 'w-[100px]'}`}>
-          {" "}
-         <p>{change ? "check in" : "Any Week"} </p>
-         {change && <input placeholder="dates " />}
-        </div>
-        <div className={`font-medium px-2 ${change ? " block w-[100px]" : "hidden"}`}>
-          check out
-          {change && <input placeholder="dates " />} 
+        <div className={` font-medium px-2  ${change && "w-[200px]"}`}>
+          <p className="text-sm leading-0 px-3 py-0">
+            {change ? "Where" : "Anywhere"}{" "}
+          </p>
+          {change && (
+            <AutoComplete selectChange={selectChange} selectRef={selectRef} />
+          )}
         </div>
 
         <div
-          className={`flex justify-between items-center gap-2 px-2 ${change && 'w-[200px]'} `}
+          className={`font-medium px-2 ${change && "w-[80px]"}`}
+          onClick={() => setisTrue(!isTrue)}
+        >
+          <p className="text-sm">{change ? "check in" : "Any Week"} </p>
+          {isTrue && <RangePicker open={true} />}
+        </div>
+
+        <div
+          className={`font-medium px-2 ${
+            change ? " block w-[70px]" : "hidden"
+          }`}
+        >
+          <p className="text-sm">check out </p>
+          {/* {change && <input placeholder="dates " />}  */}
+        </div>
+
+        <div
+          className={`flex justify-between items-center gap-2 px-2 ${
+            change && "w-[200px]"
+          } `}
           ref={divRef}
           onClick={() => setToggle(true)}
         >
-          <p className={`text-textprimary  ${change ? "pt-2 " : "pt-1"}`}>
-            add guests
-          </p>
+          <p className={`text-textprimary  text-sm `}>add guests</p>
           <div className="flex justify-between gap-1 bg-secondary rounded-full py-2 px-2  text-primary">
             <IoSearchOutline
               style={{ fontWeight: "bold", height: "20px", width: "20px" }}
             />
-            <p className={`font-medium  ${change ? "block" : "hidden"}`}>
+            <p className={`font-medium text-sm ${change ? "block" : "hidden"}`}>
               Search
             </p>
           </div>

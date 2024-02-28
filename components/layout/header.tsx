@@ -17,17 +17,16 @@ const MenuList = [
 const Header = () => {
   const [isShow, setIsshow] = useState(false);
   const [change, setChange] = useState<boolean>(false);
-  console.log(change, "change");
   const divRef = useRef<HTMLDivElement | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
-  
+  const selectRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (divRef.current && !(divRef.current as any).contains(event.target)) {
         setIsshow(false);
       }
-      if (cardRef.current && !(cardRef.current as any).contains(event.target)) {
+      if (!(cardRef?.current as any)?.contains(event.target) && !(selectRef?.current as any)?.contains(event.target)) {
         setChange(false);
       }
     };
@@ -42,7 +41,7 @@ const Header = () => {
     <>
       <div className="bg-primary  top-0 w-[100%] fixed shadow-sm ">
         <div
-          className={`h-10%] border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10 lg:px-20 md:py-2 `}
+          className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10 lg:px-20 md:py-2 `}
         >
           <div className="flex gap-1">
             <Image src={airbnb_logo} alt="airbnb_logo" width={30} height={20} />
@@ -50,9 +49,11 @@ const Header = () => {
               airbnb
             </p>
           </div>
+
           <div ref={cardRef}>
-            <SearchCard setChange={setChange} change={change} />
+            <SearchCard setChange={setChange} change={change} selectRef={selectRef} />
           </div>
+          
           <div className="flex flex-row gap-2">
             <p className="hidden lg:block pt-3 font-medium ">
               Airbnb your home{" "}
