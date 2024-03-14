@@ -1,0 +1,63 @@
+"use client";
+import React from "react";
+import Image from "next/image";
+import { productsList } from "@/components/common/carditem";
+import Link from "next/link";
+import { FaStar } from "react-icons/fa";
+
+const ProductCard = () => {
+  // console.log(productsList, "productsList+++++++++++++++++");
+
+  return (
+    <div className="w-fit mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  justify-items-center justify-center  gap-4 mb-5  mt-[60px] md:px-10 lg:px-20 ">
+      {productsList?.map(
+        (item, i) => (
+          <>
+            <div key={i} className={` mt-6 px-2 mb-10`}>
+                <Link href={"/about"}>
+                  <div className="relative">
+                    <Image
+                      src={item?.images}
+                      alt="cardimage"
+                      className="rounded-lg h-[280px]"
+                    />
+                    <div className="absolute bg-primary rounded-xl p-[4px] top-[5%] left-[5%]">
+                      <p className="font-medium text-sm">{item?.guest}</p>
+                    </div>
+                  </div>
+                </Link>
+
+              <div className="pt-2">
+                <div className="flex justify-between ">
+                  <p className="text-sm font-medium ">{item?.title}</p>
+                  <div className="flex justify-between text-sm font-normal gap-1 ">
+                    <FaStar />
+                    <Link href={'/login'}>
+                    <p> {item?.rate}</p>
+                    </Link>
+                   
+                  </div>
+                </div>
+                <p className="text-sm text-slate-500 font-normal">
+                  {item?.destination}
+                </p>
+                <p className="text-sm text-slate-500 font-normal">
+                  {item?.date}
+                </p>
+                <p className="text-sm pt-2 underline">
+                  {" "}
+                  <span className="font-bold">{item?.cost}</span>
+                  {item?.tax}
+                </p>
+              </div>
+            </div>
+          </>
+        )
+
+        
+      )}
+    </div>
+  );
+};
+
+export default ProductCard;

@@ -1,17 +1,6 @@
-import About from "@/components/about";
-import Apicall from "@/components/apicall";
-import CategoryList from "@/components/categoryList";
-import ProductCard from "@/components/product/product-card";
 
+import LandingPage from "@/pages/page";
 
 export default function Home() {
-  return (
-    <main className="bg-primary h-screen" >
-      {/* <Apicall/>
-      <About/> */}
-      <CategoryList />
-      {/* <ProductCard /> */}
-
-    </main>
-  );
+  return <LandingPage/>
 }

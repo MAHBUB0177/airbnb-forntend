@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FaUserCircle } from "react-icons/fa";
 import { IoMenuSharp, IoSearchOutline } from "react-icons/io5";
 import SearchCard from "@/pages/search/searchCard";
+import Link from "next/link";
 
 const MenuList = [
   { path: "", title: "Log In" },
@@ -16,6 +17,8 @@ const MenuList = [
 
 const Header = () => {
   const [isShow, setIsshow] = useState(false);
+  const[darkMode,setDarkMode]= useState<boolean>(false);
+
   const [change, setChange] = useState<boolean>(false);
   const divRef = useRef<HTMLDivElement | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -26,42 +29,64 @@ const Header = () => {
       if (divRef.current && !(divRef.current as any).contains(event.target)) {
         setIsshow(false);
       }
-      if (!(cardRef?.current as any)?.contains(event.target) && !(selectRef?.current as any)?.contains(event.target)) {
-        setChange(false);
-      }
+      // if (!(cardRef?.current as any)?.contains(event.target) && !(selectRef?.current as any)?.contains(event.target)) {
+      //   setChange(false);
+      // }
+      
     };
     document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("click", handleOutsideClick);
     };
-  }, [setChange, setIsshow, divRef,cardRef]);
+  }, [ divRef]);
+
+  const[status,setStaus]=useState<boolean>(false);
+  const toggleMode = () => {
+    if (status) {
+        // dispatch(setDarkMode(false));
+        // localStorage.setItem('darkMode',darkMode)
+        localStorage.setItem("darkMode", JSON.stringify(setDarkMode(false)));
+        document.documentElement.classList.remove("dark");
+    } else {
+        // dispatch(setDarkMode(true));
+        localStorage.setItem("darkMode", JSON.stringify(setDarkMode(true)));
+        document.documentElement.classList.add("dark");
+    }
+}
+
+// useEffect(() => {
+//   toggleMode(status);
+// }, [status]);
   
 
   return (
     <>
-      <div className="bg-primary  top-0 w-[100%] fixed shadow-sm ">
+      <div className="bg-primary top-0 w-full z-50 fixed shadow-sm dark:bg-orange-300">
         <div
           className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10 lg:px-20 md:py-2 `}
         >
+          <Link href={'/'}>
           <div className="flex gap-1">
             <Image src={airbnb_logo} alt="airbnb_logo" width={30} height={20} />
             <p className="hidden lg:block text-secondary text-2xl font-bold ">
               airbnb
             </p>
           </div>
+          </Link>
+         
 
           <div ref={cardRef}>
             <SearchCard setChange={setChange} change={change} selectRef={selectRef} />
           </div>
           
           <div className="flex flex-row gap-2">
-            <p className="hidden lg:block pt-3 font-medium ">
+            <p className="hidden lg:block pt-3 font-medium dark:text-white">
               Airbnb your home{" "}
             </p>
             <div
               ref={divRef}
               className="flex gap-2 border-[1px] border-slate-200  rounded-full p-2 cursor-pointer hover:shadow-lg"
-              onClick={() => setIsshow(true)}
+              onClick={() => {setIsshow(true);toggleMode();setStaus(!status)}}
             >
               <IoMenuSharp
                 style={{ height: "25px", width: "25px", paddingTop: "5px" }}
@@ -76,14 +101,14 @@ const Header = () => {
       </div>
 
       {isShow && (
-        <div
+        <div 
           className="bg-primary shadow-md rounded-md h-auto w-[40%] md:w-[25%] lg:w-[15%] fixed right-20 top-20 px-4 border-[1px] border-slate-200"
           style={{ zIndex: 1000 }}
         >
           {MenuList.map((item, i) => (
             <p
               key={i}
-              className={`py-2 ${
+              className={`py-2 cursor-pointer ${
                 item?.title === "Sign Up"
                   ? "border-b-[1px] border-slate-400"
                   : ""

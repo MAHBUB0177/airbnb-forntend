@@ -14,7 +14,7 @@ import { GiStoneTower } from "react-icons/gi";
 import { MdOutlineBathroom } from "react-icons/md";
 import { TiNews } from "react-icons/ti";
 import { IoFilterSharp } from "react-icons/io5";
-import ProductCard from "./product/product-card";
+import Link from "next/link";
 
 const categoryList: Category[] = [
   { title: "Hotels", icon: FaHotel },
@@ -45,7 +45,7 @@ const CategoryList = () => {
     infinite: false,
     // speed: 500,
     slidesToShow: 10,
-    slidesToScroll:1,
+    slidesToScroll: 1,
     autoplay: false,
     pauseOnHover: true,
     responsive: [
@@ -77,34 +77,47 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="md:px-10 lg:px-20 md:py-2 mt-[70px] mb-[20px] top-0 w-[100%] fixed ">
-      <div className="flex justify-between w-[100%] border-b-[1px] border-slate-300 mb-2">
-        <div className="w-[85%] ">
+    <div className="flex justify-evenly md:justify-between w-[100%] fixed z-50 shadow-sm bg-primary md:px-10 lg:px-20 py-2 ">
+      <div className="w-[85%] ">
         <Slider {...settings}>
-        {categoryList?.map((item, i) => (
-          <>
-            <div className="flex justify-between items-center" key={i}>
-              <div>
-                <p className="flex justify-center items-center ">
-                {item.icon && <item.icon  style={{height:'30px',width:'30px',color:'#FD375C'}}/>}
-                </p>
-                <p className="text-sm text-textprimary">{item.title}</p>
+          {categoryList?.map((item, i) => (
+            <>
+              <div className="flex justify-between items-center" key={i}>
+                <div>
+                  <p className="flex justify-center items-center ">
+                    {item.icon && (
+                      <item.icon
+                        style={{
+                          height: "30px",
+                          width: "30px",
+                          // color: "#FD375C",
+                        }}
+                        className="text-slate-600"
+                      />
+                    )}
+                  </p>
+                 
+                  <p className="text-sm text-#FFFFFF">{item.title}</p>
+
+                  
+                </div>
               </div>
-            </div>
-          </>
-        ))}
-      </Slider>
-        </div>
-
-        <div className=" hidden md:flex w-[10%] border-[1px] border-slate-300 rounded-md  justify-center items-center">
-        <IoFilterSharp style={{height:'30px' ,width:'30px',color:'#FD375C'}}/>
-          <p className="text-md">Filter</p>
-          
-        </div>
-
-
+            </>
+          ))}
+        </Slider>
       </div>
-      <ProductCard /> 
+
+      <div className=" hidden md:flex w-[10%] gap-1 border-[1px] border-slate-300 rounded-md  justify-center items-center">
+        <IoFilterSharp
+          style={{ height: "30px", width: "30px", color: "" }}
+          className="text-slate-600"
+        />
+        <Link href="/">
+          <p className="text-md">Filter</p>
+        </Link>
+
+        
+      </div>
     </div>
   );
 };

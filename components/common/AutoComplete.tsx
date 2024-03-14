@@ -29,12 +29,13 @@ const options=[
   ]
 
 interface AutoCompleteProps {
+  destination:string,
   selectChange: (value: string) => void;
   selectRef: React.MutableRefObject<HTMLDivElement | null>;
 }
-const AutoComplete = ({ selectChange,selectRef }: AutoCompleteProps) => {
+const AutoComplete = ({ selectChange,selectRef, destination}: AutoCompleteProps) => {
   const[selecChange,setSelectChnage]=useState('0001')
-  // console.log(selecChange,'+++++++++++++++++++++++++selecChange++++++')
+  console.log(selecChange,'+++++++++++++++++++++++++selecChange++++++')
   return (
     <div className="text-textprimary text-sm leading-0 py-0"  ref={selectRef}>
       <Select
@@ -43,7 +44,7 @@ const AutoComplete = ({ selectChange,selectRef }: AutoCompleteProps) => {
       bordered={false}
       suffixIcon={null}
       showSearch
-      value={''}
+      value={destination}
       style={{
         width: "100%",
         height: '30px' 

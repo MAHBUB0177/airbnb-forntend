@@ -21,6 +21,7 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [isTrue, setisTrue] = useState<boolean>(false);
   const [destination, setDestination] = useState<string>("");
+  console.log(destination,'destination')
   const [guestList, setguestList] = useState({
     adult: 1,
     child: 0,
@@ -47,49 +48,68 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
     };
   }, []);
 
+  const handelSearch = async () => {
+    setChange(false);
+    console.log(" call function");
+  };
+
   return (
     <div>
       <div
         className={`bg-primary flex justify-between items-center gap-2 border-[1px] border-slate-200  rounded-full px-3  cursor-pointer divide-x divide-slate-300 w-full hover:shadow-lg ${
           change ? "w-[600px] xl:w-[620px] py-1" : "py-2"
         }`}
-        onClick={() => setChange(true)}
       >
-        <div className={` font-medium px-2  ${change && "w-[200px]"}`}>
+        <div
+          className={` font-medium px-2  ${change && "w-[200px]"}`}
+          onClick={() => setChange(true)}
+        >
           <p className="text-sm leading-0 px-3 py-0">
             {change ? "Where" : "Anywhere"}{" "}
           </p>
           {change && (
-            <AutoComplete selectChange={selectChange} selectRef={selectRef} />
+            <AutoComplete selectChange={selectChange} selectRef={selectRef} destination={destination}/>
           )}
         </div>
 
         <div
           className={`font-medium px-2 ${change && "w-[80px]"}`}
-          onClick={() => setisTrue(!isTrue)}
+          onClick={() => {
+            setisTrue(!isTrue);
+            setChange(true);
+          }}
         >
           <p className="text-sm">{change ? "check in" : "Any Week"} </p>
           {isTrue && <RangePicker open={true} />}
         </div>
 
         <div
+          onClick={() => setChange(true)}
           className={`font-medium px-2 ${
             change ? " block w-[70px]" : "hidden"
           }`}
         >
           <p className="text-sm">check out </p>
-          {/* {change && <input placeholder="dates " />}  */}
         </div>
 
         <div
           className={`flex justify-between items-center gap-2 px-2 ${
             change && "w-[200px]"
           } `}
-          ref={divRef}
-          onClick={() => setToggle(true)}
         >
-          <p className={`text-textprimary  text-sm `}>add guests</p>
-          <div className="flex justify-between gap-1 bg-secondary rounded-full py-2 px-2  text-primary">
+          <div
+            ref={divRef}
+            onClick={() => {
+              setToggle(!toggle);
+              setChange(true);
+            }}
+          >
+            <p className={`text-textprimary  text-sm `}>add guests</p>
+          </div>
+          <div
+            className="flex justify-between gap-1 bg-secondary rounded-full py-2 px-2  text-primary"
+            onClick={() => handelSearch()}
+          >
             <IoSearchOutline
               style={{ fontWeight: "bold", height: "20px", width: "20px" }}
             />
