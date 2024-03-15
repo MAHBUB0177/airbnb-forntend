@@ -58,10 +58,11 @@ const Header = () => {
 //   toggleMode(status);
 // }, [status]);
   
+console.log('header is calling....')
 
   return (
     <>
-      <div className="bg-primary top-0 w-full z-50 fixed shadow-sm dark:bg-orange-300">
+      <div className="bg-primary  w-full z-50 fixed shadow-sm dark:bg-orange-300">
         <div
           className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10 lg:px-20 md:py-2 `}
         >

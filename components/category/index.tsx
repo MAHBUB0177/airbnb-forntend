@@ -77,12 +77,12 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="flex justify-evenly md:justify-between w-[100%] fixed z-50 shadow-sm bg-primary md:px-10 lg:px-20 py-2 ">
+    <div className="flex justify-center md:justify-between w-[100%]  z-50 shadow-sm bg-primary md:px-10 lg:px-20 py-2 ">
       <div className="w-[85%] ">
         <Slider {...settings}>
           {categoryList?.map((item, i) => (
             <>
-              <div className="flex justify-between items-center" key={i}>
+              <div className="flex justify-center  gap-0" key={i}>
                 <div>
                   <p className="flex justify-center items-center ">
                     {item.icon && (
@@ -92,14 +92,12 @@ const CategoryList = () => {
                           width: "30px",
                           // color: "#FD375C",
                         }}
-                        className="text-slate-600"
+                        className="text-slate-500"
                       />
                     )}
                   </p>
-                 
-                  <p className="text-sm text-#FFFFFF">{item.title}</p>
 
-                  
+                  <p className="text-sm text-#FFFFFF">{item.title}</p>
                 </div>
               </div>
             </>
@@ -115,8 +113,6 @@ const CategoryList = () => {
         <Link href="/">
           <p className="text-md">Filter</p>
         </Link>
-
-        
       </div>
     </div>
   );

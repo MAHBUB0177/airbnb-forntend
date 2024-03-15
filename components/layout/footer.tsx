@@ -1,5 +1,6 @@
 "use client";
 import { Button, Drawer, DrawerProps, RadioChangeEvent, Space } from "antd";
+import Link from "next/link";
 import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 
@@ -18,7 +19,7 @@ const supportList = [
 ];
 
 const support=[
-  {title:'Help Center',link:''},
+  {title:'Help Center',link:'/help'},
   {title:'Get help with a safety issue',link:''},
   {title:'AirCover',link:''},
   {title:'Anti-discrimination',link:''},
@@ -80,7 +81,10 @@ const Footer = () => {
           <p className="text-base font-semibold">Support</p>
           {
             support?.map((item,i)=>{
-              return <p className="text-base font-normal py-1 hover:underline decoration-1 cursor-pointer">{item?.title}</p>
+              return <Link href={item?.link}>
+              <p onClick={()=>setOpen(false)} className="text-base font-normal py-1 hover:underline decoration-1 cursor-pointer">{item?.title}</p>
+
+              </Link>
             })
           }
         </div>

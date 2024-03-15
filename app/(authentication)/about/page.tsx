@@ -10,7 +10,7 @@ const About = () => {
 
    
 <div>
-    wldhuwe ischuwdgbv ilshfwoued iwehfuw 
+    this is image link page
 </div>
     {/* <div
         className="max-w-lg bg-white md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12">
