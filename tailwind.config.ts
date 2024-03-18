@@ -78,6 +78,7 @@ const config: Config = {
       colors:{
         primary:'#FFFFFF',
         secondary:'#FD375C',
+        bgsecondary:'#F7F7F7',
         textprimary:'#666463'
       }
     },

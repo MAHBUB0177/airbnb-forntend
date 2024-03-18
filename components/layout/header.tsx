@@ -6,6 +6,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { IoMenuSharp, IoSearchOutline } from "react-icons/io5";
 import SearchCard from "@/pages/search/searchCard";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const MenuList = [
   { path: "", title: "Log In" },
@@ -16,6 +17,7 @@ const MenuList = [
 ];
 
 const Header = () => {
+  const pathname = usePathname()
   const [isShow, setIsshow] = useState(false);
   const[darkMode,setDarkMode]= useState<boolean>(false);
 
@@ -64,7 +66,7 @@ console.log('header is calling....')
     <>
       <div className="bg-primary  w-full z-50 fixed shadow-sm dark:bg-orange-300">
         <div
-          className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10 lg:px-20 md:py-2 `}
+          className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10  md:py-2  ${pathname =='/rooms'? ' xl:px-[185px]' : ' lg:px-20' }`}
         >
           <Link href={'/'}>
           <div className="flex gap-1">

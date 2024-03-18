@@ -14,7 +14,7 @@ const ProductCard = () => {
         (item, i) => (
           <>
             <div key={i} className={` mt-6 px-2 mb-10`}>
-                <Link href={"/about"}>
+                <Link href={"/rooms"}>
                   <div className="relative">
                     <Image
                       src={item?.images}

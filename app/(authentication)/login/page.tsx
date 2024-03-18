@@ -2,7 +2,7 @@ import React from 'react'
 
  const Auth = () => {
   return (
-    <div className="h-screen relative flex w-full flex-col md:flex-row justify-center items-center mx-auto">
+    <div className="h-auto relative flex w-full flex-col md:flex-row justify-center items-center mx-auto">
 
   
 
