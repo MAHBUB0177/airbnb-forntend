@@ -36,6 +36,9 @@ const RoomDetails = () => {
       </div>
 
       <ReservedCard/>
+      
+
+      
     </div>
   );
 };

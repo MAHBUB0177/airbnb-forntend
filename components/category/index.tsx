@@ -82,9 +82,9 @@ const CategoryList = () => {
         <Slider {...settings}>
           {categoryList?.map((item, i) => (
             <>
-              <div className="flex justify-center  gap-0" key={i}>
+              <div className="flex justify-center  gap-0 " key={i} >
                 <div>
-                  <p className="flex justify-center items-center ">
+                  <p className="flex justify-center items-center cursor-pointer ">
                     {item.icon && (
                       <item.icon
                         style={{

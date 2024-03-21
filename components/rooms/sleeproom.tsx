@@ -11,7 +11,7 @@ const Sleeproom = () => {
         <div className=' justify-items-center justify-center  gap-4  grid  md:grid-cols-2 pt-3'>
             {
                 SleproomList?.map((item,i)=>
-                <div>
+                <div key={i}>
                     <Image  src={item?.image} alt='slleproom' className="rounded-lg h-[240px]"/>
                     <p className='font-medium pt-1'>{item?.title}</p>
                     <p className='text-textprimary'>{item?.desc}</p>
