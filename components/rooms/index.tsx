@@ -6,7 +6,7 @@ import ReservedCard from "./reservedcard";
 
 const RoomDetails = () => {
   return (
-    <div className="pt-5">
+    <div className="pt-5 h-auto">
       <div className="flex flex-col-reverse md:flex-col">
         <div className="flex justify-between ">
           <p className="text-2xl font-bold flex justify-center items-center px-2 md:px-0 ">
@@ -35,10 +35,9 @@ const RoomDetails = () => {
         <RoomImage />
       </div>
 
-      <ReservedCard/>
-      
-
-      
+      <div>
+        <ReservedCard />
+      </div>
     </div>
   );
 };

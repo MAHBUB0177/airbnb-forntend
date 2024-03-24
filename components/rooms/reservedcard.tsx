@@ -11,11 +11,12 @@ import { CiFilter } from "react-icons/ci";
 import Bookingcard from "./bookingcard";
 import Sleeproom from "./sleeproom";
 import Offers from "./offers";
+import Reviews from "./reviews";
 
 const ReservedCard = () => {
   return (
     <div>
-      <div className="pt-8  flex flex-col md:flex-row justify-between pb-20 w-full gap-10">
+      <div className="pt-8  flex flex-col md:flex-row justify-between pb-12 w-full gap-10">
         <div className="w-full p-2 md:p-0 md:w-2/3">
           <p className="text-2xl font-bold">
             Entire villa in Tambon Bo Put, Thailand
@@ -101,6 +102,7 @@ const ReservedCard = () => {
           <Bookingcard />
         </div>
       </div>
+      <Reviews/>
 
   
     </div>

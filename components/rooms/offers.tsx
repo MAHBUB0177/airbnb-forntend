@@ -104,10 +104,7 @@ const Offers = () => {
 
       <div className="border-[1px] border-slate-500 rounded-md flex justify-center items-center w-[200px] p-3 mt-2">
         <p className="text-md font-semibold">Show All 21 Animates</p>
-
       </div>
-
-     
     </div>
   );
 };

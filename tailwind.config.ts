@@ -38,6 +38,7 @@ const config: Config = {
         primary:'#FFFFFF',
         secondary:'#FD375C',
         bgsecondary:'#F7F7F7',
+        bgsecondarylight:'#232323',
         textprimary:'#666463'
       }
     },

@@ -1,13 +1,21 @@
-import React from 'react'
-import { FaChevronDown } from 'react-icons/fa';
-import CommonButton from '../common/cummonbutton';
-import { SketchOutlined } from '@ant-design/icons';
+'use client'
+import React from "react";
+import { FaChevronDown } from "react-icons/fa";
+import CommonButton from "../common/cummonbutton";
+import { SketchOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Bookingcard = () => {
+  const router=useRouter()
+  const handelClick=()=>{
+    router.push('/orders')
+
+  }
   return (
-  
-         <div className="w-full top-20 sticky">
-        <div className="bg-primary shadow-xl h-auto border-[1px] border-slate-300 rounded-xl   pb-5 ">
+    <div className="w-full top-20 sticky">
+      <div className="bg-primary shadow-xl h-auto border-[1px] border-slate-300 rounded-xl   pb-5 ">
         <div className=" pt-4 px-5  flex gap-2">
           {" "}
           <p className="text-xl font-medium">$418 </p>
@@ -38,21 +46,35 @@ const Bookingcard = () => {
         </div>
 
         <div className=" w-full pt-4 flex justify-center items-center">
-        <CommonButton bg={'secondary'} width={'full'} height={'12'} >Check Avilability</CommonButton>
+        {/* <Link href={"/orders"}> */}
+        <button
+            className="bg-secondary w-[90%] h-12 text-white font-semibold hover:none rounded-md"
+            type="submit"
+            onClick={handelClick}
+          >
+            Check Avilability
+          </button>
+          {/* </Link> */}
+          
+          {/* <Button className='bg-secondary w-[60%] h-12 text-white font-semibold hover:none' htmlType="submit">Check Avilability</Button> */}
+          {/* <CommonButton bg={'secondary'} width={'full'} height={'12'} >Check Avilability</CommonButton> */}
         </div>
-        </div>
+      </div>
 
-        <div className="border-[1px] border-slate-400 flex justify-center items-center mt-5 rounded-md p-4 gap-2">
-            <SketchOutlined className="h-[30px] w-[30px]  text-secondary" style={{ fontSize: '200%'}} />
-            <div>
-                <p className="font-medium ">This is a rare find</p>
-                <p className="text-sm text-textprimary">Manfred's place is usually fully booked.</p>
-            </div>
-
+      <div className="border-[1px] border-slate-400 flex justify-center items-center mt-5 rounded-md p-4 gap-2">
+        <SketchOutlined
+          className="h-[30px] w-[30px]  text-secondary"
+          style={{ fontSize: "200%" }}
+        />
+        <div>
+          <p className="font-medium ">This is a rare find</p>
+          <p className="text-sm text-textprimary">
+            Manfred's place is usually fully booked.
+          </p>
         </div>
-        </div>
-   
-  )
-}
+      </div>
+    </div>
+  );
+};
 
 export default Bookingcard;
