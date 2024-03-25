@@ -1,5 +1,13 @@
 import ConfirmPay from '@/components/confirmpay'
+import { Metadata } from 'next'
 import React from 'react'
+
+export const metadata: Metadata ={
+  title:'Confirm'
+  // title:{
+  //     absolute:'Auth'
+  // }
+}
 
 const page = () => {
   return(

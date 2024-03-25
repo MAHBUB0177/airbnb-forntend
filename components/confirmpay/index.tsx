@@ -1,4 +1,5 @@
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import Reviewcard from "../order/reviewcard";
 import { GoChevronLeft } from "react-icons/go";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -9,8 +10,25 @@ import { SiDiscover } from "react-icons/si";
 import { FaApplePay, FaCcPaypal } from "react-icons/fa";
 import Checkout from "./checkout";
 import Policy from "./policy";
+import CommonModal from "../common/commonmodal";
 
 const ConfirmPay = () => {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubModel, setSubModel] = useState(false);
+
+  const handelclick = () => {
+    setIsModalOpen(true);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const _onSubModel = (e, stateSub = true, stateMain = false) => {
+    setIsModalOpen(stateMain);
+    setSubModel(stateSub);
+  };
+
   return (
     <div className="pt-10">
       <div className="flex justify-start gap-0">
@@ -38,7 +56,7 @@ const ConfirmPay = () => {
               </p>
             </div>
 
-            <div className="font-medium underline cursor-pointer">Edit</div>
+            <div className="font-medium underline cursor-pointer" onClick={()=>setIsModalOpen(true)}>Edit</div>
           </div>
 
           <div className="flex justify-between pt-5 ">
@@ -49,7 +67,9 @@ const ConfirmPay = () => {
               </p>
             </div>
 
-            <div className="font-medium underline cursor-pointer">Edit</div>
+            <div className="font-medium underline cursor-pointer" onClick={() => {
+                setSubModel(true);
+              }}>Edit</div>
           </div>
 
           <div className="pt-8 border-b-[1px] border-slate-300"></div>
@@ -122,6 +142,36 @@ const ConfirmPay = () => {
         <div className=" px-5 md:px-[60px] pt-4 w-full md:w-[45%]">
           <Reviewcard />
         </div>
+
+        <CommonModal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        title={`Open Modal`}
+        width={'900px'}
+      >
+        <div>
+          {/* Content inside the modal */}
+          <p>This is the content inside the modal.In both examples, CommonModalProps defines the expected props for the CommonModal component. React.FC is a generic type that describes a functional component. It takes the props type as a generic parameter. This way, you ensure type safety for your component.
+
+         </p>
+        </div>
+      </CommonModal>
+
+
+      <CommonModal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        title={`Open Modal`}
+        width={'900px'}
+      >
+        <div>
+          {/* Content inside the modal */}
+          open is a boolean indicating whether the modal should be open or closed.
+onCancel is a function that will be called when the modal is canceled or closed.
+title is a string representing the title of the modal.
+width is an optional string specifying the width of the modal.
+        </div>
+      </CommonModal>
       </div>
     </div>
   );
