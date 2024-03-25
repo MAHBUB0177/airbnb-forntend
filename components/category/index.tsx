@@ -4,6 +4,8 @@ import { IconType } from "react-icons";
 import React from "react";
 import Slider from "react-slick";
 
+
+
 interface Category {
   title: string;
   icon: IconType;

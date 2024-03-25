@@ -1,5 +1,10 @@
 import React from "react";
 import RoomDetails from "@/components/rooms";
+import { Metadata } from 'next';
+
+export const metadata: Metadata ={
+    title:'rooms'
+}
 
 const page = () => {
   return (

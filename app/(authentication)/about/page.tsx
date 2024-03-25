@@ -1,6 +1,15 @@
-'use client'
+// 'use client'
 import Image from 'next/image'
 import React from 'react'
+
+
+//static metadata object for each page
+export const metadata={
+    // title:'About'
+    title:{
+        absolute:'About'
+    }
+}
 
 const About = () => {
   return (

@@ -1,11 +1,16 @@
 import React from 'react'
+import { Metadata } from 'next';
+
+export const metadata: Metadata ={
+    // title:'Auth'
+    title:{
+        absolute:'Auth'
+    }
+}
 
  const Auth = () => {
   return (
     <div className="h-auto relative flex w-full flex-col md:flex-row justify-center items-center mx-auto">
-
-  
-
     <div
         className="max-w-lg bg-primary md:max-w-2xl md:z-10 md:shadow-lg md:absolute md:top-0 md:mt-48 lg:w-3/5 lg:left-0 lg:mt-20 lg:ml-20 xl:mt-24 xl:ml-12">
         <div className="flex flex-col p-12 md:px-16">
