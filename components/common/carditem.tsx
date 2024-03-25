@@ -136,12 +136,12 @@ export const productsList = [
       guest:''
     },
     {
-      images: image12,
-      title: "Sam kamphenag,thiland",
+      images: image3,
+      title: " kamphenag chucha,island",
       destination: "126 kilometers per away",
-      date: "MR 1-6",
-      rate:'4.89',
-      cost:"$1,827",
+      date: "5 night .MR 12-16",
+      rate:'4.94',
+      cost:"$1,427",
       tax:' total before taxes',
       guest:'Guest favorite'
     },

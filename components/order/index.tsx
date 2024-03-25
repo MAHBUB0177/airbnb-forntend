@@ -1,9 +1,32 @@
+'use client'
+
 import React from "react";
 import { GoChevronLeft } from "react-icons/go";
 import Login from "./login";
 import Reviewcard from "./reviewcard";
+interface Token {
+  accessToken: string;
+  // Add other fields if any
+}
+
 
 const OrderPage = () => {
+
+  // const tokenDataString = localStorage.getItem('token');
+  // const tokenData: Token | null = tokenDataString ? JSON.parse(tokenDataString) : null;
+  // console.log(tokenData,'tokenData++++++++++++')
+
+  const value = localStorage.getItem("token")
+  let tokenData
+
+if (typeof value === 'string') {
+     tokenData = JSON.parse(value) // ok
+
+}
+
+
+
+
   return (
     <div className="pt-10">
       <div className="flex justify-start gap-0">

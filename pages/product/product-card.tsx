@@ -9,7 +9,7 @@ import FooterGetway from "@/components/layout/footerGetway";
 const ProductCard = () => {
   const itemsPerPage = 12;
   const [visibleItems, setVisibleItems] = useState(itemsPerPage);
-  console.log(visibleItems,'visibleItems',productsList?.length)
+  // console.log(visibleItems,'visibleItems',productsList?.length)
   const[load,setLoad]=useState<boolean>(false)
 
   // // Calculate whether the last index is reached
