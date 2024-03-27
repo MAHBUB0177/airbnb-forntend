@@ -1,9 +1,9 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import Reviewcard from "../order/reviewcard";
 import { GoChevronLeft } from "react-icons/go";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { Radio } from "antd";
+import { Radio, message } from "antd";
 import { RiVisaLine } from "react-icons/ri";
 import { GrAmex } from "react-icons/gr";
 import { SiDiscover } from "react-icons/si";
@@ -11,23 +11,53 @@ import { FaApplePay, FaCcPaypal } from "react-icons/fa";
 import Checkout from "./checkout";
 import Policy from "./policy";
 import CommonModal from "../common/commonmodal";
+import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
+import { useRouter } from "next/navigation";
 
 const ConfirmPay = () => {
-
+  //modal open part
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubModel, setSubModel] = useState(false);
-
-  const handelclick = () => {
-    setIsModalOpen(true);
-  };
-  const handleCancel = () => {
+  const _handleCancel = () => {
     setIsModalOpen(false);
   };
 
-  const _onSubModel = (e, stateSub = true, stateMain = false) => {
+  //2nd modal open
+  const [isSubModel, setSubModel] = useState(false);
+  const _onSubModelCancel = (stateSub = true, stateMain = false) => {
     setIsModalOpen(stateMain);
     setSubModel(stateSub);
   };
+
+  //form submit
+  const router = useRouter();
+
+  const [checkout,setCheckout]=useState({
+    firstName:'',
+    lastName:'',
+    address:'',
+    city:'',
+    state:'',
+    zip:'',
+    cardNumber:'',
+    expDate:'',
+    cvv:''
+  }
+
+)
+const handelClick = () => {
+ 
+
+  message.success('Successfully booking');
+  // Do whatever you want after successful booking
+  router.push("/");
+};
+
+  const [guestList, setguestList] = useState({
+    adult: 1,
+    child: 0,
+    infants: 0,
+    pets: 0,
+  });
 
   return (
     <div className="pt-10">
@@ -56,7 +86,12 @@ const ConfirmPay = () => {
               </p>
             </div>
 
-            <div className="font-medium underline cursor-pointer" onClick={()=>setIsModalOpen(true)}>Edit</div>
+            <div
+              className="font-medium underline cursor-pointer"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Edit
+            </div>
           </div>
 
           <div className="flex justify-between pt-5 ">
@@ -67,9 +102,14 @@ const ConfirmPay = () => {
               </p>
             </div>
 
-            <div className="font-medium underline cursor-pointer" onClick={() => {
+            <div
+              className="font-medium underline cursor-pointer"
+              onClick={() => {
                 setSubModel(true);
-              }}>Edit</div>
+              }}
+            >
+              Edit
+            </div>
           </div>
 
           <div className="pt-8 border-b-[1px] border-slate-300"></div>
@@ -118,22 +158,26 @@ const ConfirmPay = () => {
 
               <div className="w-full ">
                 <form>
-                  <Checkout />
+                  <Checkout setCheckout={setCheckout} checkout={checkout}/>
                 </form>
               </div>
 
-             
-
               <div className="pt-8 border-b-[1px] border-slate-300"></div>
-
               <div>
-
-<Policy/>
-</div>
-
-              <div>
-
+                <Policy />
               </div>
+
+              <div className="flex justify-start pt-4">
+                <button
+                  className="bg-secondary w-[40%] h-12 text-white font-semibold hover:none rounded-md"
+                  type="submit"
+                  onClick={handelClick}
+                >
+                  Request to Book
+                </button>
+              </div>
+
+              <div></div>
             </div>
           </div>
           {/* <Login/> */}
@@ -143,35 +187,174 @@ const ConfirmPay = () => {
           <Reviewcard />
         </div>
 
+        {/* //open modal part */}
         <CommonModal
-        open={isModalOpen}
-        onCancel={handleCancel}
-        title={`Open Modal`}
-        width={'900px'}
-      >
-        <div>
-          {/* Content inside the modal */}
-          <p>This is the content inside the modal.In both examples, CommonModalProps defines the expected props for the CommonModal component. React.FC is a generic type that describes a functional component. It takes the props type as a generic parameter. This way, you ensure type safety for your component.
+          open={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          title={`Welcome to My App`}
+          onCancel={_handleCancel}
+          width={"600px"}
+        >
+          <div>
+            <h2>About My App</h2>
+            <p>
+              This is a sample application demonstrating the usage of
+              CommonModal component.
+            </p>
+            <p>
+              It allows you to display modals with customizable titles, widths,
+              and content.
+            </p>
+            <p>Feel free to explore!</p>
+          </div>
+        </CommonModal>
 
-         </p>
-        </div>
-      </CommonModal>
-
-
-      <CommonModal
-        open={isModalOpen}
-        onCancel={handleCancel}
-        title={`Open Modal`}
-        width={'900px'}
-      >
-        <div>
-          {/* Content inside the modal */}
-          open is a boolean indicating whether the modal should be open or closed.
-onCancel is a function that will be called when the modal is canceled or closed.
-title is a string representing the title of the modal.
-width is an optional string specifying the width of the modal.
-        </div>
-      </CommonModal>
+        <CommonModal
+          open={isSubModel}
+          setIsModalOpen={setSubModel}
+          title={`Guests`}
+          onCancel={() => _onSubModelCancel(false)}
+          width={"900px"}
+        >
+          <div className="w-[500px]">
+            <p className="text-sm ">
+              This place has a maximum of 10 guests, not including infants. Pets
+              aren't allowed.
+            </p>
+            {/* //adults */}
+            <div className="flex justify-between py-2 ">
+              <div>
+                <p className="leading-normal font-medium">Adults</p>
+                <p className="leading-normal font-normal text-textprimary">
+                  Ages 13 or above
+                </p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <CiCircleMinus
+                  className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
+                    guestList.adult === 0 ? "cursor-not-allowed" : ""
+                  }`}
+                  onClick={() => {
+                    if (guestList?.adult > 0) {
+                      setguestList({
+                        ...guestList,
+                        adult: guestList.adult - 1,
+                      });
+                    }
+                  }}
+                />
+                <p>{guestList.adult}</p>
+                <CiCirclePlus
+                  className="text-textprimary h-[30px] w-[30px] cursor-pointer"
+                  onClick={() =>
+                    setguestList({
+                      ...guestList,
+                      adult: guestList.adult + 1,
+                    })
+                  }
+                />
+              </div>
+            </div>
+            {/* //child */}
+            <div className="flex justify-between py-2 ">
+              <div>
+                <p className=" font-medium">Children</p>
+                <p className=" font-normal text-textprimary">Ages 2–12</p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <CiCircleMinus
+                  className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
+                    guestList.child === 0 ? "cursor-not-allowed" : ""
+                  }`}
+                  onClick={() => {
+                    if (guestList?.child > 0) {
+                      setguestList({
+                        ...guestList,
+                        child: guestList.child - 1,
+                      });
+                    }
+                  }}
+                />
+                <p>{guestList.child}</p>
+                <CiCirclePlus
+                  className="text-textprimary h-[30px] w-[30px] cursor-pointer"
+                  onClick={() =>
+                    setguestList({
+                      ...guestList,
+                      child: guestList.child + 1,
+                    })
+                  }
+                />
+              </div>
+            </div>
+            {/* //infants */}
+            <div className="flex justify-between py-2">
+              <div>
+                <p className=" font-medium">Infants</p>
+                <p className=" font-normal text-textprimary">Under 2</p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <CiCircleMinus
+                  className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
+                    guestList.infants === 0 ? "cursor-not-allowed" : ""
+                  }`}
+                  onClick={() => {
+                    if (guestList?.infants > 0) {
+                      setguestList({
+                        ...guestList,
+                        infants: guestList.infants - 1,
+                      });
+                    }
+                  }}
+                />
+                <p>{guestList.infants}</p>
+                <CiCirclePlus
+                  className="text-textprimary h-[30px] w-[30px] cursor-pointer"
+                  onClick={() =>
+                    setguestList({
+                      ...guestList,
+                      infants: guestList.infants + 1,
+                    })
+                  }
+                />
+              </div>
+            </div>
+            {/* //pets */}
+            <div className="flex justify-between py-2">
+              <div>
+                <p className=" font-medium">Pets</p>
+                <p className=" font-medium text-textprimary underline">
+                  Bringing a service animal?
+                </p>
+              </div>
+              <div className="flex justify-between gap-2">
+                <CiCircleMinus
+                  className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
+                    guestList.pets === 0 ? "cursor-not-allowed" : ""
+                  }`}
+                  onClick={() => {
+                    if (guestList?.pets > 0) {
+                      setguestList({
+                        ...guestList,
+                        pets: guestList.pets - 1,
+                      });
+                    }
+                  }}
+                />
+                <p>{guestList.pets}</p>
+                <CiCirclePlus
+                  className="text-textprimary h-[30px] w-[30px] cursor-pointer"
+                  onClick={() =>
+                    setguestList({
+                      ...guestList,
+                      pets: guestList.pets + 1,
+                    })
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </CommonModal>
       </div>
     </div>
   );

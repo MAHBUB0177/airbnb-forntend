@@ -1,17 +1,21 @@
 'use client'
 import { message } from "antd";
 import { useRouter } from "next/navigation";
-import React  from "react";
+import React, { useState }  from "react";
 import { LuFileClock } from "react-icons/lu";
 
+// const [checkout,setCheckout]=useState((
+
+// ))
+
 const Policy = () => {
-    const router=useRouter()
+    // const router=useRouter()
 
-    const handelClick=()=>{
-        message.success('Successfully booking')
-        router.push('/')
+    // const handelClick=()=>{
+    //     message.success('Successfully booking')
+    //     router.push('/')
 
-    }
+    // }
   return (
     <div className="pt-4 mb-10">
       <div>
@@ -25,7 +29,7 @@ const Policy = () => {
             </p>
           </div>
 
-          <div className="border-[1px] border-slate-500 rounded-md flex justify-center items-center p-0 h-[40px] w-[20%]">
+          <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center p-0 h-[40px] w-[20%]">
             <p className="text-md font-semibold"> Add</p>
           </div>
         </div>
@@ -38,7 +42,7 @@ const Policy = () => {
             </p>
           </div>
 
-          <div className="border-[1px] border-slate-500 rounded-md flex justify-center items-center p-0 h-[40px] w-[20%]">
+          <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center p-0 h-[40px] w-[20%]">
             <p className="text-md font-semibold"> Add</p>
           </div>
         </div>
@@ -62,7 +66,7 @@ const Policy = () => {
     </div>
     <div className="pt-8 border-b-[1px] border-slate-300"></div>
     <p className="text-xs font-normal pt-5">By selecting the button below, I agree to the <span className="underline font-semibold">Host's House Rules,  Ground rules for guests, Airbnb's Rebooking and Refund Policy,</span> and that Airbnb can charge my payment method if I’m responsible for damage. I agree to pay the total amount shown if the Host accepts my booking request.</p>
-    <div className="flex justify-start pt-4">
+    {/* <div className="flex justify-start pt-4">
     <button
             className="bg-secondary w-[40%] h-12 text-white font-semibold hover:none rounded-md"
             type="submit"
@@ -70,7 +74,7 @@ const Policy = () => {
           >
             Request to Book
           </button>
-        </div>
+        </div> */}
     </div>
   );
 };
