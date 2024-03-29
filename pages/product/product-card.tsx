@@ -76,6 +76,7 @@ const last= visibleItems == productsList.length;
           </>
         ))}
       </div>
+      
       <div className="my-2 ">
       <p className="flex justify-center font-semibold ">Continue exploring OMG! homes</p>
      <div className="flex justify-center pt-2">

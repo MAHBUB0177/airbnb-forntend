@@ -5,6 +5,7 @@ import Header from "@/components/layout/header";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Footer from "@/components/layout/footer";
+import Rootheader from "@/components/layout/rootheader";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,10 +23,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  
   return (
     <html lang="en">
       <body className={inter.className}>
-          <Header />
+          <Rootheader />
           <div style={{ minHeight: "calc(100vh)" }} className=" pt-[58px] md:pt-[70px] bg-primary pb-[50px] md:pb-[55px]" >
             {children}
           </div>

@@ -2,16 +2,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import airbnb_logo from "../../assets/images/logo/airbnb-logo.png";
 import Image from "next/image";
-import { FaUserCircle } from "react-icons/fa";
+import { FaApple, FaUserCircle } from "react-icons/fa";
 import { IoMenuSharp, IoSearchOutline } from "react-icons/io5";
 import SearchCard from "@/pages/search/searchCard";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import CommonModal from "../common/commonmodal";
+import { FaSquareFacebook } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
+import { MdOutlineMail } from "react-icons/md";
+import CommonButton from "../common/cummonbutton";
+import { message } from "antd";
+import axios from "axios";
 
 const MenuList = [
   { path: "", title: "Log In" },
   { path: "", title: "Sign Up" },
-  { path: "", title: "Gift Card" },
+  { path: "/giftcard", title: "Gift Card" },
   { path: "", title: "Airbnb Your Home" },
   { path: "", title: "Hepl Center" },
 ];
@@ -25,6 +32,12 @@ const Header = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
   const selectRef = useRef<HTMLDivElement | null>(null);
+
+  //modal open part
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const _handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -59,12 +72,52 @@ const Header = () => {
 // useEffect(() => {
 //   toggleMode(status);
 // }, [status]);
+
+const handleItemClick = (title:string) => {
+  if (title === "Sign Up" || title === "Log In") {
+    setIsModalOpen(true);
+  } else {
+    setIsModalOpen(false);
+  }
+};
+
+const [email, setEmail] = useState('');
+   const [password, setPassword] = useState('');
+   const LoginNow = async () => {
+     let payload = {
+       username: email,//kminchelle 
+       password: password,//0lelplR
+     }
+     if(email ==='' || password === ''){
+       return message.error('User Name Or Password Missing')
+     }
+     await axios.post('https://dummyjson.com/auth/login', payload, {
+       headers: {
+         'Content-Type': 'application/json'
+       }
+     })
+       .then(response => {
+         if (response?.data) {
+           message.success('User Successfully Logged In')
+           setIsModalOpen(false);
+          //  setToken(true)
+           localStorage.setItem("token", JSON.stringify(response?.data));
+          //  router.push('/confirm')
+          
+         }
+         console.log(response.data);
+       })
+       .catch(error => {
+         console.error('An error occurred:', error);
+         message.error('Something Went Wrong')
+       });
+   };
   
-console.log('header is calling....')
 
   return (
     <>
-      <div className="bg-primary  w-full z-50 fixed shadow-sm dark:bg-orange-300">
+    {/* dark:bg-orange-300 */}
+      <div className="bg-primary  w-full z-50 fixed shadow-sm ">
         <div
           className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10  md:py-2  ${pathname =='/rooms'? ' xl:px-[185px]' : ' lg:px-20' }`}
         >
@@ -109,19 +162,126 @@ console.log('header is calling....')
           style={{ zIndex: 1000 }}
         >
           {MenuList.map((item, i) => (
-            <p
+            <Link href={item?.path}>
+             <p
               key={i}
               className={`py-2 cursor-pointer ${
                 item?.title === "Sign Up"
                   ? "border-b-[1px] border-slate-400"
                   : ""
               }`}
+              onClick={() => handleItemClick(item.title)}
             >
               {item.title}
             </p>
+            </Link>
+            
           ))}
         </div>
       )}
+<div>
+<CommonModal
+          open={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          title={`Log in or sign up`}
+          onCancel={_handleCancel}
+          width={"500px"}
+        >
+          <div className=" border-t-[1px] border-slate-300"></div>
+          <p className="text-2xl font-semibold pt-1 pb-1">Welcome to Airbnb</p>
+          <div>
+            
+          <div className=" mt-2  border border-slate-300 w-100% rounded-md ">
+        <div className="bg-white rounded-lg p-2 ">
+          <form className="">
+            <div>
+              <label className="block text-textprimary font-bold mb-2">
+                Email
+              </label>
+              <input
+                className="w-full px-4 py-2 rounded-lg border border-slate-300"
+                id="email"
+                name="email"
+                type="email"
+                onChange={(e)=>setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-textprimary font-bold mb-2">
+                Password
+              </label>
+              <input
+                className="w-full px-4 py-2 rounded-lg border border-slate-300"
+                id="password"
+                name="password"
+                type="password"
+                onChange={(e)=>setPassword(e.target.value)}
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <p className="text-xs text-textprimary pt-1 ">
+        We’ll call or text you to confirm your number. Standard message and data
+        rates apply.
+        <span className="font-semibold  underline">Privacy Policy </span>{" "}
+      </p>
+
+      
+      <div className="mt-3">
+      <CommonButton
+                  bg={"secondary"}
+                  width={"full"}
+                  height={"12"}
+                  onClick={LoginNow}
+                  type={'submit'}
+                >
+                 Continue
+                </CommonButton>
+      </div>
+
+  
+
+      <div className="relative w-full mt-3">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-gray-300"></div>
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="px-2 bg-white">Or continue with</span>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-1">
+        <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-full  p-3 mt-2">
+          <p className="text-md font-semibold text-sky-500">
+            <FaSquareFacebook className="h-[20px] w-[20px]" />
+          </p>
+        </div>
+
+        <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-full  p-3 mt-2">
+          <p className="text-md font-semibold">
+            <FcGoogle className="h-[20px] w-[20px]" />
+          </p>
+        </div>
+
+        <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-full p-3 mt-2">
+          <p className="text-md font-semibold">
+            <FaApple className="h-[20px] w-[20px]" />
+          </p>
+        </div>
+      </div>
+      <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-[100%] mt-3 p-3 ">
+        <p className="text-sm font-semibold flex gap-2">
+          {" "}
+          <MdOutlineMail className="h-[20px] w-[20px] " />
+          Continue with email
+        </p>
+      </div>
+          </div>
+        </CommonModal>
+</div>
+
     </>
   );
 };
