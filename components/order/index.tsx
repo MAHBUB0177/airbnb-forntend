@@ -33,7 +33,7 @@ if (typeof value === 'string') {
         <p className="hover:bg-[#F7F7F7] hover:rounded-full p-3">
           <GoChevronLeft className="h-[25px] w-[25px]" />
         </p>
-        <p className="text-3xl font-semibold">Request to book</p>
+        <p className="text-3xl font-semibold">Confirm and pay</p>
       </div>
 
       <div className="flex flex-col-reverse  md:flex-row justify-between gap-5 w-full">

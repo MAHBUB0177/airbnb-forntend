@@ -46,18 +46,16 @@ const Bookingcard = () => {
         </div>
 
         <div className=" w-full pt-4 flex justify-center items-center">
-        {/* <Link href={"/orders"}> */}
         <button
             className="bg-secondary w-[90%] h-12 text-white font-semibold hover:none rounded-md"
             type="submit"
             onClick={handelClick}
           >
-            Check Avilability
+            Reserve
           </button>
-          {/* </Link> */}
+         
           
-          {/* <Button className='bg-secondary w-[60%] h-12 text-white font-semibold hover:none' htmlType="submit">Check Avilability</Button> */}
-          {/* <CommonButton bg={'secondary'} width={'full'} height={'12'} >Check Avilability</CommonButton> */}
+          
         </div>
       </div>
 

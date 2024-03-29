@@ -13,6 +13,7 @@ import Policy from "./policy";
 import CommonModal from "../common/commonmodal";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { useRouter } from "next/navigation";
+import CommonButton from "../common/cummonbutton";
 
 const ConfirmPay = () => {
   //modal open part
@@ -31,26 +32,22 @@ const ConfirmPay = () => {
   //form submit
   const router = useRouter();
 
-  const [checkout,setCheckout]=useState({
-    firstName:'',
-    lastName:'',
-    address:'',
-    city:'',
-    state:'',
-    zip:'',
-    cardNumber:'',
-    expDate:'',
-    cvv:''
-  }
-
-)
-const handelClick = () => {
- 
-
-  message.success('Successfully booking');
-  // Do whatever you want after successful booking
-  router.push("/");
-};
+  const [checkout, setCheckout] = useState({
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "",
+    zip: "",
+    cardNumber: "",
+    expDate: "",
+    cvv: "",
+  });
+  const handelClick = () => {
+    message.success("Successfully booking");
+    // Do whatever you want after successful booking
+    router.push("/");
+  };
 
   const [guestList, setguestList] = useState({
     adult: 1,
@@ -60,12 +57,12 @@ const handelClick = () => {
   });
 
   return (
-    <div className="pt-10">
+    <div className="pt-10 pb-10">
       <div className="flex justify-start gap-0">
         <p className="hover:bg-[#F7F7F7] hover:rounded-full p-3">
           <GoChevronLeft className="h-[25px] w-[25px]" />
         </p>
-        <p className="text-3xl font-semibold">Request to book</p>
+        <p className="text-3xl font-semibold">Confirm and pay</p>
       </div>
 
       <div className="pt-5 px-5 md:px-[60px]">
@@ -158,7 +155,7 @@ const handelClick = () => {
 
               <div className="w-full ">
                 <form>
-                  <Checkout setCheckout={setCheckout} checkout={checkout}/>
+                  <Checkout setCheckout={setCheckout} checkout={checkout} />
                 </form>
               </div>
 
@@ -168,13 +165,15 @@ const handelClick = () => {
               </div>
 
               <div className="flex justify-start pt-4">
-                <button
-                  className="bg-secondary w-[40%] h-12 text-white font-semibold hover:none rounded-md"
-                  type="submit"
+                <CommonButton
+                  bg={"secondary"}
+                  width={"40%"}
+                  height={"12"}
                   onClick={handelClick}
+                  type="button"
                 >
-                  Request to Book
-                </button>
+                  Confirm and pay
+                </CommonButton>
               </div>
 
               <div></div>

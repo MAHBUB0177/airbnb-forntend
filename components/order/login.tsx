@@ -9,6 +9,7 @@ import { FaApple } from "react-icons/fa";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineMail } from "react-icons/md";
+import CommonButton from "../common/cummonbutton";
 
 const Login = () => {
  const [token,setToken]=useState(false)
@@ -93,13 +94,20 @@ const Login = () => {
         <span className="font-semibold  underline">Privacy Policy </span>{" "}
       </p>
 
-      <button
-      onClick={LoginNow}
-        className="bg-secondary w-[100%] h-12 text-white font-semibold hover:none rounded-md mt-3"
-        type="submit"
-      >
-        Continue
-      </button>
+      
+      <div className="mt-3">
+      <CommonButton
+                  bg={"secondary"}
+                  width={"full"}
+                  height={"12"}
+                  onClick={LoginNow}
+                  type={'submit'}
+                >
+                 Continue
+                </CommonButton>
+      </div>
+
+  
 
       <div className="relative w-full mt-3">
         <div className="absolute inset-0 flex items-center">

@@ -5,6 +5,7 @@ import { productsList } from "@/components/common/carditem";
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 import FooterGetway from "@/components/layout/footerGetway";
+import CommonButton from "@/components/common/cummonbutton";
 
 const ProductCard = () => {
   const itemsPerPage = 12;
@@ -91,6 +92,8 @@ const last= visibleItems == productsList.length;
             " Show More"
           )}
         </button>
+
+        
      </div>
        
       </div>
