@@ -1,5 +1,13 @@
 import GiftCard from '@/components/giftcard'
+import { Metadata } from 'next'
 import React from 'react'
+
+export const metadata: Metadata ={
+  // title:'GiftCard'
+  title:{
+      absolute:'GiftCard'
+  }
+}
 
 const page = () => {
   return (

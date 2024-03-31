@@ -48,15 +48,15 @@ const GiftCard = () => {
     pauseOnHover: true,
   };
   return (
-    <div className="h-auto">
+    <div className="h-auto px-2 md:px-0">
       <div className="mb-[100px]">
-        <div className="flex justify-center items-center mx-auto md:mt-5 md:mb-8 ">
-          <p className="text-8xl font-bold">
+        <div className="flex justify-center items-center mx-auto mt-5 mb-8 ">
+          <p className="text-4xl md:text-8xl font-bold">
             Airbnb <br />
             gift cards
           </p>
         </div>
-        <div className="flex justify-center md:mb-10 ">
+        <div className="flex justify-center mb-10 ">
           <div className="relative">
             <Image
               src={giftcard6}
@@ -74,11 +74,11 @@ const GiftCard = () => {
         </div>
       </div>
 
-      <div className="md:mt-[300px]">
-        <p className="flex justify-center items-center text-6xl font-bold ">
+      <div className="mt-[300px]">
+        <p className="flex justify-center items-center text-2xl md:text-4xl lg:text-6xl font-bold ">
           Easy to give. Easy to love.
         </p>
-        <p className="flex justify-center items-center text-6xl font-bold pb-8">
+        <p className="flex justify-center items-center text-2xl md:text-4xl lg:text-6xl font-bold pb-8">
           Never expires.
         </p>
 
