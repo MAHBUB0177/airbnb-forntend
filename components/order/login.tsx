@@ -4,7 +4,7 @@ import { Form, Input, Select, message } from "antd";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaApple } from "react-icons/fa";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
@@ -14,6 +14,7 @@ import CommonButton from "../common/cummonbutton";
 const Login = () => {
  const [token,setToken]=useState(false)
  const router=useRouter()
+
 
    //simple authentication part:
    const [email, setEmail] = useState('');
@@ -36,14 +37,10 @@ const Login = () => {
            message.success('User Successfully Logged In')
            setToken(true)
            localStorage.setItem("token", JSON.stringify(response?.data));
+           localStorage.setItem("status", JSON.stringify(true));
            router.push('/confirm')
-          //  setTimeout(()=>{
-          //    window.location.href = '/checkout'
-          //  },1000)
-           
-          //  dispatch(userlogin(response.data))
+   
          }
-         console.log(response.data);
        })
        .catch(error => {
          console.error('An error occurred:', error);

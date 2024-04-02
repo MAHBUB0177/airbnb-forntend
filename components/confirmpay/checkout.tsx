@@ -15,14 +15,14 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label  className="block text-gray-700 dark:text-white mb-1">First Name <span className='text-red-400'>*</span></label>
-                        <input type="text" id="first_name" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" onChange={(e)=>setCheckout({
+                        <input type="text" required id="first_name" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none" onChange={(e)=>setCheckout({
                             ...Checkout,
                             firstName:e.target.value
                         })}/>
                     </div>
                     <div>
                         <label className="block text-gray-700 dark:text-white mb-1">Last Name<span className='text-red-400'>*</span></label>
-                        <input type="text" id="last_name" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                        <input type="text" required id="last_name" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                         onChange={(e)=>setCheckout({
                             ...Checkout,
                             lastName:e.target.value
@@ -32,7 +32,7 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
 
                 <div className="mt-4">
                     <label className="block text-gray-700 dark:text-white mb-1">Address<span className='text-red-400'>*</span></label>
-                    <input type="text" id="address" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                    <input type="text" required id="address" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                     onChange={(e)=>setCheckout({
                         ...Checkout,
                         address:e.target.value
@@ -41,7 +41,7 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
 
                 <div className="mt-4">
                     <label  className="block text-gray-700 dark:text-white mb-1">City<span className='text-red-400'>*</span></label>
-                    <input type="text" id="city" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                    <input type="text" required id="city" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                     onChange={(e)=>setCheckout({
                         ...Checkout,
                         city:e.target.value
@@ -51,7 +51,7 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
                 <div className="grid grid-cols-2 gap-4 mt-4">
                     <div>
                         <label className="block text-gray-700 dark:text-white mb-1">State<span className='text-red-400'>*</span></label>
-                        <input type="text" id="state" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                        <input type="text" required id="state" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                         onChange={(e)=>setCheckout({
                             ...Checkout,
                             state:e.target.value
@@ -59,7 +59,7 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
                     </div>
                     <div>
                         <label  className="block text-gray-700 dark:text-white mb-1">ZIP Code<span className='text-red-400'>*</span></label>
-                        <input type="text" id="zip" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                        <input type="text" required id="zip" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                          onChange={(e)=>setCheckout({
                             ...Checkout,
                             zip:e.target.value
@@ -72,7 +72,7 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
                 <h2 className="text-xl font-semibold text-gray-700 dark:text-white mb-2">Payment Information</h2>
                 <div className="mt-4">
                     <label  className="block text-gray-700 dark:text-white mb-1">Card Number<span className='text-red-400'>*</span></label>
-                    <input type="text" id="card_number" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                    <input type="text" required id="card_number" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                      onChange={(e)=>setCheckout({
                         ...Checkout,
                         cardNumber:e.target.value
@@ -82,7 +82,7 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
                 <div className="grid grid-cols-2 gap-4 mt-4">
                     <div>
                         <label  className="block text-gray-700 dark:text-white mb-1">Expiration Date<span className='text-red-400'>*</span></label>
-                        <input type="date" id="exp_date" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                        <input type="date" required id="exp_date" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                          onChange={(e)=>setCheckout({
                             ...Checkout,
                             expDate:e.target.value
@@ -90,7 +90,7 @@ const Checkout = ({setCheckout,checkout}:CheckoutProps) => {
                     </div>
                     <div>
                         <label  className="block text-gray-700 dark:text-white mb-1">CVV<span className='text-red-400'>*</span></label>
-                        <input type="text" id="cvv" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
+                        <input type="text" required id="cvv" className="w-full rounded-lg border py-2 px-3 dark:bg-gray-700 dark:text-white dark:border-none"
                          onChange={(e)=>setCheckout({
                             ...Checkout,
                             cvv:e.target.value

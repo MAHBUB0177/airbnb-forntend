@@ -15,11 +15,18 @@ import CommonButton from "../common/cummonbutton";
 import { message } from "antd";
 import axios from "axios";
 
-const MenuList = [
+const BeforeMenuList = [
   { path: "", title: "Log In" },
   { path: "", title: "Sign Up" },
   { path: "/giftcard", title: "Gift Card" },
-  { path: "", title: "Airbnb Your Home" },
+  { path: "/airbnbhome", title: "Airbnb Your Home" },
+  { path: "", title: "Hepl Center" },
+];
+
+const AfterMenuList = [
+ 
+  { path: "/giftcard", title: "Gift Card" },
+  { path: "/airbnbhome", title: "Airbnb Your Home" },
   { path: "", title: "Hepl Center" },
   { path: "", title: "Logout" },
 ];
@@ -52,7 +59,13 @@ const Header = () => {
   }
   const [tokenData, setTokendata] = useState<TokenData | null>(null);
   const [active, setActive] = useState(false);
+  let isLoggedIn 
+  if (typeof window !== 'undefined' ) {
+ isLoggedIn = localStorage.getItem("status");
+  }
 
+
+ 
   useEffect(() => {
     let value;
     if (typeof window !== "undefined") {
@@ -65,7 +78,8 @@ const Header = () => {
         console.error("Error parsing tokenData:", error);
       }
     }
-  }, [active]);
+  }, [active,isLoggedIn]);
+
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -96,9 +110,9 @@ const Header = () => {
     }
   };
 
-  // useEffect(() => {
-  //   toggleMode(status);
-  // }, [status]);
+  useEffect(() => {
+    localStorage.setItem("status", JSON.stringify(false))
+  }, []);
 
   const handleItemClick = (title: string) => {
     if (title === "Sign Up" || title === "Log In") {
@@ -106,6 +120,7 @@ const Header = () => {
     } else if (title === "Logout") {
       localStorage.setItem("token", JSON.stringify({}));
       setActive(false);
+      localStorage.setItem("status", JSON.stringify(false))
     } else {
       setIsModalOpen(false);
     }
@@ -133,6 +148,7 @@ const Header = () => {
           setIsModalOpen(false);
           setActive(true);
           localStorage.setItem("token", JSON.stringify(response?.data));
+          localStorage.setItem("status", JSON.stringify(true))
         }
         console.log(response.data);
       })
@@ -210,7 +226,11 @@ const Header = () => {
           className="bg-primary shadow-md rounded-md h-auto w-[40%] md:w-[25%] lg:w-[15%] fixed right-20 top-20 px-4 border-[1px] border-slate-200"
           style={{ zIndex: 1000 }}
         >
-          {MenuList.map((item, i) => (
+          
+
+          {
+             tokenData?.token ? <>
+                  {AfterMenuList.map((item, i) => (
             <Link href={item?.path}>
               <p
                 key={i}
@@ -221,12 +241,28 @@ const Header = () => {
                 }`}
                 onClick={() => handleItemClick(item.title)}
               >
-                {item.title === "Logout"
-                  ? tokenData?.token && item.title
-                  : item?.title}
+                {item?.title}
               </p>
             </Link>
           ))}
+             </> : <>
+             {BeforeMenuList.map((item, i) => (
+            <Link href={item?.path}>
+              <p
+                key={i}
+                className={`py-2 cursor-pointer ${
+                  item?.title === "Sign Up"
+                    ? "border-b-[1px] border-slate-400"
+                    : ""
+                }`}
+                onClick={() => handleItemClick(item.title)}
+              >
+                 {item?.title}
+              </p>
+            </Link>
+          ))}
+             </>
+          }
         </div>
       )}
       <div>

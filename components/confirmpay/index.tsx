@@ -43,10 +43,16 @@ const ConfirmPay = () => {
     expDate: "",
     cvv: "",
   });
-  const handelClick = () => {
+ 
+ 
+
+  const handelClick = (event:any) => {
+    
+    event.preventDefault(); // Prevent default form submission behavior
     message.success("Successfully booking");
-    // Do whatever you want after successful booking
-    router.push("/");
+    // Navigate to the home page
+    console.log(checkout,'++++++++++++++++++checkout')
+    router.push('/');
   };
 
   const [guestList, setguestList] = useState({
@@ -152,11 +158,11 @@ const ConfirmPay = () => {
                   <FaApplePay className="violet-600 h-[30px] w-[30px]" />
                 </div>
               </div>
-
+              <form onSubmit={handelClick}>
               <div className="w-full ">
-                <form>
+               
                   <Checkout setCheckout={setCheckout} checkout={checkout} />
-                </form>
+                
               </div>
 
               <div className="pt-8 border-b-[1px] border-slate-300"></div>
@@ -169,12 +175,13 @@ const ConfirmPay = () => {
                   bg={"secondary"}
                   width={"40%"}
                   height={"12"}
-                  onClick={handelClick}
-                  type="button"
+                  // onClick={handelClick}
+                  type="submit"
                 >
                   Confirm and pay
                 </CommonButton>
               </div>
+              </form>
 
               <div></div>
             </div>

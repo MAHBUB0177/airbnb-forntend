@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 const NotFound = () => {
   return (
-    <div className='flex justify-center items-center mx-auto'>
+    <div className='flex justify-center items-center min-h-screen mx-auto'>
        <Image src={errorpage} alt='error page'/>
         </div>
   )
