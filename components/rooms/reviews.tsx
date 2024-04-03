@@ -79,8 +79,6 @@ const Reviews = () => {
         <div className="w-full rounded-md">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.690021795119!2d90.40564997511659!3d23.79405017864068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c70937cf2973%3A0xb57c4554f38728d5!2sBanani%20Playground%2C%20Rd%20No%2027%2C%20Dhaka%201212!5e0!3m2!1sen!2sbd!4v1711086553103!5m2!1sen!2sbd"  height="450"  className="rounded-md border-0 w-full allowFullScreen-0"  loading="lazy"  ></iframe>
         </div>
-
-       
       </div>
     </>
   );
