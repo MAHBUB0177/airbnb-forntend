@@ -47,14 +47,14 @@ const Footer = () => {
       <div className={`flex flex-col lg:flex-row pt-2 justify-between items-center md:px-10 lg:px-20 text-sm font-thin text-black  ${pathname =='/rooms'? ' xl:px-[185px]' : ' lg:px-20' }`}>
         <div className="flex justify-between items-center gap-2">
           {quickList?.map((item, i) => {
-            return <p className="text-normal font-normal">{item?.title}</p>;
+            return <p className="text-normal font-normal" key={i}>{item?.title}</p>;
           })}
         </div>
 
         <div className="flex justify-between items-center gap-2">
           {supportList?.map((item, i) => {
             return (
-              <p className="flex justify-between gap-1 text-medium font-semibold hover:underline cursor-pointer">
+              <p className="flex justify-between gap-1 text-medium font-semibold hover:underline cursor-pointer" key={i}>
                 {item?.title}{" "}
                 {item?.title === "Support & resources " && (
                   <FaChevronDown
@@ -87,7 +87,7 @@ const Footer = () => {
           <p className="text-base font-semibold">Support</p>
           {
             support?.map((item,i)=>{
-              return <Link href={item?.link}>
+              return <Link href={item?.link} key={i}>
               <p onClick={()=>setOpen(false)} className="text-base font-normal py-1 hover:underline decoration-1 cursor-pointer">{item?.title}</p>
 
               </Link>
@@ -99,7 +99,7 @@ const Footer = () => {
         <p className="text-base font-semibold">Hosting</p>
           {
             support?.map((item,i)=>{
-              return <p className="text-base font-normal py-1 hover:underline decoration-1 cursor-pointer">{item?.title}</p>
+              return <p className="text-base font-normal py-1 hover:underline decoration-1 cursor-pointer" key={i}>{item?.title}</p>
             })
           }
         </div>
@@ -108,7 +108,7 @@ const Footer = () => {
         <p className="text-base font-semibold">Airbnb</p>
           {
             support?.map((item,i)=>{
-              return <p className="text-base font-normal py-1 hover:underline cursor-pointer decoration-1">{item?.title}</p>
+              return <p className="text-base font-normal py-1 hover:underline cursor-pointer decoration-1" key={i}>{item?.title}</p>
             })
           }
         </div>

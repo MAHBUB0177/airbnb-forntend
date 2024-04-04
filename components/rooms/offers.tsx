@@ -65,7 +65,7 @@ const Offers = () => {
       <div className="flex flex-col md:flex-row justify-between md:items-center md:gap-2 pb-2">
         <div className="pt-3 ">
           {offerList1.map((item, i) => (
-            <div className="flex gap-8 pt-2">
+            <div className="flex gap-8 pt-2" key={i}>
               {item.icon && (
                 <item.icon
                   style={{
@@ -84,7 +84,7 @@ const Offers = () => {
 
         <div className="pt-3 ">
           {offerList2.map((item, i) => (
-            <div className="flex gap-8 pt-2">
+            <div className="flex gap-8 pt-2" key={i}>
               {item.icon && (
                 <item.icon
                   style={{

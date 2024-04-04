@@ -47,7 +47,7 @@ const FooterGetway = () => {
       <div className="hidden xl:block">
         <div className=" flex justify-start gap-5 border-b-[1px] border-slate-300 pb-3">
           {categoryList.map((item, i) => (
-            <p>{item?.title}</p>
+            <p key={i}>{item?.title}</p>
           ))}
         </div>
       </div>
@@ -69,7 +69,7 @@ const FooterGetway = () => {
 
       <div className="px-2 mx-auto justify-center items-center md:justify-start md:px-0 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 pt-4 gap-6">
         {getwayList.map((item, i) => (
-          <div className="">
+          <div className="" key={i}>
             <p className="font-bold text-sm">{item?.title}</p>
             <p className="text-textprimary text-sm">{item?.desc}</p>
           </div>

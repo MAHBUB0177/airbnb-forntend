@@ -231,7 +231,7 @@ const Header = () => {
           {
              tokenData?.token ? <>
                   {AfterMenuList.map((item, i) => (
-            <Link href={item?.path}>
+            <Link href={item?.path} key={i}>
               <p
                 key={i}
                 className={`py-2 cursor-pointer ${
@@ -247,7 +247,7 @@ const Header = () => {
           ))}
              </> : <>
              {BeforeMenuList.map((item, i) => (
-            <Link href={item?.path}>
+            <Link href={item?.path} key={i}>
               <p
                 key={i}
                 className={`py-2 cursor-pointer ${

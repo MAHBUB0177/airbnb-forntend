@@ -12,17 +12,15 @@ interface Token {
 
 const OrderPage = () => {
 
-  // const tokenDataString = localStorage.getItem('token');
-  // const tokenData: Token | null = tokenDataString ? JSON.parse(tokenDataString) : null;
-  // console.log(tokenData,'tokenData++++++++++++')
 
-  const value = localStorage.getItem("token")
-  let tokenData
 
-if (typeof value === 'string') {
-     tokenData = JSON.parse(value) // ok
+//   const value = localStorage.getItem("token")
+//   let tokenData
 
-}
+// if (typeof value === 'string') {
+//      tokenData = JSON.parse(value) // ok
+
+// }
 
 
 

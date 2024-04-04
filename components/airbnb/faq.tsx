@@ -60,7 +60,7 @@ const Faq = () => {
             {items.map((item, i) => (
               <Panel
                 header={item.label}
-                key={item.key}
+                key={i}
                 className="text-xl font-semibold "
               >
                 <p className="font-light  text-slate-500">{item.text}</p>

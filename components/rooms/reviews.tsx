@@ -17,7 +17,7 @@ const Reviews = () => {
         <div className="hidden lg:block ">
           <div className=" grid grid-cols-7 divide-x divide-gray-400 gap-2 pt-8 w-full  ">
             {reviewlistitem.map((item, i) => (
-              <div className="px-4">
+              <div className="px-4" key={i}>
                 <p className="text-md font-medium">{item?.title}</p>
                 <p className="text-xl font-medium ">{item?.rating}</p>
                 <p className="text-lg font-medium pt-4">
@@ -39,7 +39,7 @@ const Reviews = () => {
 
       <div className="px-2 md:px-0 mt-10 pt-5 border-t-[1px] border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-10">
         {reviewlist.map((item, i) => (
-          <div>
+          <div key={i}>
             <div className="flex justify-start ">
               <Image
                 src={item?.image}

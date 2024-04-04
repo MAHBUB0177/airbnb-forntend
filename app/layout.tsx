@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/header";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import 'react-loading-skeleton/dist/skeleton.css'
 import Footer from "@/components/layout/footer";
 import Rootheader from "@/components/layout/rootheader";
 

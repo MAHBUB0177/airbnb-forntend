@@ -18,7 +18,7 @@ const RoomImage = () => {
       <div className="w-[50%] hidden md:block ">
         <div className=" mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2  justify-items-center justify-center  gap-2">
           {imageList?.map((item, i) => (
-            <div className="rounded-lg">
+            <div className="rounded-lg" key={i}>
               <Image
                 src={item}
                 alt="cardimage"
