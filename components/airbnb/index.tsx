@@ -40,7 +40,10 @@ const detailsList = [
 const AirBnb = () => {
   return (
     <div>
-      <div className="px-2 flex justify-evenly items-center flex-col md:flex-row  gap-4">
+      <div className="md:px-10 lg:px-20  pt-10">
+
+      
+      <div className="px-2 flex justify-evenly items-center flex-col lg:flex-row  gap-4">
         <div className="w-full ">
           <p className="text-4xl font-semibold text-secondary">Airbnb it</p>
           <p className="text-4xl font-semibold ">and earn</p>
@@ -48,7 +51,7 @@ const AirBnb = () => {
             Your Airbnb could be one of the first in this area. For an earnings
             estimate, search nearby.
           </p>
-          <div className="border-[1px] border-slate-500 rounded-full flex justify-start gap-4 items-center p-2 w-[350px] mt-5">
+          <div className="border-[1px] border-slate-500 rounded-full flex justify-start gap-4 items-center p-1 px-4 w-auto md:w-[350px] mt-5">
             <IoSearchOutline style={{ fontWeight: "bold" }} />
             <div>
               <p className="text-md font-semibold">Sharetpur</p>
@@ -63,7 +66,7 @@ const AirBnb = () => {
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d29298.427356007523!2d90.20550016302742!3d23.377238251282247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1712048040670!5m2!1sen!2sbd"
             height="450"
-            className="rounded-md border-0 w-full md:w-[600px] allowFullScreen-0"
+            className="rounded-md border-0 w-full md:w-full lg:w-[500px] xl:w-[600px] allowFullScreen-0"
             loading="lazy"
           ></iframe>
         </div>
@@ -83,12 +86,12 @@ const AirBnb = () => {
           ))}
         </div>
       </div>
-      <div className="px-2 md:px-[200px] ">
+      <div className="px-2 lg:px-[80px] xl:px-[200px]">
         <div className="mt-10 mb-10">
           <p className="flex justify-center items-center text-4xl  font-bold">
             Introducing Airbnb-friendly apartments
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-5 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 ">
             {homeimage?.map((item, i) => (
               <div key={i}>
                 <Image
@@ -121,7 +124,9 @@ const AirBnb = () => {
           </div>
         </div>
       </div>
-      <div>
+      </div>
+      
+      <div className="md:px-10 lg:px-20  pt-10 px-2  bg-[#F7F7F7] p-8">
         <Faq />
       </div>
     </div>

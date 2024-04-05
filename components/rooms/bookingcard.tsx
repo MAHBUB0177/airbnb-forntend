@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import CommonButton from "../common/cummonbutton";
 import { SketchOutlined } from "@ant-design/icons";
@@ -9,9 +9,35 @@ import { useRouter } from "next/navigation";
 
 const Bookingcard = () => {
   const router=useRouter()
-  const handelClick=()=>{
-    router.push('/orders')
+  interface TokenData {
+    id: number;
+    username: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    gender: string;
+    image: string;
+    token: string;
+  }
+  const [tokenData, setTokendata] = useState<TokenData | null>(null);
+  
 
+  useEffect(()=>{
+    if (typeof window !== "undefined") {
+      let data = localStorage.getItem("token");
+      if (typeof data === "string") {
+        try {
+          setTokendata(JSON.parse(data));
+        } catch (error) {
+          console.error("Error parsing tokenData:", error);
+        }
+      }
+    }
+  },[])
+  const handelClick=()=>{    
+    {
+      tokenData?.token ? router.push('/confirm') : router.push('/orders')
+    }
   }
   return (
     <div className="w-full top-20 sticky">
