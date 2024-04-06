@@ -52,7 +52,7 @@ const FooterGetway = () => {
         </div>
       </div>
 
-     {/* //for small device */}
+      {/* //for small device */}
       <div className="xl:hidden px-8 md:px-0 gap-8 border-b-[1px] border-slate-300 pb-3 ">
         <Slider {...settings}>
           {categoryList?.map((item, i) => (

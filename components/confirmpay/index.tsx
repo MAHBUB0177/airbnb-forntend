@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Reviewcard from "../order/reviewcard";
 import { GoChevronLeft } from "react-icons/go";
 import { FaRegCircleCheck } from "react-icons/fa6";
@@ -32,6 +32,12 @@ const ConfirmPay = () => {
   //form submit
   const router = useRouter();
 
+
+  const [isActive, setIsactive] = useState({
+    partialpayment: false,
+    fullpayment: false,
+  });
+
   const [checkout, setCheckout] = useState({
     firstName: "",
     lastName: "",
@@ -43,24 +49,32 @@ const ConfirmPay = () => {
     expDate: "",
     cvv: "",
   });
- 
- 
 
-  const handelClick = (event:any) => {
-    
-    event.preventDefault(); // Prevent default form submission behavior
+  const handelClick = (event: any) => {
+    event.preventDefault();
     message.success("Successfully booking");
-    // Navigate to the home page
-    console.log(checkout,'++++++++++++++++++checkout')
-    router.push('/');
+    router.push("/");
   };
-
   const [guestList, setguestList] = useState({
     adult: 1,
     child: 0,
     infants: 0,
     pets: 0,
   });
+  
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      let guests = localStorage.getItem("guests");
+      if (typeof guests === "string") {
+        try {
+          setguestList(JSON.parse(guests));
+        } catch (error) {
+          console.error("Error parsing tokenData:", error);
+        }
+      }
+    }
+  }, []);
+  
 
   return (
     <div className="pt-10 pb-10">
@@ -101,7 +115,7 @@ const ConfirmPay = () => {
             <div>
               <p className="font-medium ">Guests</p>
               <p className="font-normal text-textprimary text-sm pt-1">
-                1 guest
+              {`${guestList?.adult + guestList?.child} guests,`} {guestList?.infants>0 &&  ` ${guestList?.infants} infant,`}{guestList?.pets>0 &&  ` ${guestList?.pets} pet`}
               </p>
             </div>
 
@@ -123,13 +137,22 @@ const ConfirmPay = () => {
             <div className="border-2 border-slate-500 mt-4 rounded-md">
               <div className="flex justify-between p-4 ">
                 <div>
-                  <p className=" font-medium">Pay in full</p>
+                  <p className=" font-medium">Pay in partial</p>
                   <p className="text-sm text-textprimary">
                     Pay the total ($1,580.70).
                   </p>
                 </div>
+
                 <div>
-                  <Radio></Radio>
+                  <Radio
+                    onClick={() => {
+                      setIsactive({
+                        partialpayment: true,
+                        fullpayment: false,
+                      });
+                    }}
+                    checked={isActive?.partialpayment}
+                  ></Radio>
                 </div>
               </div>
 
@@ -141,7 +164,15 @@ const ConfirmPay = () => {
                   </p>
                 </div>
                 <div>
-                  <Radio></Radio>
+                  <Radio
+                    onClick={() => {
+                      setIsactive({
+                        partialpayment: false,
+                        fullpayment: true,
+                      });
+                    }}
+                    checked={isActive?.fullpayment}
+                  ></Radio>
                 </div>
               </div>
             </div>
@@ -159,28 +190,26 @@ const ConfirmPay = () => {
                 </div>
               </div>
               <form onSubmit={handelClick}>
-              <div className="w-full ">
-               
+                <div className="w-full ">
                   <Checkout setCheckout={setCheckout} checkout={checkout} />
-                
-              </div>
+                </div>
 
-              <div className="pt-8 border-b-[1px] border-slate-300"></div>
-              <div>
-                <Policy />
-              </div>
+                <div className="pt-8 border-b-[1px] border-slate-300"></div>
+                <div>
+                  <Policy />
+                </div>
 
-              <div className="flex justify-start pt-4">
-                <CommonButton
-                  bg={"secondary"}
-                  width={"40%"}
-                  height={"12"}
-                  // onClick={handelClick}
-                  type="submit"
-                >
-                  Confirm and pay
-                </CommonButton>
-              </div>
+                <div className="flex justify-start pt-4">
+                  <CommonButton
+                    bg={"secondary"}
+                    width={"40%"}
+                    height={"12"}
+                    // onClick={handelClick}
+                    type="submit"
+                  >
+                    Confirm and pay
+                  </CommonButton>
+                </div>
               </form>
 
               <div></div>
@@ -241,7 +270,7 @@ const ConfirmPay = () => {
                     guestList.adult === 0 ? "cursor-not-allowed" : ""
                   }`}
                   onClick={() => {
-                    if (guestList?.adult > 0) {
+                    if (guestList?.adult > 1) {
                       setguestList({
                         ...guestList,
                         adult: guestList.adult - 1,

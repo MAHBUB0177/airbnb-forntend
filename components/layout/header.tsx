@@ -190,7 +190,7 @@ const Header = () => {
           </div>
 
           <div className="flex flex-row gap-2">
-            <p className="hidden lg:block pt-3 font-medium dark:text-white">
+            <p className="hidden lg:block pt-3 font-medium ">
               Airbnb your home{" "}
             </p>
             <div

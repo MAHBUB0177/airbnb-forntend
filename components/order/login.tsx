@@ -11,7 +11,15 @@ import { FcGoogle } from "react-icons/fc";
 import { MdOutlineMail } from "react-icons/md";
 import CommonButton from "../common/cummonbutton";
 
-const Login = () => {
+// interface GuestListState {
+//   adult: number;
+//   child: number;
+//   infants: number;
+//   pets: number;
+// }
+
+const Login = ({guestlist}:any) => {
+  console.log(guestlist,'+++++++++guestlist')
  const [token,setToken]=useState(false)
  const router=useRouter()
 
@@ -36,6 +44,7 @@ const Login = () => {
          if (response?.data) {
            message.success('User Successfully Logged In')
            setToken(true)
+           localStorage.setItem('guests',JSON.stringify(guestlist))
            localStorage.setItem("token", JSON.stringify(response?.data));
            localStorage.setItem("status", JSON.stringify(true));
            router.push('/confirm')
