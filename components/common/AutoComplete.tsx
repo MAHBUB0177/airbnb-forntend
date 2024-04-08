@@ -34,10 +34,8 @@ interface AutoCompleteProps {
   selectRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 const AutoComplete = ({ selectChange,selectRef, destination}: AutoCompleteProps) => {
-  const[selecChange,setSelectChnage]=useState('0001')
-  console.log(selecChange,'+++++++++++++++++++++++++selecChange++++++')
   return (
-    <div className="text-textprimary text-sm leading-0 py-0"  ref={selectRef}>
+    <div className="text-textprimary text-sm leading-0 py-0 cursor-pointer"  ref={selectRef}>
       <Select
      
       size="large"
@@ -51,7 +49,7 @@ const AutoComplete = ({ selectChange,selectRef, destination}: AutoCompleteProps)
       }}
       placeholder="Select Destination"
       onChange={selectChange}
-      optionFilterProp="children"
+      // optionFilterProp="children"
       filterOption={(input, option) =>
         ((option?.label ?? "").toLowerCase()).includes(input.toLowerCase())
       }

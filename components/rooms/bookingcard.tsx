@@ -7,6 +7,7 @@ import { Button } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
+import GuestCount from "../common/guestCount";
 
 const Bookingcard = () => {
   const router = useRouter();
@@ -17,6 +18,7 @@ const Bookingcard = () => {
     infants: 0,
     pets: 0,
   });
+  console.log(guestList,'guestList+++++++++++++++')
 
   interface TokenData {
     id: number;
@@ -28,20 +30,49 @@ const Bookingcard = () => {
     image: string;
     token: string;
   }
+
+  interface PayloadProps {
+    guestList: {
+        adult: number;
+        child: number;
+        infants: number;
+        pets: number;
+    };
+    checkIn: string;
+    checkOut: string;
+    destination: string;
+}
   const [tokenData, setTokendata] = useState<TokenData | null>(null);
+  const[payload,setPayload]=useState<PayloadProps | null>(null)
+  console.log(payload,'payload++++++++++++++')
+  
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       let data = localStorage.getItem("token");
-      if (typeof data === "string") {
+      let guests = localStorage.getItem("guests");
+      let payloadData = localStorage.getItem("payload");
+      if (typeof data === "string" && typeof guests === "string" && typeof payloadData === "string" ) {
         try {
           setTokendata(JSON.parse(data));
+          setguestList(JSON.parse(guests));
+          setPayload(JSON.parse(payloadData))
+          
         } catch (error) {
           console.error("Error parsing tokenData:", error);
         }
       }
     }
+
+    
   }, []);
+
+  // useEffect(()=>{
+  //   if(payload){
+  //     setguestList(payload?.guestList)
+  //   }
+  // },[payload])
+
   const handelClick = () => {
     localStorage.setItem('guests',JSON.stringify(guestList))
     {
@@ -63,12 +94,12 @@ const Bookingcard = () => {
             <div className="flex w-full ">
               <div className="border-r-[1px] border-slate-400 w-1/2 p-[6px] text-xs ">
                 <p className="font-medium">CHECK-IN</p>
-                <p>3/17/24</p>
+                <p>{payload?.checkIn}</p>
               </div>
 
               <div className=" w-1/2  p-[6px] text-xs">
                 <p className="font-medium">CHECKOUT</p>
-                <p>3/17/24</p>
+                <p>{payload?.checkOut}</p>
               </div>
             </div>
 
@@ -78,7 +109,7 @@ const Bookingcard = () => {
             >
               <div>
                 <p className="font-medium">Guests</p>
-                <p>{`${guestList?.adult + guestList?.child} guests,`} {guestList?.infants>0 &&  ` ${guestList?.infants} infant,`}{guestList?.pets>0 &&  ` ${guestList?.pets} pet`}</p>
+                <p> {`${ guestList?.adult > 1 ? guestList?.adult + guestList?.child : 1} guests,`} {guestList?.infants>0 &&  ` ${guestList?.infants} infant,`}{guestList?.pets>0 &&  ` ${guestList?.pets} pet`}</p>
               </div>
 
               <FaChevronDown className="pt-[12px] h-7 w-7" />
@@ -96,156 +127,13 @@ const Bookingcard = () => {
           </div>
         </div>
 
-        <div className="absolute z-50 mt-[-60px]">
+        <div className="absolute z-50 mt-[-60px] ">
           {show && (
             <div className="w-auto bg-white border-2 border-slate-100 rounded-md shadow-md p-2 mx-5 ">
-              <p className="text-sm ">
-                This place has a maximum of 10 guests, not including infants.
-                Pets aren't allowed.
-              </p>
-              {/* //adults */}
-              <div className="flex justify-between py-2 ">
-                <div>
-                  <p className="leading-normal font-medium">Adults</p>
-                  <p className="leading-normal font-normal text-textprimary">
-                    Ages 13 or above
-                  </p>
-                </div>
-                <div className="flex justify-between gap-2">
-                  <CiCircleMinus
-                    className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
-                      guestList.adult === 0 ? "cursor-not-allowed" : ""
-                    }`}
-                    onClick={() => {
-                      if (guestList?.adult > 1) {
-                        setguestList({
-                          ...guestList,
-                          adult: guestList.adult - 1,
-                        });
-                      }
-                    }}
-                  />
-                  <p>{guestList.adult}</p>
-                  <CiCirclePlus
-                    className="text-textprimary h-[30px] w-[30px] cursor-pointer"
-                    onClick={() =>
-                      setguestList({
-                        ...guestList,
-                        adult: guestList.adult + 1,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              {/* //child */}
-              <div className="flex justify-between py-2 ">
-                <div>
-                  <p className=" font-medium">Children</p>
-                  <p className=" font-normal text-textprimary">Ages 2–12</p>
-                </div>
-                <div className="flex justify-between gap-2">
-                  <CiCircleMinus
-                    className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
-                      guestList.child === 0 ? "cursor-not-allowed" : ""
-                    }`}
-                    onClick={() => {
-                      if (guestList?.child > 0) {
-                        setguestList({
-                          ...guestList,
-                          child: guestList.child - 1,
-                        });
-                      }
-                    }}
-                  />
-                  <p>{guestList.child}</p>
-                  <CiCirclePlus
-                    className="text-textprimary h-[30px] w-[30px] cursor-pointer"
-                    onClick={() =>
-                      setguestList({
-                        ...guestList,
-                        child: guestList.child + 1,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              {/* //infants */}
-              <div className="flex justify-between py-2">
-                <div>
-                  <p className=" font-medium">Infants</p>
-                  <p className=" font-normal text-textprimary">Under 2</p>
-                </div>
-                <div className="flex justify-between gap-2">
-                  <CiCircleMinus
-                    className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
-                      guestList.infants === 0 ? "cursor-not-allowed" : ""
-                    }`}
-                    onClick={() => {
-                      if (guestList?.infants > 0) {
-                        setguestList({
-                          ...guestList,
-                          infants: guestList.infants - 1,
-                        });
-                      }
-                    }}
-                  />
-                  <p>{guestList.infants}</p>
-                  <CiCirclePlus
-                    className="text-textprimary h-[30px] w-[30px] cursor-pointer"
-                    onClick={() =>
-                      setguestList({
-                        ...guestList,
-                        infants: guestList.infants + 1,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-              {/* //pets */}
-              <div className="flex justify-between py-2">
-                <div>
-                  <p className=" font-medium">Pets</p>
-                  <p className=" font-medium text-textprimary underline">
-                    Bringing a service animal?
-                  </p>
-                </div>
-                <div className="flex justify-between gap-2">
-                  <CiCircleMinus
-                    className={`text-textprimary cursor-pointer h-[30px] w-[30px] ${
-                      guestList.pets === 0 ? "cursor-not-allowed" : ""
-                    }`}
-                    onClick={() => {
-                      if (guestList?.pets > 0) {
-                        setguestList({
-                          ...guestList,
-                          pets: guestList.pets - 1,
-                        });
-                      }
-                    }}
-                  />
-                  <p>{guestList.pets}</p>
-                  <CiCirclePlus
-                    className="text-textprimary h-[30px] w-[30px] cursor-pointer"
-                    onClick={() =>
-                      setguestList({
-                        ...guestList,
-                        pets: guestList.pets + 1,
-                      })
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="flex justify-end">
-                <p
-                  className=" bg-slate-200 rounded-md w-[60px] p-1 flex justify-center cursor-pointer"
-                  onClick={() => setShow(!show)}
-                >
-                  {" "}
-                  close
-                </p>
-              </div>
+            
+              <GuestCount setguestList={setguestList} guestList={guestList} width="auto" setShow={setShow}/>
             </div>
+            
           )}
         </div>
       </div>

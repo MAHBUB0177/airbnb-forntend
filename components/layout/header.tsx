@@ -6,7 +6,7 @@ import { FaApple, FaUserCircle } from "react-icons/fa";
 import { IoMenuSharp, IoSearchOutline } from "react-icons/io5";
 import SearchCard from "@/pages/search/searchCard";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CommonModal from "../common/commonmodal";
 import { FaSquareFacebook } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
@@ -14,6 +14,7 @@ import { MdOutlineMail } from "react-icons/md";
 import CommonButton from "../common/cummonbutton";
 import { message } from "antd";
 import axios from "axios";
+import { redirect } from 'next/navigation'
 
 const BeforeMenuList = [
   { path: "", title: "Log In" },
@@ -33,6 +34,8 @@ const AfterMenuList = [
 
 const Header = () => {
   const pathname = usePathname();
+  const router=useRouter()
+
   const [isShow, setIsshow] = useState(false);
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
@@ -118,14 +121,23 @@ const Header = () => {
     if (title === "Sign Up" || title === "Log In") {
       setIsModalOpen(true);
     } else if (title === "Logout") {
-      localStorage.setItem("token", JSON.stringify({}));
-      setActive(false);
-      localStorage.setItem("status", JSON.stringify(false))
+      handelLogout()
+      
     } else {
       setIsModalOpen(false);
     }
   };
 
+  const handelLogout=()=>{
+    console.log('call lagout function')
+    localStorage.setItem("token", JSON.stringify({}));
+    setActive(false);
+    localStorage.setItem("status", JSON.stringify(false))
+    // router.push('/giftcard')
+    window.location.href = '/';
+    localStorage.setItem("payload", JSON.stringify({}));
+    localStorage.setItem('guests',JSON.stringify({}))
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const LoginNow = async () => {
@@ -158,17 +170,22 @@ const Header = () => {
       });
   };
 
+  const handelClick=()=>{
+    window.location.href = '/';
+    localStorage.setItem("payload", JSON.stringify({}));
+  }
+
   return (
     <>
       {/* dark:bg-orange-300 */}
       <div className="bg-primary  w-full z-50 fixed shadow-sm ">
         <div
-          className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-10  md:py-2  ${
-            pathname == "/rooms" ? " xl:px-[185px]" : " lg:px-20"
+          className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-2  md:py-2  ${
+            pathname == "/rooms" ? " xl:px-[185px]" : " xl:px-20"
           }`}
         >
-          <Link href={"/"}>
-            <div className="flex gap-1">
+          {/* <Link href={"/"}> */}
+            <div className="flex gap-1 cursor-pointer" onClick={handelClick}>
               <Image
                 src={airbnb_logo}
                 alt="airbnb_logo"
@@ -179,7 +196,8 @@ const Header = () => {
                 airbnb
               </p>
             </div>
-          </Link>
+          {/* </Link> */}
+          
 
           <div ref={cardRef}>
             <SearchCard

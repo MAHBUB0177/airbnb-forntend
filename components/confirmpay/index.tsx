@@ -14,6 +14,7 @@ import CommonModal from "../common/commonmodal";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import CommonButton from "../common/cummonbutton";
+import GuestCount from "../common/guestCount";
 
 const ConfirmPay = () => {
   //modal open part
@@ -251,12 +252,12 @@ const ConfirmPay = () => {
           onCancel={() => _onSubModelCancel(false)}
           width={"900px"}
         >
-          <div className="w-[500px]">
+          {/* <div className="w-[500px]">
             <p className="text-sm ">
               This place has a maximum of 10 guests, not including infants. Pets
               aren't allowed.
             </p>
-            {/* //adults */}
+            
             <div className="flex justify-between py-2 ">
               <div>
                 <p className="leading-normal font-medium">Adults</p>
@@ -290,7 +291,7 @@ const ConfirmPay = () => {
                 />
               </div>
             </div>
-            {/* //child */}
+            
             <div className="flex justify-between py-2 ">
               <div>
                 <p className=" font-medium">Children</p>
@@ -322,7 +323,7 @@ const ConfirmPay = () => {
                 />
               </div>
             </div>
-            {/* //infants */}
+           
             <div className="flex justify-between py-2">
               <div>
                 <p className=" font-medium">Infants</p>
@@ -354,7 +355,7 @@ const ConfirmPay = () => {
                 />
               </div>
             </div>
-            {/* //pets */}
+         
             <div className="flex justify-between py-2">
               <div>
                 <p className=" font-medium">Pets</p>
@@ -388,7 +389,9 @@ const ConfirmPay = () => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
+
+          <GuestCount setguestList={setguestList} guestList={guestList} width={'500px'} />
         </CommonModal>
       </div>
     </div>
