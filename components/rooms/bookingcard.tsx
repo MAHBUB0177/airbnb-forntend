@@ -67,11 +67,8 @@ const Bookingcard = () => {
     
   }, []);
 
-  // useEffect(()=>{
-  //   if(payload){
-  //     setguestList(payload?.guestList)
-  //   }
-  // },[payload])
+  
+
 
   const handelClick = () => {
     localStorage.setItem('guests',JSON.stringify(guestList))
