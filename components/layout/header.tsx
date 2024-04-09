@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import airbnb_logo from "../../assets/images/logo/airbnb-logo.png";
 import Image from "next/image";
 import { FaApple, FaUserCircle } from "react-icons/fa";
-import { IoMenuSharp, IoSearchOutline } from "react-icons/io5";
+import { IoMenuSharp } from "react-icons/io5";
 import SearchCard from "@/pages/search/searchCard";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -14,7 +14,9 @@ import { MdOutlineMail } from "react-icons/md";
 import CommonButton from "../common/cummonbutton";
 import { message } from "antd";
 import axios from "axios";
-import { redirect } from 'next/navigation'
+import { useDispatch, useSelector } from "react-redux";
+import { setAuth, setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
+import { RootState } from "@/redux/store";
 
 const BeforeMenuList = [
   { path: "", title: "Log In" },
@@ -34,8 +36,6 @@ const AfterMenuList = [
 
 const Header = () => {
   const pathname = usePathname();
-  const router=useRouter()
-
   const [isShow, setIsshow] = useState(false);
   const [darkMode, setDarkMode] = useState<boolean>(false);
 
@@ -50,38 +50,12 @@ const Header = () => {
     setIsModalOpen(false);
   };
 
-  interface TokenData {
-    id: number;
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    gender: string;
-    image: string;
-    token: string;
-  }
-  const [tokenData, setTokendata] = useState<TokenData | null>(null);
-  const [active, setActive] = useState(false);
-  let isLoggedIn 
-  if (typeof window !== 'undefined' ) {
- isLoggedIn = localStorage.getItem("status");
-  }
+  // // set auth data
+  const dispatch = useDispatch();
+  const authData = useSelector((state: RootState) => state.auth?.authData);
+  console.log(authData,'authData++++++++++')
 
 
- 
-  useEffect(() => {
-    let value;
-    if (typeof window !== "undefined") {
-      value = localStorage.getItem("token");
-    }
-    if (typeof value === "string") {
-      try {
-        setTokendata(JSON.parse(value));
-      } catch (error) {
-        console.error("Error parsing tokenData:", error);
-      }
-    }
-  }, [active,isLoggedIn]);
 
 
   useEffect(() => {
@@ -113,9 +87,7 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    localStorage.setItem("status", JSON.stringify(false))
-  }, []);
+  
 
   const handleItemClick = (title: string) => {
     if (title === "Sign Up" || title === "Log In") {
@@ -128,15 +100,21 @@ const Header = () => {
     }
   };
 
+  const router = useRouter();
+
   const handelLogout=()=>{
     console.log('call lagout function')
-    localStorage.setItem("token", JSON.stringify({}));
-    setActive(false);
-    localStorage.setItem("status", JSON.stringify(false))
-    // router.push('/giftcard')
+    dispatch(setAuth({}));
+    dispatch(setSearchData({
+      adult: 0,
+      child: 0,
+      infants: 0,
+      pets: 0,
+    }));
+    dispatch(setPaylodData({}));
     window.location.href = '/';
-    localStorage.setItem("payload", JSON.stringify({}));
-    localStorage.setItem('guests',JSON.stringify({}))
+   
+   
   }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -158,9 +136,7 @@ const Header = () => {
         if (response?.data) {
           message.success("User Successfully Logged In");
           setIsModalOpen(false);
-          setActive(true);
-          localStorage.setItem("token", JSON.stringify(response?.data));
-          localStorage.setItem("status", JSON.stringify(true))
+          dispatch(setAuth(response?.data));
         }
         console.log(response.data);
       })
@@ -171,8 +147,15 @@ const Header = () => {
   };
 
   const handelClick=()=>{
-    window.location.href = '/';
-    localStorage.setItem("payload", JSON.stringify({}));
+      dispatch(setSearchData({
+        adult: 0,
+        child: 0,
+        infants: 0,
+        pets: 0,
+      }));
+    dispatch(setPaylodData({}));
+    router.push('/')
+  
   }
 
   return (
@@ -223,10 +206,10 @@ const Header = () => {
               <IoMenuSharp
                 style={{ height: "25px", width: "25px", paddingTop: "5px" }}
               />
-              {tokenData?.token ? (
+              {authData?.token ? (
                 <>
                   <p className="flex justify-center items-center text-normal h-[30px] w-[30px] font-semibold rounded-full bg-black text-white">
-                    {tokenData?.firstName?.charAt(0)}
+                    {authData?.firstName?.charAt(0)}
                   </p>{" "}
                 </>
               ) : (
@@ -247,7 +230,7 @@ const Header = () => {
           
 
           {
-             tokenData?.token ? <>
+             authData?.token ? <>
                   {AfterMenuList.map((item, i) => (
             <Link href={item?.path} key={i}>
               <p

@@ -6,6 +6,8 @@ import Login from "./login";
 import Reviewcard from "./reviewcard";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import CommonModal from "../common/commonmodal";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 interface Token {
   accessToken: string;
   // Add other fields if any
@@ -13,7 +15,8 @@ interface Token {
 
 
 const OrderPage = () => {
-
+  const searchData = useSelector((state: RootState) => state.auth?.searchData);
+  const payload = useSelector((state: RootState) => state.auth?.payloadData);
  //modal open part
  const [isModalOpen, setIsModalOpen] = useState(false);
  const _handleCancel = () => {
@@ -34,25 +37,9 @@ const OrderPage = () => {
   infants: 0,
   pets: 0,
 });
-
-useEffect(() => {
-  if (typeof window !== "undefined") {
-    let guests = localStorage.getItem("guests");
-    if (typeof guests === "string") {
-      try {
-        setguestList(JSON.parse(guests));
-      } catch (error) {
-        console.error("Error parsing tokenData:", error);
-      }
-    }
-  }
-}, []);
-
-// useEffect(()=>{
-//   localStorage.setItem('guests',JSON.stringify(guestList))
-// },[guestList])
-
-
+useEffect(()=>{
+  setguestList(searchData)
+},[searchData])
 
 
   return (

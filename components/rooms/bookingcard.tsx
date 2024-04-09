@@ -8,72 +8,36 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import GuestCount from "../common/guestCount";
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchData } from "@/redux/reducer/authReducer";
 
 const Bookingcard = () => {
+  const dispatch = useDispatch();
+  const searchData = useSelector((state: RootState) => state.auth?.searchData);
+  const payload = useSelector((state: RootState) => state.auth?.payloadData);
+  const authData = useSelector((state: RootState) => state.auth?.authData);
+  console.log(searchData,'searchData+++++++++++',payload)
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [guestList, setguestList] = useState({
-    adult: 1,
+    adult: 0,
     child: 0,
     infants: 0,
     pets: 0,
   });
   console.log(guestList,'guestList+++++++++++++++')
 
-  interface TokenData {
-    id: number;
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    gender: string;
-    image: string;
-    token: string;
-  }
-
-  interface PayloadProps {
-    guestList: {
-        adult: number;
-        child: number;
-        infants: number;
-        pets: number;
-    };
-    checkIn: string;
-    checkOut: string;
-    destination: string;
-}
-  const [tokenData, setTokendata] = useState<TokenData | null>(null);
-  const[payload,setPayload]=useState<PayloadProps | null>(null)
-  console.log(payload,'payload++++++++++++++')
-  
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let data = localStorage.getItem("token");
-      let guests = localStorage.getItem("guests");
-      let payloadData = localStorage.getItem("payload");
-      if (typeof data === "string" && typeof guests === "string" && typeof payloadData === "string" ) {
-        try {
-          setTokendata(JSON.parse(data));
-          setguestList(JSON.parse(guests));
-          setPayload(JSON.parse(payloadData))
-          
-        } catch (error) {
-          console.error("Error parsing tokenData:", error);
-        }
-      }
-    }
-
-    
-  }, []);
-
-  
+  useEffect(()=>{
+    setguestList(searchData)
+  },[searchData])
 
 
   const handelClick = () => {
-    localStorage.setItem('guests',JSON.stringify(guestList))
+   
+    dispatch(setSearchData(guestList))
     {
-      tokenData?.token ? router.push("/confirm") : router.push("/orders");
+      authData?.token ? router.push("/confirm") : router.push("/orders");
     }
   };
   return (
@@ -106,7 +70,7 @@ const Bookingcard = () => {
             >
               <div>
                 <p className="font-medium">Guests</p>
-                <p> {`${ guestList?.adult > 1 ? guestList?.adult + guestList?.child : 1} guests,`} {guestList?.infants>0 &&  ` ${guestList?.infants} infant,`}{guestList?.pets>0 &&  ` ${guestList?.pets} pet`}</p>
+                <p> {`${ guestList?.adult >= 1 ? guestList?.adult + guestList?.child : 1} guests,`} {guestList?.infants>0 &&  ` ${guestList?.infants} infant,`}{guestList?.pets>0 &&  ` ${guestList?.pets} pet`}</p>
               </div>
 
               <FaChevronDown className="pt-[12px] h-7 w-7" />

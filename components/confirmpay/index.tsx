@@ -15,8 +15,12 @@ import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import { useRouter } from "next/navigation";
 import CommonButton from "../common/cummonbutton";
 import GuestCount from "../common/guestCount";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 
 const ConfirmPay = () => {
+  const searchData = useSelector((state: RootState) => state.auth?.searchData);
   //modal open part
   const [isModalOpen, setIsModalOpen] = useState(false);
   const _handleCancel = () => {
@@ -32,6 +36,8 @@ const ConfirmPay = () => {
 
   //form submit
   const router = useRouter();
+   // // set auth data
+   const dispatch = useDispatch();
 
 
   const [isActive, setIsactive] = useState({
@@ -53,28 +59,27 @@ const ConfirmPay = () => {
 
   const handelClick = (event: any) => {
     event.preventDefault();
+    dispatch(setSearchData({
+      adult: 0,
+      child: 0,
+      infants: 0,
+      pets: 0,
+    }));
+    dispatch(setPaylodData({}));
     message.success("Successfully booking");
     router.push("/");
   };
   const [guestList, setguestList] = useState({
-    adult: 1,
+    adult: 0,
     child: 0,
     infants: 0,
     pets: 0,
   });
+  useEffect(()=>{
+    setguestList(searchData)
+  },[searchData])
   
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      let guests = localStorage.getItem("guests");
-      if (typeof guests === "string") {
-        try {
-          setguestList(JSON.parse(guests));
-        } catch (error) {
-          console.error("Error parsing tokenData:", error);
-        }
-      }
-    }
-  }, []);
+ 
   
 
   return (

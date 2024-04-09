@@ -10,15 +10,13 @@ import { FaSquareFacebook } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { MdOutlineMail } from "react-icons/md";
 import CommonButton from "../common/cummonbutton";
+import { setAuth, setSearchData } from "@/redux/reducer/authReducer";
+import { useDispatch } from "react-redux";
 
-// interface GuestListState {
-//   adult: number;
-//   child: number;
-//   infants: number;
-//   pets: number;
-// }
+
 
 const Login = ({guestlist}:any) => {
+  const dispatch = useDispatch();
   console.log(guestlist,'+++++++++guestlist')
  const [token,setToken]=useState(false)
  const router=useRouter()
@@ -44,9 +42,8 @@ const Login = ({guestlist}:any) => {
          if (response?.data) {
            message.success('User Successfully Logged In')
            setToken(true)
-           localStorage.setItem('guests',JSON.stringify(guestlist))
-           localStorage.setItem("token", JSON.stringify(response?.data));
-           localStorage.setItem("status", JSON.stringify(true));
+           dispatch(setAuth(response?.data));
+           dispatch(setSearchData(guestlist))
            router.push('/confirm')
    
          }

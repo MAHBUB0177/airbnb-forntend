@@ -6,6 +6,9 @@ import { IoSearchOutline } from "react-icons/io5";
 import AutoComplete from "@/components/common/AutoComplete";
 import GuestCount from "@/components/common/guestCount";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
+import { RootState } from "@/redux/store";
 
 interface SearchCardProps {
   change: boolean;
@@ -13,6 +16,7 @@ interface SearchCardProps {
   selectRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
+  const searchData = useSelector((state: RootState) => state.auth?.searchData);
   const router = useRouter();
   const divRef = useRef<HTMLDivElement | null>(null);
   const countRef = useRef<HTMLDivElement | null>(null);
@@ -26,12 +30,17 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
 
   console.log(checkInDate, checkOutDate, "++++++++++++++++");
 
+
+  const dispatch = useDispatch();
   const [guestList, setguestList] = useState({
     adult: 0,
     child: 0,
     infants: 0,
     pets: 0,
   });
+  useEffect(()=>{
+    setguestList(searchData)
+  },[searchData])
 
   const selectChange = (value: string) => {
     setDestination(value);
@@ -84,8 +93,9 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
       return message.error("Please select destination");
     } else {
       setChange(false);
-      localStorage.setItem("guests", JSON.stringify(guestList));
-      localStorage.setItem("payload", JSON.stringify(payload));
+      dispatch(setSearchData(guestList))
+      dispatch(setPaylodData(payload))
+
       router.push("/rooms");
     }
   };
