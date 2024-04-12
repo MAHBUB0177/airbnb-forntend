@@ -14,6 +14,7 @@ const CommonButton = ({ children, bg, type, width, height, onClick }: CommonButt
   return (
     <div>
       <button
+      // style={{ width: width ? width : 'auto' }} 
         type={type ? type : 'button'} // Set the type attribute based on the prop, defaulting to 'button'
         className={`bg-${bg} ${height ? `h-${height}` : 'h-auto'} ${width ? `w-${width}` : 'w-auto'}  text-white p-3 font-semibold hover:none rounded-md`}
         onClick={onClick} // Add onClick event handler to the button

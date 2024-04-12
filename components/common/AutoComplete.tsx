@@ -4,23 +4,23 @@ import React, { useState } from "react";
 const options=[
     {
       value: '1',
-      label: 'Not Identified',
+      label: 'Southeast Asia',
     },
     {
       value: '2',
-      label: 'Closed',
+      label: 'Europe',
     },
     {
       value: '3',
-      label: 'Communicated',
+      label: 'Canada',
     },
     {
       value: '4',
-      label: 'Identified',
+      label: 'Middle East',
     },
     {
       value: '5',
-      label: 'Resolved',
+      label: 'Thailand',
     },
     {
       value: '6',
@@ -49,7 +49,6 @@ const AutoComplete = ({ selectChange,selectRef, destination}: AutoCompleteProps)
       }}
       placeholder="Select Destination"
       onChange={selectChange}
-      // optionFilterProp="children"
       filterOption={(input, option) =>
         ((option?.label ?? "").toLowerCase()).includes(input.toLowerCase())
       }

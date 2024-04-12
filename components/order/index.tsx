@@ -8,11 +8,16 @@ import { CiCircleMinus, CiCirclePlus } from "react-icons/ci";
 import CommonModal from "../common/commonmodal";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import moment from "moment";
 interface Token {
   accessToken: string;
   // Add other fields if any
 }
 
+// Get the current date
+var currentDate = new Date();
+var fourDaysLater = new Date();
+fourDaysLater.setDate(fourDaysLater.getDate() + 4);
 
 const OrderPage = () => {
   const searchData = useSelector((state: RootState) => state.auth?.searchData);
@@ -48,7 +53,7 @@ useEffect(()=>{
         <p className="hover:bg-[#F7F7F7] hover:rounded-full p-3">
           <GoChevronLeft className="h-[25px] w-[25px]" />
         </p>
-        <p className="text-3xl font-semibold">Confirm and pay</p>
+        <p className="text-3xl font-semibold">Request to book</p>
       </div>
 
       <div className="flex flex-col-reverse  md:flex-row justify-between gap-5 w-full">
@@ -58,11 +63,15 @@ useEffect(()=>{
             <div>
               <p className="font-medium ">Dates</p>
               <p className="font-normal text-textprimary text-sm pt-1">
-                Apr 1-6
+              {payload?.checkIn
+                    ?  moment(payload?.checkIn).format("MMM D")
+                    : moment(currentDate).format("MMM D")} -  {payload?.checkOut
+                      ?  moment(payload?.checkOut).format("D")
+                      : moment(fourDaysLater).format("D")}
               </p>
             </div>
 
-            <div className="font-medium underline cursor-pointer">Edit</div>
+            <div className="font-medium underline  disabled" >Edit</div>
           </div>
 
           <div className="flex justify-between pt-5 ">

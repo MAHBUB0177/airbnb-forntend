@@ -11,31 +11,40 @@ import GuestCount from "../common/guestCount";
 import { RootState } from "@/redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setSearchData } from "@/redux/reducer/authReducer";
+import moment from "moment";
+
+
+// Get the current date
+var currentDate = new Date();
+var fourDaysLater = new Date();
+fourDaysLater.setDate(fourDaysLater.getDate() + 4);
 
 const Bookingcard = () => {
   const dispatch = useDispatch();
   const searchData = useSelector((state: RootState) => state.auth?.searchData);
   const payload = useSelector((state: RootState) => state.auth?.payloadData);
   const authData = useSelector((state: RootState) => state.auth?.authData);
-  console.log(searchData,'searchData+++++++++++',payload)
+  // console.log(searchData, "searchData+++++++++++", payload);
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [guestList, setguestList] = useState({
-    adult: 0,
+    adult: 1,
     child: 0,
     infants: 0,
     pets: 0,
   });
-  console.log(guestList,'guestList+++++++++++++++')
+  // console.log(guestList,'guestList+++++++++++++++')
 
-  useEffect(()=>{
-    setguestList(searchData)
-  },[searchData])
+  useEffect(() => {
+    if (searchData?.adult >= 1) {
+      setguestList(searchData);
+    }
+  }, [searchData]);
 
+  
 
   const handelClick = () => {
-   
-    dispatch(setSearchData(guestList))
+    dispatch(setSearchData(guestList));
     {
       authData?.token ? router.push("/confirm") : router.push("/orders");
     }
@@ -43,7 +52,6 @@ const Bookingcard = () => {
   return (
     <div className="w-full top-20 sticky">
       <div className="relative bg-primary shadow-xl h-auto border-[1px] border-slate-300 rounded-xl   pb-5 ">
-        
         <div>
           <div className=" pt-4 px-5  flex gap-2">
             {" "}
@@ -55,12 +63,20 @@ const Bookingcard = () => {
             <div className="flex w-full ">
               <div className="border-r-[1px] border-slate-400 w-1/2 p-[6px] text-xs ">
                 <p className="font-medium">CHECK-IN</p>
-                <p>{payload?.checkIn}</p>
+                <p>
+                  {payload?.checkIn
+                    ? payload?.checkIn
+                    : moment(currentDate).format("YYYY-MM-DD")}
+                </p>
               </div>
 
               <div className=" w-1/2  p-[6px] text-xs">
                 <p className="font-medium">CHECKOUT</p>
-                <p>{payload?.checkOut}</p>
+                <p>
+                  {payload?.checkOut
+                    ? payload?.checkOut
+                    : moment(fourDaysLater).format("YYYY-MM-DD")}
+                </p>
               </div>
             </div>
 
@@ -70,7 +86,12 @@ const Bookingcard = () => {
             >
               <div>
                 <p className="font-medium">Guests</p>
-                <p> {`${ guestList?.adult >= 1 ? guestList?.adult + guestList?.child : 1} guests,`} {guestList?.infants>0 &&  ` ${guestList?.infants} infant,`}{guestList?.pets>0 &&  ` ${guestList?.pets} pet`}</p>
+                <p>
+                  {" "}
+                  {`${guestList?.adult + guestList?.child} guests,`}{" "}
+                  {guestList?.infants > 0 && ` ${guestList?.infants} infant,`}
+                  {guestList?.pets > 0 && ` ${guestList?.pets} pet`}
+                </p>
               </div>
 
               <FaChevronDown className="pt-[12px] h-7 w-7" />
@@ -85,16 +106,43 @@ const Bookingcard = () => {
             >
               Reserve
             </button>
+           
+          </div>
+          <div className="px-4">
+            <p className="text-sm  pt-4 pb-4 flex justify-center items-center">
+              You won't be charged yet
+            </p>
+            <div className="text-sm  pt-2 flex justify-between ">
+              <p>$25.00 x 5 nights</p>
+              <p>$125.00</p>
+            </div>
+            <div className="text-sm   pt-2 flex justify-between ">
+              <p className="underline">Cleaning fee</p>
+              <p>$5.00</p>
+            </div>
+            <div className="text-sm   pt-2 flex justify-between ">
+              <p className="underline">Airbnb service fee</p>
+              <p>$18.35</p>
+            </div>
+
+            <div className="mt-5 border-t-[1px]   border-slate-300"></div>
+            <div className="text-sm font-medium   pt-2 flex justify-between ">
+              <p>Total (USD)</p>
+              <p>$148.35</p>
+            </div>
           </div>
         </div>
 
-        <div className="absolute z-50 mt-[-60px] ">
+        <div className="absolute z-50 mt-[-180px] ">
           {show && (
             <div className="w-auto bg-white border-2 border-slate-100 rounded-md shadow-md p-2 mx-5 ">
-            
-              <GuestCount setguestList={setguestList} guestList={guestList} width="auto" setShow={setShow}/>
+              <GuestCount
+                setguestList={setguestList}
+                guestList={guestList}
+                width="auto"
+                setShow={setShow}
+              />
             </div>
-            
           )}
         </div>
       </div>

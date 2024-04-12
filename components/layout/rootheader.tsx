@@ -15,7 +15,7 @@ const Rootheader = () => {
   const pathname = usePathname();
   return (
     <div>
-      {pathname == "/giftcard" ? (
+      {pathname == "/giftcard" || pathname == "/helpCenter"   ? (
         <>
           <CommonHeader
             title1={"airbnb"}

@@ -23,7 +23,7 @@ const BeforeMenuList = [
   { path: "", title: "Sign Up" },
   { path: "/giftcard", title: "Gift Card" },
   { path: "/airbnbhome", title: "Airbnb Your Home" },
-  { path: "", title: "Hepl Center" },
+  { path: "/helpCenter", title: "Hepl Center" },
 ];
 
 const AfterMenuList = [
@@ -31,7 +31,7 @@ const AfterMenuList = [
   { path: "/giftcard", title: "Gift Card" },
   { path: "/airbnbhome", title: "Airbnb Your Home" },
   { path: "", title: "Hepl Center" },
-  { path: "", title: "Logout" },
+  { path: "/helpCenter", title: "Logout" },
 ];
 
 const Header = () => {
@@ -182,13 +182,13 @@ const Header = () => {
           {/* </Link> */}
           
 
-          <div ref={cardRef}>
+     {  pathname === '/confirm'  || pathname === '/orders'  ? "":  <div ref={cardRef}>
             <SearchCard
               setChange={setChange}
               change={change}
               selectRef={selectRef}
             />
-          </div>
+          </div>}
 
           <div className="flex flex-row gap-2">
             <p className="hidden lg:block pt-3 font-medium ">

@@ -5,7 +5,7 @@ import { CiCircleMinus, CiCirclePlus } from 'react-icons/ci';
 interface guestprops {
     setguestList: (guestList: any) => void; 
     guestList: any; 
-    width:string,
+    width?:string,
     setShow?:React.Dispatch<React.SetStateAction<boolean>>;
   }
 const GuestCount = ({guestList,setguestList,width,setShow}:guestprops) => {
@@ -37,7 +37,7 @@ const GuestCount = ({guestList,setguestList,width,setShow}:guestprops) => {
                     guestList.adult === 0 ? "cursor-not-allowed" : ""
                   }`}
                   onClick={() => {
-                    if (guestList?.adult > 1) {
+                    if (guestList?.adult >= 1) {
                       setguestList({
                         ...guestList,
                         adult: guestList.adult - 1,

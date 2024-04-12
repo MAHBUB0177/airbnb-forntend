@@ -18,9 +18,16 @@ import GuestCount from "../common/guestCount";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
+import moment from "moment";
+
+// Get the current date
+var currentDate = new Date();
+var fourDaysLater = new Date();
+fourDaysLater.setDate(fourDaysLater.getDate() + 4);
 
 const ConfirmPay = () => {
   const searchData = useSelector((state: RootState) => state.auth?.searchData);
+  const payload = useSelector((state: RootState) => state.auth?.payloadData);
   //modal open part
   const [isModalOpen, setIsModalOpen] = useState(false);
   const _handleCancel = () => {
@@ -105,13 +112,17 @@ const ConfirmPay = () => {
             <div>
               <p className="font-medium ">Dates</p>
               <p className="font-normal text-textprimary text-sm pt-1">
-                Apr 1-6
+              {payload?.checkIn
+                    ?  moment(payload?.checkIn).format("MMM D")
+                    : moment(currentDate).format("MMM D")} -  {payload?.checkOut
+                      ?  moment(payload?.checkOut).format("D")
+                      : moment(fourDaysLater).format("D")}
               </p>
             </div>
 
             <div
-              className="font-medium underline cursor-pointer"
-              onClick={() => setIsModalOpen(true)}
+              className="font-medium underline  disabled"
+              // onClick={() => setIsModalOpen(true)}
             >
               Edit
             </div>

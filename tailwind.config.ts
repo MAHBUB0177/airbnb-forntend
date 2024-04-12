@@ -39,7 +39,8 @@ const config: Config = {
         secondary:'#FD375C',
         bgsecondary:'#F7F7F7',
         bgsecondarylight:'#232323',
-        textprimary:'#666463'
+        textprimary:'#666463',
+        textsecondary:'#525252'
       }
     },
   },

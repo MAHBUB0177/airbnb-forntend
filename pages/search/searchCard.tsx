@@ -23,37 +23,45 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [destination, setDestination] = useState<string>("1");
 
-  // const [checkInDate, setCheckInDate] = useState<Date | null>(null);
-  // const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
+  //date states
   const [checkInDate, setCheckInDate] = useState<string>("");
   const [checkOutDate, setCheckOutDate] = useState<string>("");
 
-  console.log(checkInDate, checkOutDate, "++++++++++++++++");
-
-
   const dispatch = useDispatch();
+  const [dates, setDates] = useState({
+    checkInDate: "",
+    checkOutDate: "",
+  });
   const [guestList, setguestList] = useState({
     adult: 0,
     child: 0,
     infants: 0,
     pets: 0,
   });
-  useEffect(()=>{
-    setguestList(searchData)
-  },[searchData])
+  useEffect(() => {
+    setguestList(searchData);
+  }, [searchData]);
 
   const selectChange = (value: string) => {
     setDestination(value);
   };
 
   const onChangeCheckIn = (date: any, dateString: string) => {
-    console.log("Check-in Date:", dateString);
-    setCheckInDate(dateString);
+    // console.log("Check-in Date:", dateString);
+    // setCheckInDate(dateString);
+    setDates({
+      ...dates,
+      checkInDate: dateString,
+    });
   };
 
   const onChangeCheckOut = (date: any, dateString: string) => {
-    console.log("Check-out Date:", dateString);
-    setCheckOutDate(dateString);
+    // console.log("Check-out Date:", dateString);
+    // setCheckOutDate(dateString);
+    setDates({
+      ...dates,
+      checkOutDate: dateString,
+    });
   };
 
   useEffect(() => {
@@ -73,28 +81,24 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
 
   const handelSearch = async () => {
     let payload = {
-      // adult: guestList?.adult,
-      // child: guestList?.child,
-      // infants: guestList?.infants,
-      // pets: guestList?.pets,
-      guestList:guestList,
-      checkIn: checkInDate,
-      checkOut: checkOutDate,
+      guestList: guestList,
+      checkIn: dates?.checkInDate,
+      checkOut: dates?.checkOutDate,
       destination: destination,
     };
 
     if (guestList?.adult <= 0) {
       return message.error("Please select passengers");
-    } else if (!checkInDate) {
+    } else if (!dates?.checkInDate) {
       return message.error("Please select check-in Date");
-    } else if (!checkOutDate) {
+    } else if (!dates?.checkOutDate) {
       return message.error("Please select check-out Date");
     } else if (!destination) {
       return message.error("Please select destination");
     } else {
       setChange(false);
-      dispatch(setSearchData(guestList))
-      dispatch(setPaylodData(payload))
+      dispatch(setSearchData(guestList));
+      dispatch(setPaylodData(payload));
 
       router.push("/rooms");
     }
