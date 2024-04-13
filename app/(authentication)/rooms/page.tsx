@@ -1,10 +1,12 @@
 import React from "react";
 import RoomDetails from "@/components/rooms";
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
-export const metadata: Metadata ={
-    title:'rooms'
-}
+export const metadata: Metadata = {
+  title: {
+    absolute: "Exclusive Farm Resort",
+  },
+};
 
 const page = () => {
   return (

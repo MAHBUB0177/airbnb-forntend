@@ -30,8 +30,8 @@ const AfterMenuList = [
  
   { path: "/giftcard", title: "Gift Card" },
   { path: "/airbnbhome", title: "Airbnb Your Home" },
-  { path: "", title: "Hepl Center" },
-  { path: "/helpCenter", title: "Logout" },
+  { path: "/helpCenter", title: "Hepl Center" },
+  { path: "", title: "Logout" },
 ];
 
 const Header = () => {
@@ -90,6 +90,7 @@ const Header = () => {
   
 
   const handleItemClick = (title: string) => {
+    console.log(title,'BeforeMenuList++++++++++++')
     if (title === "Sign Up" || title === "Log In") {
       setIsModalOpen(true);
     } else if (title === "Logout") {

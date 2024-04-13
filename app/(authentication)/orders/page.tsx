@@ -3,7 +3,7 @@ import React from 'react'
 import { Metadata } from 'next';
 
 export const metadata: Metadata ={
-    title:'Order'
+    title:'Request to Book'
     // title:{
     //     absolute:'Order'
     // }

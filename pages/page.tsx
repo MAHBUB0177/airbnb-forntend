@@ -6,7 +6,10 @@ const LandingPage = () => {
   return (
     <>
       <CategoryList />
+      <div className="mt-20">
       <ProductCard />
+
+      </div>
     </>
   );
 };

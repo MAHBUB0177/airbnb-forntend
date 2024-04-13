@@ -3,10 +3,10 @@ import { Metadata } from 'next'
 import React from 'react'
 
 export const metadata: Metadata ={
-  title:'Confirm'
-  // title:{
-  //     absolute:'Auth'
-  // }
+  // title:'Confirm and Pay'
+  title:{
+      absolute:'Confirm and Pay'
+  }
 }
 
 const page = () => {
