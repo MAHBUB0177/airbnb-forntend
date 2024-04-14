@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 import { RootState } from "@/redux/store";
 import moment, { Moment } from "moment";
-import dayjs, { Dayjs } from 'dayjs'; // Import Dayjs instead of Moment
+import dayjs, { Dayjs } from "dayjs"; // Import Dayjs instead of Moment
 
 interface SearchCardProps {
   change: boolean;
@@ -49,7 +49,7 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
   const selectChange = (value: string) => {
     setDestination(value);
   };
-  
+
   const onChangeCheckIn = (date: Dayjs | null, dateString: string) => {
     setDates({
       ...dates,
@@ -75,7 +75,6 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
         : false;
     }
   }
-  
 
   function disabledDateCheckOut(current: Dayjs | null) {
     const today = moment().startOf("day");
@@ -85,7 +84,6 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
       : false;
   }
 
- 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -109,31 +107,27 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
       destination: destination,
     };
 
-     if (!destination) {
+    if (!destination) {
       return notification.error({
-        message: 'Please select destination',
-        placement: 'bottomRight', // Set the placement to bottomLeft
-      })
-    } 
-    else if (!dates?.checkInDate) {
+        message: "Please select destination",
+        placement: "bottomRight", // Set the placement to bottomLeft
+      });
+    } else if (!dates?.checkInDate) {
       return notification.error({
-        message: 'Please select check-in Date',
-        placement: 'bottomRight', // Set the placement to bottomLeft
-      })
-    } 
-    else if (!dates?.checkOutDate) {
+        message: "Please select check-in Date",
+        placement: "bottomRight", // Set the placement to bottomLeft
+      });
+    } else if (!dates?.checkOutDate) {
       return notification.error({
-        message: 'Please select check-out Date',
-        placement: 'bottomRight', // Set the placement to bottomLeft
-      })
-    }
-    else if (guestList?.adult <= 0) {
+        message: "Please select check-out Date",
+        placement: "bottomRight", // Set the placement to bottomLeft
+      });
+    } else if (guestList?.adult <= 0) {
       return notification.error({
-        message: 'Please select passengers',
-        placement: 'bottomRight', // Set the placement to bottomLeft
-      })
-    }
-   else {
+        message: "Please select passengers",
+        placement: "bottomRight", // Set the placement to bottomLeft
+      });
+    } else {
       setChange(false);
       dispatch(setSearchData(guestList));
       dispatch(setPaylodData(payload));
@@ -178,13 +172,13 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
           </p>
           {change && (
             <DatePicker
-            disabledDate={disabledDateCheckIn}
-            className="px-0"
-            onChange={onChangeCheckIn}
-            bordered={false}
-            placeholder="add dates"
-            suffixIcon={null}
-          />
+              disabledDate={disabledDateCheckIn}
+              className="px-0"
+              onChange={onChangeCheckIn}
+              bordered={false}
+              placeholder="add dates"
+              suffixIcon={null}
+            />
           )}
         </div>
 
