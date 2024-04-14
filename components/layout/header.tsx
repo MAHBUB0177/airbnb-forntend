@@ -4,7 +4,7 @@ import airbnb_logo from "../../assets/images/logo/airbnb-logo.png";
 import Image from "next/image";
 import { FaApple, FaUserCircle } from "react-icons/fa";
 import { IoMenuSharp } from "react-icons/io5";
-import SearchCard from "@/pages/search/searchCard";
+// import SearchCard from "@/pages/search/searchCard";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import CommonModal from "../common/commonmodal";
@@ -17,6 +17,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth, setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 import { RootState } from "@/redux/store";
+import SearchCard from "../search/searchCard";
 
 const BeforeMenuList = [
   { path: "", title: "Log In" },

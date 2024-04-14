@@ -8,7 +8,6 @@ const LandingPage = () => {
       <CategoryList />
       <div className="mt-20">
       <ProductCard />
-
       </div>
     </>
   );

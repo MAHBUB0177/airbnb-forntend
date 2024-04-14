@@ -46,7 +46,7 @@ const Bookingcard = () => {
   const handelClick = () => {
     dispatch(setSearchData(guestList));
     {
-      authData?.token ? router.push("/confirm") : router.push("/orders");
+      authData?.token ? router.push("/confirm") : router.push("/book");
     }
   };
   return (

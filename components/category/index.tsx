@@ -79,7 +79,7 @@ const CategoryList = () => {
   };
 
   return (
-    <div className="flex justify-center md:justify-between w-[100%]  z-50  bg-primary md:px-10 lg:px-20 py-2  fixed ">
+    <div className="flex justify-center md:justify-between w-[100%]  z-50 shadow-sm bg-primary md:px-10 lg:px-20 py-2  fixed  border-t-[1px]">
       <div className="w-[85%] ">
         <Slider {...settings}>
           {categoryList?.map((item, i) => (

@@ -1,5 +1,5 @@
-// "use client";
-import { DatePicker, Form, Space, message } from "antd";
+"use client";
+import { DatePicker, message, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 import { RootState } from "@/redux/store";
+import moment, { Moment } from "moment";
+import dayjs, { Dayjs } from 'dayjs'; // Import Dayjs instead of Moment
 
 interface SearchCardProps {
   change: boolean;
@@ -16,7 +18,9 @@ interface SearchCardProps {
   selectRef: React.MutableRefObject<HTMLDivElement | null>;
 }
 const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
+  //store data
   const searchData = useSelector((state: RootState) => state.auth?.searchData);
+
   const router = useRouter();
   const divRef = useRef<HTMLDivElement | null>(null);
   const countRef = useRef<HTMLDivElement | null>(null);
@@ -45,25 +49,43 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
   const selectChange = (value: string) => {
     setDestination(value);
   };
-
-  const onChangeCheckIn = (date: any, dateString: string) => {
-    // console.log("Check-in Date:", dateString);
-    // setCheckInDate(dateString);
+  
+  const onChangeCheckIn = (date: Dayjs | null, dateString: string) => {
     setDates({
       ...dates,
       checkInDate: dateString,
     });
   };
 
-  const onChangeCheckOut = (date: any, dateString: string) => {
-    // console.log("Check-out Date:", dateString);
-    // setCheckOutDate(dateString);
+  const onChangeCheckOut = (date: Dayjs | null, dateString: string) => {
     setDates({
       ...dates,
       checkOutDate: dateString,
     });
   };
+  function disabledDateCheckIn(current: Dayjs | null) {
+    const today = moment().startOf("day");
+    if (!dates.checkOutDate) {
+      // No checkOutDate selected yet, disable all past dates
+      return current ? current < today : false;
+    } else {
+      // Disable dates after the checkOutDate and before today
+      return current
+        ? current > moment(dates.checkOutDate).startOf("day") || current < today
+        : false;
+    }
+  }
+  
 
+  function disabledDateCheckOut(current: Dayjs | null) {
+    const today = moment().startOf("day");
+    // Disable dates before the checkInDate and before today
+    return current
+      ? current < moment(dates.checkInDate).startOf("day") || current < today
+      : false;
+  }
+
+ 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -87,20 +109,36 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
       destination: destination,
     };
 
-    if (guestList?.adult <= 0) {
-      return message.error("Please select passengers");
-    } else if (!dates?.checkInDate) {
-      return message.error("Please select check-in Date");
-    } else if (!dates?.checkOutDate) {
-      return message.error("Please select check-out Date");
-    } else if (!destination) {
-      return message.error("Please select destination");
-    } else {
+     if (!destination) {
+      return notification.error({
+        message: 'Please select destination',
+        placement: 'bottomRight', // Set the placement to bottomLeft
+      })
+    } 
+    else if (!dates?.checkInDate) {
+      return notification.error({
+        message: 'Please select check-in Date',
+        placement: 'bottomRight', // Set the placement to bottomLeft
+      })
+    } 
+    else if (!dates?.checkOutDate) {
+      return notification.error({
+        message: 'Please select check-out Date',
+        placement: 'bottomRight', // Set the placement to bottomLeft
+      })
+    }
+    else if (guestList?.adult <= 0) {
+      return notification.error({
+        message: 'Please select passengers',
+        placement: 'bottomRight', // Set the placement to bottomLeft
+      })
+    }
+   else {
       setChange(false);
       dispatch(setSearchData(guestList));
       dispatch(setPaylodData(payload));
 
-      router.push("/rooms");
+      router.push("/filterRoom");
     }
   };
 
@@ -140,12 +178,13 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
           </p>
           {change && (
             <DatePicker
-              className="px-0"
-              onChange={onChangeCheckIn}
-              bordered={false}
-              placeholder="add dates"
-              suffixIcon={null}
-            />
+            disabledDate={disabledDateCheckIn}
+            className="px-0"
+            onChange={onChangeCheckIn}
+            bordered={false}
+            placeholder="add dates"
+            suffixIcon={null}
+          />
           )}
         </div>
 
@@ -155,6 +194,7 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
         >
           <p className={`${change ? "text-xs" : "text-sm"}`}>check out </p>
           <DatePicker
+            disabledDate={disabledDateCheckOut}
             className="px-0"
             onChange={onChangeCheckOut}
             bordered={false}
@@ -207,7 +247,7 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
       {toggle && (
         <div
           ref={countRef}
-          className="bg-primary border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[35%] xl:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
+          className="bg-primary z-50 border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[35%] xl:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
           style={{ zIndex: 1000 }}
         >
           <GuestCount
