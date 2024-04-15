@@ -35,6 +35,12 @@ const AfterMenuList = [
   { path: "", title: "Logout" },
 ];
 
+interface AuthDataType {
+  token: string; // Assuming token is a string
+  firstName:string;
+  // Add other properties as needed
+}
+
 const Header = () => {
   const pathname = usePathname();
   const [isShow, setIsshow] = useState(false);
@@ -53,7 +59,7 @@ const Header = () => {
 
   // // set auth data
   const dispatch = useDispatch();
-  const authData = useSelector((state: RootState) => state.auth?.authData);
+  const authData = useSelector((state: RootState) => state.auth?.authData) as AuthDataType;
   console.log(authData,'authData++++++++++')
 
 
