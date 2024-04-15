@@ -12,7 +12,7 @@ const ReduxProvider = ({
   }>) => {
   return (
     <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate  persistor={persistor}>
         {children}
         <ScroolToTop/>
     </PersistGate>
