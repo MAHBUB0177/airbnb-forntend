@@ -241,8 +241,8 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
       {toggle && (
         <div
           ref={countRef}
-          className="bg-primary z-50 border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[35%] xl:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
-          style={{ zIndex: 1000 }}
+          className="bg-primary  border-[1px] border-slate-200 shadow-md rounded-lg h-auto w-[50%] md:w-[35%] lg:w-[35%] xl:w-[25%] fixed  right-80 top-20 px-4 py-5 gap-3 divide-y divide-slate-200"
+          style={{ zIndex: 1500 }}
         >
           <GuestCount
             setguestList={setguestList}
