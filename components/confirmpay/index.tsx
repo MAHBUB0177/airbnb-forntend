@@ -25,9 +25,25 @@ var currentDate = new Date();
 var fourDaysLater = new Date();
 fourDaysLater.setDate(fourDaysLater.getDate() + 4);
 
+
+interface PayloadType {
+  checkIn: string; // Assuming checkIn is a string representing a date
+  checkOut: string; // Assuming checkOut is a string representing a date
+  guestList:any
+}
+
+interface SearchDataType {
+  adult: number;
+  child: number;
+  infants: number;
+  pets: number;
+  // Add other properties as needed
+}
+
+
 const ConfirmPay = () => {
-  const searchData = useSelector((state: RootState) => state.auth?.searchData);
-  const payload = useSelector((state: RootState) => state.auth?.payloadData);
+  const searchData = useSelector((state: RootState) => state.auth?.searchData) as SearchDataType;
+  const payload = useSelector((state: RootState) => state.auth?.payloadData) as PayloadType;
   //modal open part
   const [isModalOpen, setIsModalOpen] = useState(false);
   const _handleCancel = () => {

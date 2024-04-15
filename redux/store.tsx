@@ -1,15 +1,19 @@
 'use client'
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'reduxjs-toolkit-persist';
-import storage from 'reduxjs-toolkit-persist/lib/storage';
+// import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'reduxjs-toolkit-persist';
+// import storage from 'reduxjs-toolkit-persist/lib/storage';
 
+import { createStore, applyMiddleware } from 'redux';
 // Import your reducers
 import { authReducer } from "@/redux/reducer/index";
+import storage from 'redux-persist/lib/storage';
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistReducer, persistStore } from 'redux-persist';
 // "@/redux/reducer/index"
+
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['auth'] // only 'auth' state will be persisted
+  whitelist: ['auth'] // Only 'auth' state will be persisted
 };
 
 const authPersistConfig = {

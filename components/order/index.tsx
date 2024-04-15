@@ -19,9 +19,24 @@ var currentDate = new Date();
 var fourDaysLater = new Date();
 fourDaysLater.setDate(fourDaysLater.getDate() + 4);
 
+interface PayloadType {
+  checkIn: string; // Assuming checkIn is a string representing a date
+  checkOut: string; // Assuming checkOut is a string representing a date
+  guestList:any
+}
+
+interface SearchDataType {
+  adult: number;
+  child: number;
+  infants: number;
+  pets: number;
+  // Add other properties as needed
+}
+
 const OrderPage = () => {
-  const searchData = useSelector((state: RootState) => state.auth?.searchData);
-  const payload = useSelector((state: RootState) => state.auth?.payloadData);
+  const searchData = useSelector((state: RootState) => state.auth?.searchData) as SearchDataType;
+  const payload = useSelector((state: RootState) => state.auth?.payloadData) as PayloadType;
+  console.log(payload,'payload+++++++++++')
  //modal open part
  const [isModalOpen, setIsModalOpen] = useState(false);
  const _handleCancel = () => {
@@ -63,7 +78,7 @@ useEffect(()=>{
             <div>
               <p className="font-medium ">Dates</p>
               <p className="font-normal text-textprimary text-sm pt-1">
-              {payload?.checkIn
+              {payload && payload?.checkIn
                     ?  moment(payload?.checkIn).format("MMM D")
                     : moment(currentDate).format("MMM D")} -  {payload?.checkOut
                       ?  moment(payload?.checkOut).format("D")

@@ -19,12 +19,35 @@ var currentDate = new Date();
 var fourDaysLater = new Date();
 fourDaysLater.setDate(fourDaysLater.getDate() + 4);
 
+
+interface PayloadType {
+  checkIn: string; // Assuming checkIn is a string representing a date
+  checkOut: string; // Assuming checkOut is a string representing a date
+  guestList:any
+}
+
+// Assuming authData is also an object with a token property
+interface AuthDataType {
+  token: string; // Assuming token is a string
+  // Add other properties as needed
+}
+
+// Assuming searchData has similar properties to guestList
+interface SearchDataType {
+  adult: number;
+  child: number;
+  infants: number;
+  pets: number;
+  // Add other properties as needed
+}
+
+
 const Bookingcard = () => {
   const dispatch = useDispatch();
-  const searchData = useSelector((state: RootState) => state.auth?.searchData);
-  const payload = useSelector((state: RootState) => state.auth?.payloadData);
-  const authData = useSelector((state: RootState) => state.auth?.authData);
-  // console.log(searchData, "searchData+++++++++++", payload);
+  const searchData = useSelector((state: RootState) => state.auth?.searchData) as SearchDataType;
+  const payload = useSelector((state: RootState) => state.auth?.payloadData) as PayloadType;
+  const authData = useSelector((state: RootState) => state.auth?.authData) as AuthDataType;
+  // console.log("searchData+++++++++++", payload);
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [guestList, setguestList] = useState({

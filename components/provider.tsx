@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
 
-import { PersistGate } from 'reduxjs-toolkit-persist/integration/react'
+// import { PersistGate } from 'reduxjs-toolkit-persist/integration/react'
+import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { persistor, store } from "@/redux/store";
 import ScroolToTop from './common/scroolToTop';
@@ -12,7 +13,7 @@ const ReduxProvider = ({
   }>) => {
   return (
     <Provider store={store}>
-    <PersistGate  persistor={persistor}>
+    <PersistGate loading={null}  persistor={persistor}>
         {children}
         <ScroolToTop/>
     </PersistGate>
