@@ -1,5 +1,5 @@
 "use client";
-import { DatePicker, message, notification } from "antd";
+import { DatePicker, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 
@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 import { RootState } from "@/redux/store";
-import moment, { Moment } from "moment";
-import dayjs, { Dayjs } from "dayjs"; // Import Dayjs instead of Moment
+import moment from "moment";
+import { Dayjs } from "dayjs"; // Import Dayjs instead of Moment
 
 interface SearchCardProps {
   change: boolean;
