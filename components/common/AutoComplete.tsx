@@ -31,7 +31,7 @@ const options=[
 interface AutoCompleteProps {
   destination:string,
   selectChange: (value: string) => void;
-  selectRef: React.MutableRefObject<HTMLDivElement | null>;
+  selectRef?: React.MutableRefObject<HTMLDivElement | null>;
 }
 const AutoComplete = ({ selectChange,selectRef, destination}: AutoCompleteProps) => {
   return (

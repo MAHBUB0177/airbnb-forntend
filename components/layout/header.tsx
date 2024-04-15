@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAuth, setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 import { RootState } from "@/redux/store";
 import SearchCard from "../search/searchCard";
+import CommonLogin from "../login/page";
+import SmallDeviceHeader from "./smallDeviceHeader";
 
 const BeforeMenuList = [
   { path: "", title: "Log In" },
@@ -169,13 +171,17 @@ const Header = () => {
   return (
     <>
       {/* dark:bg-orange-300 */}
-      <div className="bg-primary  w-full z-50 fixed shadow-sm hidden md:block">
+      <div className="bg-primary  w-full z-50 fixed shadow-sm ">
+        <div className="block md:hidden">
+          <SmallDeviceHeader/>
+
+        </div>
+        <div className="hidden md:block">
         <div
           className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-2  md:py-2  ${
             pathname == "/rooms" ? " xl:px-[185px]" : " xl:px-20"
           }`}
         >
-          {/* <Link href={"/"}> */}
             <div className="flex gap-1 cursor-pointer" onClick={handelClick}>
               <Image
                 src={airbnb_logo}
@@ -187,7 +193,6 @@ const Header = () => {
                 airbnb
               </p>
             </div>
-          {/* </Link> */}
           
 
      {  pathname === '/confirm'  || pathname === '/orders'  ? "":  <div ref={cardRef}>
@@ -227,6 +232,7 @@ const Header = () => {
               )}
             </div>
           </div>
+        </div>
         </div>
       </div>
 
@@ -282,96 +288,8 @@ const Header = () => {
           onCancel={_handleCancel}
           width={"500px"}
         >
-          <div className=" border-t-[1px] border-slate-300"></div>
-          <p className="text-2xl font-semibold pt-1 pb-1">Welcome to Airbnb</p>
-          <div>
-            <div className=" mt-2  border border-slate-300 w-100% rounded-md ">
-              <div className="bg-white rounded-lg p-2 ">
-                <form className="">
-                  <div>
-                    <label className="block text-textprimary font-bold mb-2">
-                      Email
-                    </label>
-                    <input
-                      className="w-full px-4 py-2 rounded-lg border border-slate-300"
-                      id="email"
-                      name="email"
-                      type="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-textprimary font-bold mb-2">
-                      Password
-                    </label>
-                    <input
-                      className="w-full px-4 py-2 rounded-lg border border-slate-300"
-                      id="password"
-                      name="password"
-                      type="password"
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <p className="text-xs text-textprimary pt-1 ">
-              We’ll call or text you to confirm your number. Standard message
-              and data rates apply.
-              <span className="font-semibold  underline">
-                Privacy Policy{" "}
-              </span>{" "}
-            </p>
-
-            <div className="mt-3">
-              <CommonButton
-                bg={"secondary"}
-                width={"full"}
-                height={"12"}
-                onClick={LoginNow}
-                type={"submit"}
-              >
-                Continue
-              </CommonButton>
-            </div>
-
-            <div className="relative w-full mt-3">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white">Or continue with</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-full  p-3 mt-2">
-                <p className="text-md font-semibold text-sky-500">
-                  <FaSquareFacebook className="h-[20px] w-[20px]" />
-                </p>
-              </div>
-
-              <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-full  p-3 mt-2">
-                <p className="text-md font-semibold">
-                  <FcGoogle className="h-[20px] w-[20px]" />
-                </p>
-              </div>
-
-              <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-full p-3 mt-2">
-                <p className="text-md font-semibold">
-                  <FaApple className="h-[20px] w-[20px]" />
-                </p>
-              </div>
-            </div>
-            <div className="cursor-pointer border-[1px] border-slate-500 rounded-md flex justify-center items-center w-[100%] mt-3 p-3 ">
-              <p className="text-sm font-semibold flex gap-2">
-                {" "}
-                <MdOutlineMail className="h-[20px] w-[20px] " />
-                Continue with email
-              </p>
-            </div>
-          </div>
+          <CommonLogin setIsModalOpen={setIsModalOpen}/>
+         
         </CommonModal>
       </div>
     </>

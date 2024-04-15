@@ -34,7 +34,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
         <Rootheader />
-          <div style={{ minHeight: "calc(100vh)" }} className=" pt-[58px] md:pt-[70px] bg-primary pb-[50px] md:pb-[55px]" >
+          <div style={{ minHeight: "calc(100vh)" }} className=" pt-[68px] md:pt-[70px] bg-primary pb-[50px] md:pb-[55px]" >
        
             {children}
        

@@ -5,7 +5,7 @@ interface CommonModalProps {
     children: ReactNode;
     open: boolean;
     setIsModalOpen: (isOpen: boolean) => void;
-    title: string;
+    title?: string;
     onCancel: () => void;
     width?: string;
   }

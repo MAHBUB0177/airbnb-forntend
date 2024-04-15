@@ -139,7 +139,7 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
   return (
     <div>
       <div
-        className={`bg-primary flex justify-between items-center gap-1 border-[1px] border-slate-200  rounded-full px-2  cursor-pointer divide-x divide-slate-300 w-full hover:shadow-lg ${
+        className={`bg-primary flex flex-col  md:flex-row justify-between items-center gap-1 border-[1px] border-slate-200  rounded-full px-2  cursor-pointer divide-x divide-slate-300 w-full hover:shadow-lg ${
           change ? "w-[500px] xl:w-[620px] p-1" : "py-2"
         }`}
       >
