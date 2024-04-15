@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import FooterGetway from "./footerGetway";
+import SmallDeviceFooter from "./smallDeviceFooter";
 
 const quickList = [
   { title: "© 2024 Airbnb, Inc. ", link: "" },
@@ -44,7 +45,8 @@ const Footer = () => {
     <div>
      
 <div className="bg-primary bottom-0 w-full z-50 fixed shadow-sm border-t-[1px] h-[50px]  border-slate-200 ">
-      <div className={`flex flex-col lg:flex-row pt-2 justify-between items-center md:px-10 lg:px-20 text-sm font-thin text-black  ${pathname =='/rooms'? ' xl:px-[185px]' : ' lg:px-20' }`}>
+    <div className="hidden md:block">
+      <div className={` flex flex-col lg:flex-row pt-2 justify-between items-center md:px-10 lg:px-20 text-sm font-thin text-black  ${pathname =='/rooms'? ' xl:px-[185px]' : ' lg:px-20' }`}>
         <div className="flex justify-between items-center gap-2">
           {quickList?.map((item, i) => {
             return <p className="text-normal font-normal" key={i}>{item?.title}</p>;
@@ -67,7 +69,10 @@ const Footer = () => {
           })}
         </div>
       </div>
-
+    </div>
+    <div className="md:hidden">
+    <SmallDeviceFooter/>
+    </div>
       <Drawer        
         placement={"bottom"}
         width={500}
@@ -115,6 +120,8 @@ const Footer = () => {
 
        </div>
       </Drawer>
+
+     
     </div>
     </div>
     

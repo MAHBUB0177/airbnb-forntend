@@ -163,7 +163,7 @@ const Header = () => {
   return (
     <>
       {/* dark:bg-orange-300 */}
-      <div className="bg-primary  w-full z-50 fixed shadow-sm ">
+      <div className="bg-primary  w-full z-50 fixed shadow-sm hidden md:block">
         <div
           className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-2  md:py-2  ${
             pathname == "/rooms" ? " xl:px-[185px]" : " xl:px-20"
