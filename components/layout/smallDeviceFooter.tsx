@@ -7,6 +7,7 @@ import CommonModal from "../common/commonmodal";
 import CommonLogin from "../login/page";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import Link from "next/link";
 
 interface AuthDataType {
   token: string; // Assuming token is a string
@@ -41,6 +42,8 @@ const SmallDeviceFooter = () => {
       </div>
 
      {authData?.token ?  <>
+     <Link href={'/profile'}>
+    
        <div onClick={()=>{setActive('Profile');}} className={`${active === 'Profile' ? 'text-secondary font-semibold' : 'font-light'}`}>
         <div className="flex justify-center items-center">
           <FaUserCircle
@@ -49,6 +52,7 @@ const SmallDeviceFooter = () => {
         </div>
         <p className="text-xs ">Profile</p>
       </div>
+      </Link>
       </>  :<div onClick={()=>{setActive('Log In'); setIsModalOpen(true);}} className={`${active === 'Log In' ? 'text-secondary font-semibold' : 'font-light'}`}>
         <div className="flex justify-center items-center">
           <FaUserCircle

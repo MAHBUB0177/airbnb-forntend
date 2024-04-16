@@ -33,6 +33,9 @@ const AfterMenuList = [
 interface AuthDataType {
   token: string; // Assuming token is a string
   firstName:string;
+  email:string;
+  gender:string;
+  image:any;
   // Add other properties as needed
 }
 
@@ -55,6 +58,7 @@ const Header = () => {
   // // set auth data
   const dispatch = useDispatch();
   const authData = useSelector((state: RootState) => state.auth?.authData) as AuthDataType;
+  console.log(authData,'authData+++++++++++++++')
 
 
 

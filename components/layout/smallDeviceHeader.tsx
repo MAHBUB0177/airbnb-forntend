@@ -11,15 +11,17 @@ import { DatePicker, notification } from "antd";
 import moment from "moment";
 import { Dayjs } from "dayjs"; // Import Dayjs instead of Moment
 import GuestCount from "../common/guestCount";
-import { setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
+import { setAuth, setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 import { useDispatch } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
+import { CgProfile } from "react-icons/cg";
 
 const SmallDeviceHeader = () => {
+  const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isModalOpen,'isModalOpen++++++++++++++')
+  // console.log(isModalOpen,'isModalOpen++++++++++++++')
   const _handleCancel = () => {
     setIsModalOpen(false);
   };
@@ -125,7 +127,6 @@ const SmallDeviceHeader = () => {
       setIsModalOpen(false);
     }
   };
-  const pathname = usePathname();
 
   const handelClick = () => {
     dispatch(
@@ -140,42 +141,14 @@ const SmallDeviceHeader = () => {
     router.push("/");
   };
 
-  // useEffect(() => {
-  //   function getElementWidth() {
-  //     const myElement: HTMLElement | null = document.getElementById("layoutRef");
-  //     if (myElement) {
-  //       const width: number = myElement.offsetWidth;
-
-  //       if (width >= 768) { // If width is medium or larger
-  //         setIsModalOpen(false); // Close the modal
-  //       } else if(isModalOpen){
-  //         setIsModalOpen(true)
-  //       }
-  //     }
-  //   }
-
-  //   getElementWidth();
-  //   window.addEventListener("resize", getElementWidth);
-  //   return () => {
-  //     window.removeEventListener("resize", getElementWidth);
-  //   };
-  // }, []);
+  
 
   useEffect(() => {
     function handleResize() {
       const width: number = window.innerWidth;
-      if (width >= 768) { // If width is medium or larger
-        setIsModalOpen(false); // Close the modal
+      if (width >= 768) { 
+        setIsModalOpen(false); 
       }
-      //  else {
-      //   if(isModalOpen){
-      //     setIsModalOpen(true);
-      //   }
-      //   else{
-      //     setIsModalOpen(false); 
-      //   }
-      //   // Open the modal on small devices
-      // }
     }
 
     handleResize(); // Call initially
@@ -184,6 +157,21 @@ const SmallDeviceHeader = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const handelLogout=()=>{
+    console.log('call lagout function')
+    dispatch(setAuth({}));
+    dispatch(setSearchData({
+      adult: 0,
+      child: 0,
+      infants: 0,
+      pets: 0,
+    }));
+    dispatch(setPaylodData({}));
+    window.location.href = '/';
+   
+   
+  }
 
   return (
     <div className="items-center px-2 py-3">
@@ -232,7 +220,15 @@ const SmallDeviceHeader = () => {
               <p className=" text-secondary text-2xl font-bold ">airbnb</p>
             </div>
 
-            <div>
+           {pathname === "/profile" ?  <div onClick={ handelLogout}>
+              <p className="font-medium flex ">
+                {" "}
+                <CgProfile 
+                  style={{ paddingTop: "5px", height: "30px", width: "30px" }}
+                />
+                <span className="text-md pt-1 px-1">Logout</span>
+              </p>
+            </div>: <div>
               <p className="font-medium flex ">
                 {" "}
                 <IoShareSocial
@@ -240,7 +236,7 @@ const SmallDeviceHeader = () => {
                 />
                 <span className="text-md pt-1 px-1">Share</span>
               </p>
-            </div>
+            </div>}
           </div>
         </>
       )}
