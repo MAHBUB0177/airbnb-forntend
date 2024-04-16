@@ -50,7 +50,11 @@ const CommonLogin = ({setIsModalOpen}:loginProps) => {
       })
       .catch((error) => {
         console.error("An error occurred:", error);
-        message.error("Something Went Wrong");
+        notification.success({
+          message: "Something Went Wrong",
+          placement: "bottomRight", // Set the placement to bottomLeft
+        });
+       
       });
   };
 

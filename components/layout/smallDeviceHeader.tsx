@@ -102,17 +102,17 @@ const SmallDeviceHeader = () => {
     if (!destination) {
       return notification.error({
         message: "Please select destination",
-        placement: "bottomRight", // Set the placement to bottomLeft
+        placement: "bottomRight", 
       });
     } else if (!dates?.checkInDate) {
       return notification.error({
         message: "Please select check-in Date",
-        placement: "bottomRight", // Set the placement to bottomLeft
+        placement: "bottomRight", 
       });
     } else if (!dates?.checkOutDate) {
       return notification.error({
         message: "Please select check-out Date",
-        placement: "bottomRight", // Set the placement to bottomLeft
+        placement: "bottomRight", 
       });
     } else if (guestList?.adult <= 0) {
       return notification.error({
