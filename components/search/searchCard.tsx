@@ -140,15 +140,15 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
     <div>
       <div
         className={`bg-primary flex flex-col  md:flex-row justify-between items-center gap-1 border-[1px] border-slate-200  rounded-full px-2  cursor-pointer divide-x divide-slate-300 w-full hover:shadow-lg ${
-          change ? "w-[500px] xl:w-[620px] p-1" : "py-2"
+          change ? "w-[500px] xl:w-[620px] py-0" : "py-2"
         }`}
       >
         <div
-          className={` font-medium px-2  ${change && "w-auto"}`}
+          className={` font-medium px-2  ${change && "w-auto"} `}
           onClick={() => setChange(true)}
         >
           <p
-            className={`${change ? "text-xs" : "text-sm"} px-3  leading-0 py-0`}
+            className={`${change ? "text-xs" : "text-sm"} px-3   py-0`}
           >
             {change ? "Where" : "Anywhere"}{" "}
           </p>
@@ -162,21 +162,21 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
         </div>
 
         <div
-          className={`font-medium px-1 ${change && "w-auto"}`}
+          className={`font-medium px-1 ${change && "w-auto"} `}
           onClick={() => {
             setChange(true);
           }}
         >
-          <p className={`${change ? "text-xs" : "text-sm"}`}>
+          <p className={`${change ? "text-xs" : "text-sm"} `}>
             {change ? "check in" : "Any Week"}{" "}
           </p>
           {change && (
             <DatePicker
               disabledDate={disabledDateCheckIn}
-              className="px-0"
+              className="px-0 "
               onChange={onChangeCheckIn}
               bordered={false}
-              placeholder="add dates"
+              placeholder="add dates "
               suffixIcon={null}
             />
           )}
@@ -186,7 +186,7 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
           onClick={() => setChange(true)}
           className={`font-medium px-1 ${change ? " block w-auto" : "hidden"}`}
         >
-          <p className={`${change ? "text-xs" : "text-sm"}`}>check out </p>
+          <p className={`${change ? "text-xs" : "text-sm"} `}>check out </p>
           <DatePicker
             disabledDate={disabledDateCheckOut}
             className="px-0"
@@ -210,7 +210,7 @@ const SearchCard = ({ change, setChange, selectRef }: SearchCardProps) => {
             }}
           >
             {change && (
-              <p className={`text-xs leading-0 px-1 py-0 font-medium`}>Who</p>
+              <p className={`text-xs  px-1 py-0 font-medium`}>Who</p>
             )}
             <p className={`text-textprimary  text-sm `}>
               {guestList?.adult > 0 ? (

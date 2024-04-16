@@ -19,10 +19,12 @@ const SmallDeviceHeader = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  console.log(isModalOpen,'isModalOpen++++++++++++++')
   const _handleCancel = () => {
     setIsModalOpen(false);
   };
-  const [toggle, setToggle] = useState<boolean>(false);
+  // const [toggle, setToggle] = useState<boolean>(false);
+  const [show, setShow] = useState(false);
   const [destination, setDestination] = useState<string>("1");
   const divRef = useRef<HTMLDivElement | null>(null);
   const countRef = useRef<HTMLDivElement | null>(null);
@@ -33,7 +35,7 @@ const SmallDeviceHeader = () => {
         !(divRef.current as any)?.contains(event.target) &&
         !(countRef.current as any)?.contains(event.target)
       ) {
-        setToggle(false);
+        setShow(false);
       }
     };
     document.addEventListener("click", handleOutsideClick);
@@ -125,26 +127,72 @@ const SmallDeviceHeader = () => {
   };
   const pathname = usePathname();
 
-  
-  const handelClick=()=>{
-    dispatch(setSearchData({
-      adult: 0,
-      child: 0,
-      infants: 0,
-      pets: 0,
-    }));
-  dispatch(setPaylodData({}));
-  router.push('/')
+  const handelClick = () => {
+    dispatch(
+      setSearchData({
+        adult: 0,
+        child: 0,
+        infants: 0,
+        pets: 0,
+      })
+    );
+    dispatch(setPaylodData({}));
+    router.push("/");
+  };
 
-}
+  // useEffect(() => {
+  //   function getElementWidth() {
+  //     const myElement: HTMLElement | null = document.getElementById("layoutRef");
+  //     if (myElement) {
+  //       const width: number = myElement.offsetWidth;
+
+  //       if (width >= 768) { // If width is medium or larger
+  //         setIsModalOpen(false); // Close the modal
+  //       } else if(isModalOpen){
+  //         setIsModalOpen(true)
+  //       }
+  //     }
+  //   }
+
+  //   getElementWidth();
+  //   window.addEventListener("resize", getElementWidth);
+  //   return () => {
+  //     window.removeEventListener("resize", getElementWidth);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    function handleResize() {
+      const width: number = window.innerWidth;
+      if (width >= 768) { // If width is medium or larger
+        setIsModalOpen(false); // Close the modal
+      }
+      //  else {
+      //   if(isModalOpen){
+      //     setIsModalOpen(true);
+      //   }
+      //   else{
+      //     setIsModalOpen(false); 
+      //   }
+      //   // Open the modal on small devices
+      // }
+    }
+
+    handleResize(); // Call initially
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="items-center px-2 py-3">
-        {
-            pathname === '/filterRoom' ||  pathname === '/' ?
-             <><div className="w-full flex gap-1 cursor-pointer pl-[5%]">
+      {pathname === "/filterRoom" || pathname === "/" ? (
+        <>
+          <div className="w-full flex gap-1 cursor-pointer pl-[5%]">
             <div
               onClick={() => {
-                // setIsModalOpen(true);
+                setIsModalOpen(true);
               }}
               className=" w-5/6 gap-3 flex py-[4px] mb-[4px] rounded-full  justify-start px-4 items-center shadow-md border border-slate-200"
             >
@@ -156,7 +204,7 @@ const SmallDeviceHeader = () => {
                 <p className="text-sm text-textprimary">Any week. Add guests</p>
               </div>
             </div>
-    
+
             <div className=" w-1/6 ">
               <button className="border border-gray-300 rounded-full h-10 w-10 flex justify-center items-center cursor-pointer p-3">
                 <IoFilterSharp
@@ -165,53 +213,58 @@ const SmallDeviceHeader = () => {
                 />
               </button>
             </div>
-          </div></> :
-          <> <div className="flex justify-between gap-1 cursor-pointer" onClick={handelClick}>
+          </div>
+        </>
+      ) : (
+        <>
+          {" "}
+          <div
+            className="flex justify-between gap-1 cursor-pointer"
+            onClick={handelClick}
+          >
             <div className="flex gap-1">
-            <Image
+              <Image
                 src={airbnb_logo}
                 alt="airbnb_logo"
                 width={30}
                 height={30}
               />
-              <p className=" text-secondary text-2xl font-bold ">
-                airbnb
-              </p>
+              <p className=" text-secondary text-2xl font-bold ">airbnb</p>
             </div>
-             
-              <div>
-                <p className="font-medium flex ">
+
+            <div>
+              <p className="font-medium flex ">
                 {" "}
                 <IoShareSocial
                   style={{ paddingTop: "5px", height: "30px", width: "30px" }}
                 />
-            <span className="text-md pt-1 px-1">
-            Share
+                <span className="text-md pt-1 px-1">Share</span>
+              </p>
+            </div>
+          </div>
+        </>
+      )}
 
-            </span>
-              </p></div>
-            </div></>
-        }
-      
-
+      <div className="block md:hidden"  id={'layoutRef'}>
       <CommonModal
-        open={isModalOpen}
+ 
+        open={isModalOpen }
         setIsModalOpen={setIsModalOpen}
         onCancel={_handleCancel}
         width={"500px"}
       >
-        <div className="flex flex-col w-[300px] mt-5">
-          <div className=" border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center">
+        <div className="flex flex-col w-[350px] mt-5">
+          <div className="w-auto border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium mt-2">
             <AutoComplete
               selectChange={selectChange}
               destination={destination}
             />
           </div>
 
-          <div className=" border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center centered-datepicker">
+          <div className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center mt-2">
             <DatePicker
               disabledDate={disabledDateCheckIn}
-              className=" "
+              className="centered-datepicker px-0"
               onChange={onChangeCheckIn}
               bordered={false}
               placeholder="add dates"
@@ -219,10 +272,10 @@ const SmallDeviceHeader = () => {
             />
           </div>
 
-          <div className="shadow-md border border-slate-200 rounded-md mb-4 p-2 font-medium flex justify-center centered-datepicker">
+          <div className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center mt-2">
             <DatePicker
               disabledDate={disabledDateCheckOut}
-              className="px-0"
+              className="centered-datepicker px-0"
               onChange={onChangeCheckOut}
               bordered={false}
               placeholder="add dates"
@@ -232,8 +285,8 @@ const SmallDeviceHeader = () => {
 
           <div
             ref={divRef}
-            className=" border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center"
-            onClick={() => setToggle(!toggle)}
+            className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex  mt-2"
+            onClick={() => setShow(!show)}
           >
             <p>
               {guestList?.adult > 0 ? (
@@ -259,7 +312,7 @@ const SmallDeviceHeader = () => {
           </div>
         </div>
 
-        {toggle && (
+        {show && (
           <div
             ref={countRef}
             className="bg-primary  mt-[2px] z-50 border-[1px] border-slate-200 shadow-md rounded-lg h-auto    px-4 py-5 gap-3 divide-y divide-slate-200"
@@ -268,11 +321,13 @@ const SmallDeviceHeader = () => {
             <GuestCount
               setguestList={setguestList}
               guestList={guestList}
-              width="auto"
+              width="300px"
+              setShow={setShow}
             />
           </div>
         )}
       </CommonModal>
+      </div>
     </div>
   );
 };

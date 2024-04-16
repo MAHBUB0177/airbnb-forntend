@@ -16,7 +16,7 @@ const options=[
     },
     {
       value: '4',
-      label: 'Middle East',
+      label: 'Middle East kkkk kkki iiii iiii hello jerry ',
     },
     {
       value: '5',
@@ -37,16 +37,18 @@ const AutoComplete = ({ selectChange,selectRef, destination}: AutoCompleteProps)
   return (
     <div className="text-textprimary text-sm leading-0 py-0 cursor-pointer"  ref={selectRef}>
       <Select
-     
       size="large"
       bordered={false}
       suffixIcon={null}
       showSearch
       value={destination}
-      style={{
-        width: "100%",
-        height: '30px' 
-      }}
+      className="w-[100%] md:w-[100%] lg:min-w-[170px] xl:max-w-[400px] h-[30px]"
+      // style={{
+      //   width: "100%", 
+      //   // minWidth:'200px',
+      //   maxWidth: '400px', 
+      //   height: '30px' 
+      // }}
       placeholder="Select Destination"
       onChange={selectChange}
       filterOption={(input, option) =>

@@ -10,6 +10,7 @@ interface guestprops {
   }
 const GuestCount = ({guestList,setguestList,width,setShow}:guestprops) => {
     const pathname = usePathname();
+    console.log(pathname,'pathname++++++++++++++')
 
     const handleClose = () => {
         if (setShow) {
@@ -156,7 +157,7 @@ const GuestCount = ({guestList,setguestList,width,setShow}:guestprops) => {
               </div>
             </div>
          
-            {pathname === '/rooms' &&<div className="flex justify-end">
+            {pathname === '/rooms'||  pathname === '/filterRoom' || pathname === '/'  ? <div className="flex justify-end">
                 <p
                   className=" bg-slate-200 rounded-md w-[60px] p-1 flex justify-center cursor-pointer"
                   onClick={handleClose}
@@ -164,7 +165,7 @@ const GuestCount = ({guestList,setguestList,width,setShow}:guestprops) => {
                   {" "}
                   close
                 </p>
-              </div>}
+              </div> :''}
           </div>
     </div>
   )

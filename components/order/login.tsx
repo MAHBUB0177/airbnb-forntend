@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 
 const Login = ({guestlist}:any) => {
   const dispatch = useDispatch();
-  console.log(guestlist,'+++++++++guestlist')
+  // console.log(guestlist,'+++++++++guestlist')
  const [token,setToken]=useState(false)
  const router=useRouter()
 

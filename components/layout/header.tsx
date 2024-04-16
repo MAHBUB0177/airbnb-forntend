@@ -2,18 +2,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import airbnb_logo from "../../assets/images/logo/airbnb-logo.png";
 import Image from "next/image";
-import { FaApple, FaUserCircle } from "react-icons/fa";
+import {FaUserCircle } from "react-icons/fa";
 import { IoMenuSharp } from "react-icons/io5";
-// import SearchCard from "@/pages/search/searchCard";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import CommonModal from "../common/commonmodal";
-import { FaSquareFacebook } from "react-icons/fa6";
-import { FcGoogle } from "react-icons/fc";
-import { MdOutlineMail } from "react-icons/md";
-import CommonButton from "../common/cummonbutton";
-import { message } from "antd";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth, setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
 import { RootState } from "@/redux/store";
@@ -62,7 +55,6 @@ const Header = () => {
   // // set auth data
   const dispatch = useDispatch();
   const authData = useSelector((state: RootState) => state.auth?.authData) as AuthDataType;
-  console.log(authData,'authData++++++++++')
 
 
 
@@ -99,7 +91,6 @@ const Header = () => {
   
 
   const handleItemClick = (title: string) => {
-    console.log(title,'BeforeMenuList++++++++++++')
     if (title === "Sign Up" || title === "Log In") {
       setIsModalOpen(true);
     } else if (title === "Logout") {
@@ -126,36 +117,7 @@ const Header = () => {
    
    
   }
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const LoginNow = async () => {
-    let payload = {
-      username: email, //kminchelle
-      password: password, //0lelplR
-    };
-    if (email === "" || password === "") {
-      return message.error("User Name Or Password Missing");
-    }
-    await axios
-      .post("https://dummyjson.com/auth/login", payload, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        if (response?.data) {
-          message.success("User Successfully Logged In");
-          setIsModalOpen(false);
-          dispatch(setAuth(response?.data));
-        }
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-        message.error("Something Went Wrong");
-      });
-  };
-
+  
   const handelClick=()=>{
       dispatch(setSearchData({
         adult: 0,
@@ -174,8 +136,8 @@ const Header = () => {
       <div className="bg-primary  w-full z-50 fixed shadow-sm ">
         <div className="block md:hidden">
           <SmallDeviceHeader/>
-
         </div>
+
         <div className="hidden md:block">
         <div
           className={`border-b-[1px]  border-slate-200 flex flex-row justify-between items-center md:px-2  md:py-2  ${
@@ -189,13 +151,13 @@ const Header = () => {
                 width={30}
                 height={20}
               />
-              <p className="hidden lg:block text-secondary text-2xl font-bold ">
+              <p className="hidden xl:block text-secondary text-2xl font-bold ">
                 airbnb
               </p>
             </div>
           
 
-     {  pathname === '/confirm'  || pathname === '/orders'  ? "":  <div ref={cardRef}>
+     {  pathname === '/confirm'  || pathname === '/book'  ? "":  <div ref={cardRef}>
             <SearchCard
               setChange={setChange}
               change={change}
@@ -204,7 +166,7 @@ const Header = () => {
           </div>}
 
           <div className="flex flex-row gap-2">
-            <p className="hidden lg:block pt-3 font-medium ">
+            <p className="hidden xl:block pt-3 font-medium ">
               Airbnb your home{" "}
             </p>
             <div
