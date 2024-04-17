@@ -24,6 +24,7 @@ const SmallDeviceFooter = () => {
        setIsModalOpen(false);
      };
   const[active,setActive]=useState('Explore')
+  
   return (
     <div className="flex justify-evenly items-center pt-2  mx-auto">
       <div onClick={()=>setActive('Explore')} className={`${active === 'Explore' ? 'text-secondary font-semibold' : 'font-light'}`}>

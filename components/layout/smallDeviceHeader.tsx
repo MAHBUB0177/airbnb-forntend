@@ -208,9 +208,9 @@ const SmallDeviceHeader = () => {
           {" "}
           <div
             className="flex justify-between gap-1 cursor-pointer"
-            onClick={handelClick}
+           
           >
-            <div className="flex gap-1">
+            <div className="flex gap-1"  onClick={handelClick}>
               <Image
                 src={airbnb_logo}
                 alt="airbnb_logo"
@@ -240,6 +240,7 @@ const SmallDeviceHeader = () => {
           </div>
         </>
       )}
+
 
       <div className="block md:hidden"  id={'layoutRef'}>
       <CommonModal
