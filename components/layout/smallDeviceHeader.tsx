@@ -11,21 +11,38 @@ import { DatePicker, notification } from "antd";
 import moment from "moment";
 import { Dayjs } from "dayjs"; // Import Dayjs instead of Moment
 import GuestCount from "../common/guestCount";
-import { setAuth, setPaylodData, setSearchData } from "@/redux/reducer/authReducer";
-import { useDispatch } from "react-redux";
+import {
+  setAuth,
+  setPaylodData,
+  setSearchData,
+  setSearchModal,
+} from "@/redux/reducer/authReducer";
+import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { CgProfile } from "react-icons/cg";
+import { RootState } from "@/redux/store";
+
+interface searchMdalProps {
+  searchModal: boolean;
+}
 
 const SmallDeviceHeader = () => {
   const pathname = usePathname();
   const router = useRouter();
   const dispatch = useDispatch();
+  const searchModal = useSelector(
+    (state: RootState) => state.auth
+  ) as searchMdalProps;
+  console.log(searchModal,'searchModal++++++++')
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // console.log(isModalOpen,'isModalOpen++++++++++++++')
+  console.log(isModalOpen,'isModalOpen+++++++++++++')
+  useEffect(() => {
+    setIsModalOpen(searchModal?.searchModal);
+  }, [searchModal]);
   const _handleCancel = () => {
     setIsModalOpen(false);
+    dispatch(setSearchModal(false));
   };
-  // const [toggle, setToggle] = useState<boolean>(false);
   const [show, setShow] = useState(false);
   const [destination, setDestination] = useState<string>("1");
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -92,6 +109,7 @@ const SmallDeviceHeader = () => {
   }
 
   const handelSearch = async () => {
+    console.log('first')
     let payload = {
       guestList: guestList,
       checkIn: dates?.checkInDate,
@@ -124,6 +142,7 @@ const SmallDeviceHeader = () => {
       dispatch(setPaylodData(payload));
 
       router.push("/filterRoom");
+      dispatch(setSearchModal(false));
       setIsModalOpen(false);
     }
   };
@@ -141,13 +160,11 @@ const SmallDeviceHeader = () => {
     router.push("/");
   };
 
-  
-
   useEffect(() => {
     function handleResize() {
       const width: number = window.innerWidth;
-      if (width >= 768) { 
-        setIsModalOpen(false); 
+      if (width >= 768) {
+        setIsModalOpen(false);
       }
     }
 
@@ -158,20 +175,20 @@ const SmallDeviceHeader = () => {
     };
   }, []);
 
-  const handelLogout=()=>{
-    console.log('call lagout function')
+  const handelLogout = () => {
+    console.log("call lagout function");
     dispatch(setAuth({}));
-    dispatch(setSearchData({
-      adult: 0,
-      child: 0,
-      infants: 0,
-      pets: 0,
-    }));
+    dispatch(
+      setSearchData({
+        adult: 0,
+        child: 0,
+        infants: 0,
+        pets: 0,
+      })
+    );
     dispatch(setPaylodData({}));
-    window.location.href = '/';
-   
-   
-  }
+    window.location.href = "/";
+  };
 
   return (
     <div className="items-center px-2 py-3">
@@ -220,110 +237,112 @@ const SmallDeviceHeader = () => {
               <p className=" text-secondary text-2xl font-bold ">airbnb</p>
             </div>
 
-           {pathname === "/profile" ?  <div onClick={ handelLogout}>
-              <p className="font-medium flex ">
-                {" "}
-                <CgProfile 
-                  style={{ paddingTop: "5px", height: "30px", width: "30px" }}
-                />
-                <span className="text-md pt-1 px-1">Logout</span>
-              </p>
-            </div>: <div>
-              <p className="font-medium flex ">
-                {" "}
-                <IoShareSocial
-                  style={{ paddingTop: "5px", height: "30px", width: "30px" }}
-                />
-                <span className="text-md pt-1 px-1">Share</span>
-              </p>
-            </div>}
+            {pathname === "/profile" ? (
+              <div onClick={handelLogout}>
+                <p className="font-medium flex ">
+                  {" "}
+                  <CgProfile
+                    style={{ paddingTop: "5px", height: "30px", width: "30px" }}
+                  />
+                  <span className="text-md pt-1 px-1">Logout</span>
+                </p>
+              </div>
+            ) : (
+              <div>
+                <p className="font-medium flex ">
+                  {" "}
+                  <IoShareSocial
+                    style={{ paddingTop: "5px", height: "30px", width: "30px" }}
+                  />
+                  <span className="text-md pt-1 px-1">Share</span>
+                </p>
+              </div>
+            )}
           </div>
         </>
       )}
 
+      <div className="block md:hidden" id={"layoutRef"}>
+        <CommonModal
+          open={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          onCancel={_handleCancel}
+          width={"500px"}
+        >
+          <div className="flex flex-col w-[350px] mt-5">
+            <div className="w-auto border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium mt-2">
+              <AutoComplete
+                selectChange={selectChange}
+                destination={destination}
+              />
+            </div>
 
-      <div className="block md:hidden"  id={'layoutRef'}>
-      <CommonModal
- 
-        open={isModalOpen }
-        setIsModalOpen={setIsModalOpen}
-        onCancel={_handleCancel}
-        width={"500px"}
-      >
-        <div className="flex flex-col w-[350px] mt-5">
-          <div className="w-auto border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium mt-2">
-            <AutoComplete
-              selectChange={selectChange}
-              destination={destination}
-            />
+            <div className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center mt-2">
+              <DatePicker
+                disabledDate={disabledDateCheckIn}
+                className="centered-datepicker px-0"
+                onChange={onChangeCheckIn}
+                bordered={false}
+                placeholder="add dates"
+                suffixIcon={null}
+              />
+            </div>
+
+            <div className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center mt-2">
+              <DatePicker
+                disabledDate={disabledDateCheckOut}
+                className="centered-datepicker px-0"
+                onChange={onChangeCheckOut}
+                bordered={false}
+                placeholder="add dates"
+                suffixIcon={null}
+              />
+            </div>
+
+            <div
+              ref={divRef}
+              className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex  mt-2"
+              onClick={() => setShow(!show)}
+            >
+              <p>
+                {guestList?.adult > 0 ? (
+                  <>
+                    {`${guestList?.adult + guestList?.child} guests,`}{" "}
+                    {guestList?.infants > 0 && ` ${guestList?.infants} infant,`}
+                    {guestList?.pets > 0 && ` ${guestList?.pets} pet`}
+                  </>
+                ) : (
+                  "add Guests"
+                )}
+              </p>
+            </div>
+
+            <div
+              className="flex justify-center gap-1 bg-secondary rounded-md p-2 px-2 mt-2  text-primary "
+              onClick={() => handelSearch()}
+            >
+              <IoSearchOutline
+                style={{ fontWeight: "bold", height: "20px", width: "20px" }}
+              />
+              <p className={`font-medium text-sm `}>Search</p>
+            </div>
           </div>
 
-          <div className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center mt-2">
-            <DatePicker
-              disabledDate={disabledDateCheckIn}
-              className="centered-datepicker px-0"
-              onChange={onChangeCheckIn}
-              bordered={false}
-              placeholder="add dates"
-              suffixIcon={null}
-            />
-          </div>
-
-          <div className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex justify-center mt-2">
-            <DatePicker
-              disabledDate={disabledDateCheckOut}
-              className="centered-datepicker px-0"
-              onChange={onChangeCheckOut}
-              bordered={false}
-              placeholder="add dates"
-              suffixIcon={null}
-            />
-          </div>
-
-          <div
-            ref={divRef}
-            className="w-full border border-slate-200 rounded-md mb-4 p-2 shadow-md font-medium flex  mt-2"
-            onClick={() => setShow(!show)}
-          >
-            <p>
-              {guestList?.adult > 0 ? (
-                <>
-                  {`${guestList?.adult + guestList?.child} guests,`}{" "}
-                  {guestList?.infants > 0 && ` ${guestList?.infants} infant,`}
-                  {guestList?.pets > 0 && ` ${guestList?.pets} pet`}
-                </>
-              ) : (
-                "add Guests"
-              )}
-            </p>
-          </div>
-
-          <div
-            className="flex justify-center gap-1 bg-secondary rounded-md p-2 px-2 mt-2  text-primary "
-            onClick={() => handelSearch()}
-          >
-            <IoSearchOutline
-              style={{ fontWeight: "bold", height: "20px", width: "20px" }}
-            />
-            <p className={`font-medium text-sm `}>Search</p>
-          </div>
-        </div>
-
-        {show && (
-          <div
-            ref={countRef}
-            className="bg-primary  mt-[2px] z-50 border-[1px] border-slate-200 shadow-md rounded-lg h-auto    px-4 py-5 gap-3 divide-y divide-slate-200"
-            style={{ zIndex: 1000 }}
-          >
-            <GuestCount
-              setguestList={setguestList}
-              guestList={guestList}
-              width="300px"
-              setShow={setShow}
-            />
-          </div>
-        )}
-      </CommonModal>
+          {show && (
+            <div
+              ref={countRef}
+              className="bg-primary  mt-[2px] z-50 border-[1px] border-slate-200 shadow-md rounded-lg h-auto    px-4 py-5 gap-3 divide-y divide-slate-200"
+              style={{ zIndex: 1000 }}
+            >
+              <GuestCount
+                setguestList={setguestList}
+                guestList={guestList}
+                width="300px"
+                setShow={setShow}
+              />
+            </div>
+          )}
+        </CommonModal>
       </div>
     </div>
   );

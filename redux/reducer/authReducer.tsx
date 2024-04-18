@@ -21,6 +21,7 @@ const initialState = {
       pets: 0,
     },
     payloadData:{},
+    searchModal:false
   };
   
 const authSlice = createSlice({
@@ -35,11 +36,14 @@ const authSlice = createSlice({
       },
       setPaylodData: (state, action) => {
         state.payloadData = action.payload
+      },
+      setSearchModal: (state, action) => {
+        state.searchModal = action.payload
       }
     }
   })
 
-export const {setAuth,setSearchData,setPaylodData} = authSlice.actions
+export const {setAuth,setSearchData,setPaylodData,setSearchModal} = authSlice.actions
 
 
 export default authSlice.reducer;

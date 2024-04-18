@@ -32,7 +32,7 @@ const [isVisible, setIsVisible] = useState(false);
     <div>
         {isVisible && (
         <div
-          className=" fixed bottom-20 right-5  rounded-full bg-bgsecondarylight shadow-lg w-[50px] h-[50px] flex justify-center p-4 cursor-pointer items-center"
+          className=" fixed bottom-32 md:bottom-20 right-5  rounded-full bg-bgsecondarylight shadow-lg w-[50px] h-[50px] flex justify-center p-4 cursor-pointer items-center"
           onClick={scrollToTop}
         >
           
