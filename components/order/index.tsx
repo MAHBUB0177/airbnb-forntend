@@ -71,8 +71,8 @@ useEffect(()=>{
         <p className="text-3xl font-semibold">Request to book</p>
       </div>
 
-      <div className="flex flex-col-reverse  md:flex-row justify-between gap-5 w-full">
-        <div className="px-5 md:px-[60px] pt-4 w-full md:w-[50%] ">
+      <div className="flex flex-col-reverse  lg:flex-row justify-between gap-5 w-full">
+        <div className="px-5 md:px-[60px] pt-4 w-full lg:w-[50%] ">
           <p className="text-2xl font-semibold ">Your trip</p>
           <div className="flex justify-between pt-4">
             <div>
@@ -106,7 +106,7 @@ useEffect(()=>{
           <Login guestlist={guestList}/>
         </div>
 
-        <div className=" px-5 md:px-[60px] pt-4 w-full md:w-[50%]">
+        <div className=" px-5 md:px-[60px] pt-4 w-full lg:w-[50%]">
           <Reviewcard/>
         </div>
 

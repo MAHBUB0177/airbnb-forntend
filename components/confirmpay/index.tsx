@@ -121,8 +121,8 @@ const ConfirmPay = () => {
         </div>
       </div>
 
-      <div className="flex flex-col-reverse  md:flex-row justify-between gap-0 w-full">
-        <div className="px-2 md:px-[60px] pt-4 w-full md:w-[55%] ">
+      <div className="flex flex-col-reverse lg:flex-row justify-between gap-0 w-full">
+        <div className="px-2 md:px-[60px] pt-4 w-full lg:w-[55%] ">
           <p className="text-2xl font-semibold ">Your trip</p>
           <div className="flex justify-between pt-4">
             <div>
@@ -251,7 +251,7 @@ const ConfirmPay = () => {
           {/* <Login/> */}
         </div>
 
-        <div className=" px-5 md:px-[60px] pt-4 w-full md:w-[45%]">
+        <div className=" px-5 md:px-[60px] pt-4 w-full lg:w-[45%]">
           <Reviewcard />
         </div>
 
