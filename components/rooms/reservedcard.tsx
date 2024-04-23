@@ -16,9 +16,8 @@ import Reviews from "./reviews";
 const ReservedCard = () => {
   return (
     <div>
-      <div className="pt-8  flex flex-col md:flex-row justify-between pb-12 w-full gap-10">
-        <div className="w-full p-2 md:p-0 md:w-2/3">
-          <p className="text-2xl font-bold">
+
+        <p className="text-2xl font-bold">
             Entire villa in Tambon Bo Put, Thailand
           </p>
           <p className="font-light">4 guests2 . bedrooms2 . beds3 . baths</p>
@@ -27,6 +26,10 @@ const ReservedCard = () => {
             <FaStar style={{ paddingTop: "5px" }} /> 4.92{" "}
             <span className="underline px-2"> 87 reviews</span>
           </p>
+
+      <div className="pt-8  flex flex-col-reverse lg:flex-row  justify-between pb-12 w-full gap-10">
+        <div className="w-full p-2 md:p-0 lg:w-2/3">
+         
 
           <div className=" pt-6 ">
             <div className="flex gap-3  border-t-[1px] border-slate-200 pt-3 pb-5">
@@ -98,7 +101,7 @@ const ReservedCard = () => {
           <Offers />
         </div>
 
-        <div className="w-full  p-2 md:p-0 md:w-1/3 ">
+        <div className="w-full  p-2 md:p-0 lg:w-1/3 ">
           <Bookingcard />
         </div>
       </div>
