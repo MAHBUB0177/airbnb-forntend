@@ -22,13 +22,13 @@ const supportList = [
 ];
 
 const support = [
-  { title: "Help Center", link: "/help" },
-  { title: "Get help with a safety issue", link: "" },
-  { title: "AirCover", link: "" },
-  { title: "Anti-discrimination", link: "" },
-  { title: "Disability support", link: "" },
-  { title: "Cancellation options", link: "" },
-  { title: "Report neighborhood concern", link: "" },
+  { title: "Help Center", link: "/helpCenter" },
+  { title: "Get help with a safety issue", link: "/giftcard" },
+  { title: "AirCover", link: "/airbnbhome" },
+  { title: "Anti-discrimination", link: "/helpCenter" },
+  { title: "Disability support", link: "/giftcard" },
+  { title: "Cancellation options", link: "/airbnbhome" },
+  { title: "Report neighborhood concern", link: "/giftcard" },
 ];
 
 //small device
@@ -64,7 +64,7 @@ const Footer = () => {
 
   return (
     <div>
-      <div className="bg-primary bottom-0 w-full z-50 fixed shadow-sm border-t-[1px] h-auto  border-slate-200 mt-[120px] md:mt-0">
+      <div className="bg-primary bottom-0 w-full z-50 pb-2 fixed shadow-sm border-t-[1px] h-auto  border-slate-200 mt-[120px] md:mt-0">
         <div className="hidden md:block">
           <div
             className={` flex flex-col lg:flex-row pt-2 justify-between items-center md:px-10 lg:px-20 text-sm font-thin text-black  ${
@@ -175,12 +175,16 @@ const Footer = () => {
               <p className="text-base font-semibold">Hosting</p>
               {support?.map((item, i) => {
                 return (
-                  <p
+                  <Link href={item?.link} key={i}>
+<p
                     className="text-base font-normal py-1 hover:underline decoration-1 cursor-pointer"
                     key={i}
                   >
                     {item?.title}
                   </p>
+                    
+                  </Link>
+                  
                 );
               })}
             </div>
@@ -189,12 +193,15 @@ const Footer = () => {
               <p className="text-base font-semibold">Airbnb</p>
               {support?.map((item, i) => {
                 return (
+                  <Link href={item?.link} key={i}>
                   <p
                     className="text-base font-normal py-1 hover:underline cursor-pointer decoration-1"
                     key={i}
                   >
                     {item?.title}
                   </p>
+                  </Link>
+               
                 );
               })}
             </div>

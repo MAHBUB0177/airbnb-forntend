@@ -13,6 +13,7 @@ import { RootState } from "@/redux/store";
 import SearchCard from "../search/searchCard";
 import CommonLogin from "../login/page";
 import SmallDeviceHeader from "./smallDeviceHeader";
+import { MdLanguage } from "react-icons/md";
 
 const BeforeMenuList = [
   { path: "", title: "Log In" },
@@ -58,7 +59,7 @@ const Header = () => {
   // // set auth data
   const dispatch = useDispatch();
   const authData = useSelector((state: RootState) => state.auth?.authData) as AuthDataType;
-  console.log(authData,'authData+++++++++++++++')
+  // console.log(authData,'authData+++++++++++++++')
 
 
 
@@ -170,9 +171,15 @@ const Header = () => {
           </div>}
 
           <div className="flex flex-row gap-2">
-            <p className="hidden xl:block pt-3 font-medium ">
-              Airbnb your home{" "}
-            </p>
+            <div className="hidden xl:block pt-3 font-medium ">
+              <div className="flex flex-row justify-between gap-1">
+              <p>   Airbnb your home{" "} </p>
+              <p><MdLanguage  className="pt-1 h-[22px] w-[22px]"/></p>
+              </div>
+           
+             
+            </div>
+            
             <div
               ref={divRef}
               className="flex gap-2 border-[1px] border-slate-200  rounded-full p-2 cursor-pointer hover:shadow-lg"
