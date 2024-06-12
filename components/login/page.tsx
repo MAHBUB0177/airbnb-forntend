@@ -18,46 +18,80 @@ const CommonLogin = ({setIsModalOpen}:loginProps) => {
     const dispatch = useDispatch();
     const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const LoginNow = async () => {
+  //   let payload = {
+  //     username: email, //kminchelle
+  //     password: password, //0lelplR
+  //   };
+  //   if (email === "" || password === "") {
+  //   //    message.error("User Name Or Password Missing");
+  //      return notification.error({
+  //       message: "User Name Or Password Missing",
+  //       placement: "bottomRight", // Set the placement to bottomLeft
+  //     });
+  //   }
+  //   await axios
+  //     .post("https://dummyjson.com/auth/login", payload, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if (response?.data) {
+  //       //   message.success("User Successfully Logged In");
+  //         notification.success({
+  //           message: "User Successfully Logged In",
+  //           placement: "bottomRight", // Set the placement to bottomLeft
+  //         });
+  //         setIsModalOpen(false)
+  //         dispatch(setAuth(response?.data));
+  //       }
+  //       console.log(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("An error occurred:", error);
+  //       message.error("Something Went Wrong");
+  //     });
+  // };
+
+
   const LoginNow = async () => {
     let payload = {
       username: email, //kminchelle
       password: password, //0lelplR
+      expiresInMins: 30, // optional, defaults to 60
     };
+  
     if (email === "" || password === "") {
-    //    message.error("User Name Or Password Missing");
-       return notification.error({
+      // Notify user if email or password is missing
+      return notification.error({
         message: "User Name Or Password Missing",
-        placement: "bottomRight", // Set the placement to bottomLeft
+        placement: "bottomRight", // Set the placement to bottomLeft if needed
       });
     }
-    await axios
-      .post("https://dummyjson.com/auth/login", payload, {
+  
+    try {
+      const response = await axios.post("https://dummyjson.com/auth/login", payload, {
         headers: {
           "Content-Type": "application/json",
         },
-      })
-      .then((response) => {
-        if (response?.data) {
-        //   message.success("User Successfully Logged In");
-          notification.success({
-            message: "User Successfully Logged In",
-            placement: "bottomRight", // Set the placement to bottomLeft
-          });
-          setIsModalOpen(false)
-          dispatch(setAuth(response?.data));
-        }
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("An error occurred:", error);
-        notification.success({
-          message: "Something Went Wrong",
-          placement: "bottomRight", // Set the placement to bottomLeft
-        });
-       
       });
+  
+      if (response?.data) {
+        notification.success({
+          message: "User Successfully Logged In",
+          placement: "bottomRight", // Set the placement to bottomLeft if needed
+        });
+        setIsModalOpen(false);
+        dispatch(setAuth(response.data));
+      }
+  
+      console.log(response.data);
+    } catch (error) {
+      console.error("An error occurred:", error);
+      message.error("Something Went Wrong");
+    }
   };
-
   return (
     <div>
         
