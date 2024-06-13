@@ -184,7 +184,7 @@ const Header = () => {
               ref={divRef}
               className="flex gap-2 border-[1px] border-slate-200  rounded-full p-2 cursor-pointer hover:shadow-lg"
               onClick={() => {
-                setIsshow(true);
+                setIsshow(!isShow);
                 toggleMode();
                 setStaus(!status);
               }}

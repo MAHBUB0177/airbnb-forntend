@@ -96,7 +96,7 @@ const GiftCard = () => {
         <Slider {...settings}>
           {sliderImage?.map((item, i) => (
             <>
-              <div className="relative" key={i}>
+              <div className="relative w-full" key={i} >
                 <Image
                   src={item?.image}
                   alt="cardimage"
